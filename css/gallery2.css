@@ -1,0 +1,312 @@
+@charset "utf-8";
+
+/* ==================================================
+   ギャラリーページ専用スタイル (gallery2.css)
+   ================================================== */
+
+/* --------------------------------------------------
+   共通変数（ローカル定義）
+   -------------------------------------------------- */
+:root {
+    --text-dark-brown: #5d3416;
+    --accent-pink: #ff5288;
+    --pale-pink: #ffe6f0;
+}
+
+/* --------------------------------------------------
+   メインコンテナ調整
+   -------------------------------------------------- */
+/* 他ページへの干渉を避けるため、特定のクラスに対してのみ適用 */
+.gallery_main,
+.merchandise-section,
+.main_gallery {
+    max-width: 1400px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 4%;
+}
+
+/* ギャラリーページのトップマージン確保 */
+/* headerの高さ分を下げる */
+.gallery_main,
+.merchandise-section {
+    margin-top: 120px;
+}
+
+/* --------------------------------------------------
+   見出しスタイル
+   -------------------------------------------------- */
+/* ページ大見出し */
+.merchandise_heading,
+.gallery h2 {
+    font-family: "M PLUS 1p", sans-serif;
+    font-size: 2rem;
+    color: var(--text-dark-brown);
+    text-align: center;
+    margin: 60px 0 40px;
+    font-weight: bold;
+}
+
+/* セクション内の見出し (h2) */
+.main_gallery h2 {
+    font-family: "M PLUS 1p", sans-serif;
+    font-size: 1.8rem;
+    color: var(--text-dark-brown);
+    text-align: center;
+    border-bottom: 3px solid var(--accent-pink);
+    padding-bottom: 15px;
+    margin-bottom: 40px;
+    display: block;
+    width: 100%;
+}
+
+/* --------------------------------------------------
+   円形アイコンメニュー（上部）
+   -------------------------------------------------- */
+.merchandise_container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    list-style: none;
+    /* 全角スペース除去済み */
+    padding: 0;
+    margin-bottom: 80px;
+}
+
+.md-item {
+    width: 130px;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.md-item:hover {
+    transform: scale(1.1) rotate(5deg);
+}
+
+.md-item img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 50%;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border: 2px solid #fff;
+}
+
+/* --------------------------------------------------
+   商品セクション（カード風グループ）
+   -------------------------------------------------- */
+section.main_gallery {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(5px);
+    border-radius: 30px;
+    padding: 40px;
+    margin-bottom: 80px;
+    box-shadow: 0 5px 20px rgba(255, 82, 136, 0.15);
+    border: 2px solid rgba(255, 255, 255, 0.9);
+    position: relative;
+}
+
+/* Bootstrapリセットエリア
+   gallery.html内でのみ有効になるよう詳細度を確保しつつ記述
+ */
+
+/* コンテナのリセット */
+.main_gallery .container {
+    max-width: 100%;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+/* Rowのリセット & Gridコンテナ化 */
+.main_gallery .row {
+    margin: 0 !important;
+    padding: 0 !important;
+    display: grid !important;
+    /* レスポンシブグリッド: 最小幅260pxで自動折り返し */
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)) !important;
+    gap: 25px !important;
+}
+
+/* Gridアイテム化（Bootstrap colsの無効化） */
+.main_gallery .prod,
+.main_gallery .col-12,
+.main_gallery .col-sm-12,
+.main_gallery .col-lg-6 {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    flex: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+/* 不要な空要素（col-lg-1など）を非表示にする（HTML側で削除しきれなかった場合用） */
+.main_gallery .col-lg-1:empty {
+    display: none !important;
+}
+
+
+/* --------------------------------------------------
+   商品カード (各アイテム)
+   -------------------------------------------------- */
+.card {
+    background: #fff;
+    border: none;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    height: 100%;
+    /* 高さを揃える */
+    display: flex !important;
+    /* Bootstrap flex上書き */
+    flex-direction: column !important;
+    align-items: center;
+    text-align: center;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(255, 82, 136, 0.2);
+}
+
+/* 商品名 */
+.card .name {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: var(--text-dark-brown);
+    margin-bottom: 10px;
+    min-height: 3em;
+    /* 2行分確保して高さを揃える */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1.4;
+}
+
+/* 価格 */
+.card .price {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 15px;
+}
+
+/* 画像 */
+.card img {
+    width: 100%;
+    height: 250px;
+    /* 高さを固定 */
+    object-fit: contain;
+    /* アスペクト比維持 */
+    margin-bottom: 15px;
+}
+
+/* 発売元 */
+.card .agency {
+    font-size: 0.8rem;
+    color: #999;
+    margin-bottom: 15px;
+    margin-top: auto;
+    /* 下部に寄せる */
+}
+
+/* 購入ボタンエリア */
+.card .purchase {
+    width: 100%;
+    margin-top: 10px;
+}
+
+.card .purchase a {
+    display: inline-block;
+    padding: 8px 16px;
+    background: var(--accent-pink);
+    color: #fff;
+    text-decoration: none;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    transition: opacity 0.3s;
+    margin: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.card .purchase a:hover {
+    opacity: 0.8;
+}
+
+/* 特設サイトボタンの色上書き */
+.card .purchase a[href*="html"] {
+    background-color: #9b59b6 !important;
+    /* 紫 */
+}
+
+/* --------------------------------------------------
+   スマホ調整
+   -------------------------------------------------- */
+@media screen and (max-width: 768px) {
+
+    .gallery_main,
+    .merchandise-section {
+        margin-top: 80px;
+    }
+
+    .merchandise_container {
+        gap: 10px;
+    }
+
+    .md-item {
+        width: 22%;
+        /* 4列配置 */
+    }
+
+    section.main_gallery {
+        padding: 20px 15px;
+        margin-bottom: 40px;
+        border-radius: 20px;
+    }
+
+    /* スマホグリッド調整 */
+    .main_gallery .row {
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)) !important;
+        gap: 12px !important;
+    }
+
+    .card {
+        padding: 10px;
+        border-radius: 12px;
+    }
+
+    .card img {
+        height: 140px;
+    }
+
+    .card .name {
+        font-size: 0.9rem;
+        min-height: 2.8em;
+    }
+
+    .card .price {
+        font-size: 0.8rem;
+    }
+
+    .card .purchase a {
+        font-size: 0.75rem;
+        padding: 6px 10px;
+    }
+}
+
+/* さらに小さいスマホ用（1列表示） */
+@media screen and (max-width: 480px) {
+    .main_gallery .row {
+        grid-template-columns: 1fr !important;
+        /* 強制的に1列 */
+    }
+
+    .card img {
+        height: auto;
+        /* 横幅に合わせて高さを自動調整（または固定値を大きくする） */
+        max-height: 250px;
+        /* PCと同じくらいまで許容 */
+    }
+}
