@@ -41,7 +41,8 @@ $token = $_POST['cf-turnstile-response'] ?? '';
 $ch = curl_init('https://challenges.cloudflare.com/turnstile/v0/siteverify');
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query([
-    'secret' => '0x4AAAAAABiz_Xhe-J0-EB9ypk53QvLFwt8',
+    'secret' => 'SECRET_KEY_REMOVED',
+                                                      
     'response' => $token
 ]));
 $response = curl_exec($ch);
