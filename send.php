@@ -7,11 +7,184 @@ require __DIR__ . '/phpmailer/Exception.php';
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-// 入力値を取得（POST）
-function h($s) {
-    return htmlspecialchars($s, ENT_QUOTES, 'UTF-8');
+const MAX_ATTACHMENT_COUNT = 3;
+const MAX_ORIGINAL_ATTACHMENT_SIZE = 20 * 1024 * 1024; // 20MB（アップロード受け入れ上限）
+const MAX_ATTACHMENT_SIZE = 5 * 1024 * 1024; // 5MB（メール添付最終上限）
+const MAX_IMAGE_WIDTH = 2000;
+const MAX_IMAGE_HEIGHT = 2000;
+const JPEG_QUALITY = 82;
+const ALLOWED_MIME_TYPES = [
+    'image/jpeg',
+    'image/png',
+    'image/gif',
+    'image/webp',
+    'image/heic',
+    'image/heif',
+    'image/heic-sequence',
+    'image/heif-sequence',
+];
+
+function cleanupTempFiles(array $files): void
+{
+    foreach ($files as $filePath) {
+        if (is_string($filePath) && $filePath !== '' && file_exists($filePath)) {
+            @unlink($filePath);
+        }
+    }
 }
 
+function resizeDimensions(int $width, int $height): array
+{
+    $scale = min(MAX_IMAGE_WIDTH / $width, MAX_IMAGE_HEIGHT / $height, 1);
+    return [
+        max(1, (int)floor($width * $scale)),
+        max(1, (int)floor($height * $scale)),
+    ];
+}
+
+function sanitizeAttachmentName(string $name): string
+{
+    $base = basename($name);
+    return preg_replace('/[^A-Za-z0-9._-]/', '_', $base) ?: 'attachment.jpg';
+}
+
+function processWithImagick(string $tmpName, string $originalName): array
+{
+    if (!class_exists('Imagick')) {
+        exit('HEIC/HEIF画像の処理に必要なサーバー設定が不足しています。JPG/PNGで再送してください。');
+    }
+
+    $image = new Imagick();
+    $image->readImage($tmpName);
+    $image->setIteratorIndex(0);
+    $image->setImageOrientation(Imagick::ORIENTATION_UNDEFINED);
+    $image->autoOrient();
+    $image->thumbnailImage(MAX_IMAGE_WIDTH, MAX_IMAGE_HEIGHT, true, true);
+    $image->setImageFormat('jpeg');
+    $image->setImageCompressionQuality(JPEG_QUALITY);
+
+    $tmpOutput = tempnam(sys_get_temp_dir(), 'lyric_img_');
+    if ($tmpOutput === false) {
+        exit('添付画像の一時ファイル作成に失敗しました。');
+    }
+
+    $image->writeImage($tmpOutput);
+    $image->clear();
+    $image->destroy();
+
+    if (filesize($tmpOutput) > MAX_ATTACHMENT_SIZE) {
+        @unlink($tmpOutput);
+        exit('画像サイズが大きすぎます。解像度を下げて再送してください。');
+    }
+
+    $nameWithoutExt = pathinfo($originalName, PATHINFO_FILENAME);
+    $safeName = sanitizeAttachmentName($nameWithoutExt . '.jpg');
+
+    return [
+        'tmp_name' => $tmpOutput,
+        'name' => $safeName,
+        'mime' => 'image/jpeg',
+        'converted' => true,
+    ];
+}
+
+function processWithGd(string $tmpName, string $mime, string $originalName): array
+{
+    if (!function_exists('imagecreatetruecolor')) {
+        if (filesize($tmpName) <= MAX_ATTACHMENT_SIZE) {
+            return [
+                'tmp_name' => $tmpName,
+                'name' => sanitizeAttachmentName($originalName),
+                'mime' => $mime,
+                'converted' => false,
+            ];
+        }
+        exit('画像圧縮に必要なサーバー設定が不足しています。画像を小さくして再送してください。');
+    }
+
+    switch ($mime) {
+        case 'image/jpeg':
+            if (!function_exists('imagecreatefromjpeg')) {
+                exit('JPEG画像処理に失敗しました。');
+            }
+            $source = @imagecreatefromjpeg($tmpName);
+            break;
+        case 'image/png':
+            if (!function_exists('imagecreatefrompng')) {
+                exit('PNG画像処理に失敗しました。');
+            }
+            $source = @imagecreatefrompng($tmpName);
+            break;
+        case 'image/gif':
+            if (!function_exists('imagecreatefromgif')) {
+                exit('GIF画像処理に失敗しました。');
+            }
+            $source = @imagecreatefromgif($tmpName);
+            break;
+        case 'image/webp':
+            if (!function_exists('imagecreatefromwebp')) {
+                exit('WebP画像処理に失敗しました。');
+            }
+            $source = @imagecreatefromwebp($tmpName);
+            break;
+        default:
+            exit('対応していない画像形式です。');
+    }
+
+    if (!$source) {
+        exit('画像の読み込みに失敗しました。別の画像でお試しください。');
+    }
+
+    $width = imagesx($source);
+    $height = imagesy($source);
+    [$newWidth, $newHeight] = resizeDimensions($width, $height);
+
+    $canvas = imagecreatetruecolor($newWidth, $newHeight);
+    if (!$canvas) {
+        imagedestroy($source);
+        exit('画像処理用メモリの確保に失敗しました。');
+    }
+
+    $white = imagecolorallocate($canvas, 255, 255, 255);
+    imagefill($canvas, 0, 0, $white);
+    imagecopyresampled($canvas, $source, 0, 0, 0, 0, $newWidth, $newHeight, $width, $height);
+
+    $tmpOutput = tempnam(sys_get_temp_dir(), 'lyric_img_');
+    if ($tmpOutput === false) {
+        imagedestroy($source);
+        imagedestroy($canvas);
+        exit('添付画像の一時ファイル作成に失敗しました。');
+    }
+
+    imagejpeg($canvas, $tmpOutput, JPEG_QUALITY);
+    imagedestroy($source);
+    imagedestroy($canvas);
+
+    if (filesize($tmpOutput) > MAX_ATTACHMENT_SIZE) {
+        @unlink($tmpOutput);
+        exit('画像サイズが大きすぎます。解像度を下げて再送してください。');
+    }
+
+    $nameWithoutExt = pathinfo($originalName, PATHINFO_FILENAME);
+    $safeName = sanitizeAttachmentName($nameWithoutExt . '.jpg');
+
+    return [
+        'tmp_name' => $tmpOutput,
+        'name' => $safeName,
+        'mime' => 'image/jpeg',
+        'converted' => true,
+    ];
+}
+
+function processAttachment(string $tmpName, string $mime, string $originalName): array
+{
+    if (in_array($mime, ['image/heic', 'image/heif', 'image/heic-sequence', 'image/heif-sequence'], true)) {
+        return processWithImagick($tmpName, $originalName);
+    }
+    return processWithGd($tmpName, $mime, $originalName);
+}
+
+// 入力値を取得（POST）
 $category = trim($_POST['category'] ?? '');
 $last_name = trim($_POST['last_name'] ?? '');
 $first_name = trim($_POST['first_name'] ?? '');
@@ -42,13 +215,64 @@ $ch = curl_init('https://challenges.cloudflare.com/turnstile/v0/siteverify');
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query([
     'secret' => '0x4AAAAAABiz_Xhe-J0-EB9ypk53QvLFwt8',
-    'response' => $token
+    'response' => $token,
 ]));
 $response = curl_exec($ch);
 curl_close($ch);
 $result = json_decode($response, true);
 if (empty($result['success'])) {
     exit('Turnstile認証に失敗しました。戻ってやり直してください。');
+}
+
+// 添付ファイル検証
+$attachments = [];
+$generatedTempFiles = [];
+if (isset($_FILES['attachments'])) {
+    $names = $_FILES['attachments']['name'] ?? [];
+    $tmpNames = $_FILES['attachments']['tmp_name'] ?? [];
+    $errors = $_FILES['attachments']['error'] ?? [];
+    $sizes = $_FILES['attachments']['size'] ?? [];
+
+    $validIndexes = [];
+    foreach ($names as $i => $name) {
+        if ($name !== '' || ($errors[$i] ?? UPLOAD_ERR_NO_FILE) !== UPLOAD_ERR_NO_FILE) {
+            $validIndexes[] = $i;
+        }
+    }
+
+    if (count($validIndexes) > MAX_ATTACHMENT_COUNT) {
+        exit('画像添付は最大3ファイルまでです。');
+    }
+
+    $finfo = new finfo(FILEINFO_MIME_TYPE);
+    foreach ($validIndexes as $i) {
+        $error = $errors[$i] ?? UPLOAD_ERR_NO_FILE;
+        if ($error !== UPLOAD_ERR_OK) {
+            cleanupTempFiles($generatedTempFiles);
+            exit('画像アップロードに失敗しました。別の画像でお試しください。');
+        }
+
+        $tmpName = $tmpNames[$i] ?? '';
+        $size = (int)($sizes[$i] ?? 0);
+        $name = (string)($names[$i] ?? '');
+
+        if ($size <= 0 || $size > MAX_ORIGINAL_ATTACHMENT_SIZE) {
+            cleanupTempFiles($generatedTempFiles);
+            exit('画像サイズは1ファイル20MB以下にしてください。');
+        }
+
+        $mime = $finfo->file($tmpName);
+        if (!in_array($mime, ALLOWED_MIME_TYPES, true)) {
+            cleanupTempFiles($generatedTempFiles);
+            exit('対応していない画像形式です。jpg / png / gif / webp / heic / heif をご利用ください。');
+        }
+
+        $processed = processAttachment($tmpName, $mime, $name);
+        if (!empty($processed['converted'])) {
+            $generatedTempFiles[] = $processed['tmp_name'];
+        }
+        $attachments[] = $processed;
+    }
 }
 
 // メール送信
@@ -75,6 +299,16 @@ try {
 
     // 件名
     $mail->Subject = '【株式会社リリック】お問い合わせを受け付けました';
+
+    foreach ($attachments as $attachment) {
+        $mail->addAttachment($attachment['tmp_name'], $attachment['name']);
+    }
+
+    $attachmentInfo = 'なし';
+    if (!empty($attachments)) {
+        $attachmentNames = array_map(static fn($file) => $file['name'], $attachments);
+        $attachmentInfo = implode(', ', $attachmentNames);
+    }
 
     // 本文（テキスト）
     $body = <<<EOT
@@ -103,6 +337,9 @@ try {
 【メールアドレス】
 {$email}
 
+【添付画像】
+{$attachmentInfo}
+
 【お問い合わせ内容】
 {$message}
 EOT;
@@ -110,6 +347,7 @@ EOT;
     $mail->Body = $body;
 
     $mail->send();
+    cleanupTempFiles($generatedTempFiles);
 
     // ログファイル記録
     file_put_contents(
@@ -119,10 +357,11 @@ EOT;
     );
 
     // サンキューページにリダイレクト
-    header("Location: https://n-lyric.com/thanks.html");
+    header('Location: https://n-lyric.com/thanks.html');
     exit();
-
 } catch (Exception $e) {
+    cleanupTempFiles($generatedTempFiles);
+
     // ログ記録
     file_put_contents(
         __DIR__ . '/contact_log.txt',

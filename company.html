@@ -296,7 +296,7 @@
     </section>
 
     <section class="Form">
-      <form action="send.php" method="post" accept-charset="UTF-8">
+      <form action="send.php" method="post" accept-charset="UTF-8" enctype="multipart/form-data">
         <table>
           <tr>
             <th>項目<span class="required">必須</span></th>
@@ -368,6 +368,16 @@
           <tr>
             <th>お問い合わせ内容<span class="required">必須</span></th>
             <td><textarea name="message" required></textarea></td>
+          </tr>
+          <tr>
+            <th>画像添付</th>
+            <td>
+              <input type="file" name="attachments[]" accept="image/*,.heic,.heif,image/heic,image/heif" multiple>
+              <p style="margin-top:8px; font-size:0.9em; color:#666;">
+                ※ jpg / png / gif / webp / heic / heif（1ファイル20MBまで、最大3ファイル）<br>
+                ※ サーバー側で自動圧縮・必要に応じてjpgへ変換して送信します
+              </p>
+            </td>
           </tr>
           <tr>
             <th>認証<span class="required">必須</span></th>
