@@ -14,9 +14,8 @@ html {
 }
 
 body {
-  /* パステルピンクから水色へのグラデーション */
-  background-image: linear-gradient(180deg, #ffecfa 0%, #d4efff 100%);
-  background-attachment: fixed;
+  /* 背景は body::before に移動して 3D canvas (z-index: -1) より背面に配置 */
+  background: transparent;
   /* 背景固定でリッチ感 */
   font-family: "M PLUS 1p", "Comic Sans MS", "M+A1 regular 30/2.0", sans-serif;
   color: #ae8046;
@@ -42,6 +41,19 @@ body {
   --glass-bg: rgba(255, 255, 255, 0.7);
   --glass-border: rgba(255, 255, 255, 0.4);
   --shadow-soft: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: linear-gradient(180deg, #ffecfa 0%, #d4efff 100%);
+  background-attachment: initial;
+  /* pseudo-element is fixed itself */
+  z-index: -2;
 }
 
 /* ... (Animations省略) ... */
@@ -127,6 +139,131 @@ h6,
   margin-bottom: 40px;
   font-family: "M PLUS 1p", sans-serif;
   letter-spacing: 0.05em;
+}
+
+/* 採用情報ボタン */
+.page_link_recruit {
+  width: auto !important;
+}
+
+.page_link_recruit a {
+  background-color: var(--accent-pink);
+  color: #fff !important;
+  padding: 8px 15px;
+  border-radius: 50px;
+  display: inline-block;
+  line-height: 1;
+  box-shadow: 0 4px 15px rgba(255, 82, 136, 0.3);
+  transition: all 0.3s ease !important;
+}
+
+.page_link_recruit a:hover {
+  background-color: var(--accent-orange) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 82, 136, 0.4);
+  color: #fff !important;
+}
+
+.page_link_recruit .sp_menu_under {
+  border-bottom: none !important;
+}
+
+/* スマホ表示での調整 */
+@media all and (max-width: 1000px) {
+  #sp_menu .page_link_recruit {
+    grid-column: span 2;
+    /* スマホメニュー内で横いっぱいに表示 */
+    justify-self: center;
+    margin-top: 10px;
+  }
+
+  .page_link_recruit a {
+    padding: 10px 30px;
+    font-size: 1.1rem;
+  }
+}
+
+/* 採用情報バナーカード */
+.recruit-banner-card-container {
+  width: clamp(280px, 95vw, 1000px);
+  margin: 40px auto 20px;
+  padding: 0 20px;
+}
+
+.recruit-banner-card {
+  display: block;
+  text-decoration: none;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+  border: 2px solid var(--accent-pink) !important;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #fff;
+}
+
+.recruit-content {
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+
+.recruit-tag {
+  background: var(--accent-pink);
+  color: #fff;
+  padding: 15px 20px;
+  font-size: 1rem;
+  font-weight: bold;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+}
+
+.recruit-text {
+  flex-grow: 1;
+  background: #fff;
+  color: var(--text-dark-brown);
+  font-weight: bold;
+  font-size: 1.1rem;
+  margin: 0;
+  padding: 15px 20px;
+}
+
+.recruit-btn-text {
+  color: var(--accent-pink);
+  font-weight: bold;
+  white-space: nowrap;
+  font-size: 1rem;
+  padding: 15px 20px;
+  transition: transform 0.3s ease;
+}
+
+.recruit-banner-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 45px rgba(255, 82, 136, 0.2) !important;
+}
+
+.recruit-banner-card:hover .recruit-btn-text {
+  transform: translateX(5px);
+}
+
+@media all and (max-width: 800px) {
+  .recruit-content {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .recruit-tag,
+  .recruit-text,
+  .recruit-btn-text {
+    width: 100%;
+    justify-content: center;
+    padding: 10px;
+  }
+
+  .recruit-text {
+    font-size: 1rem;
+    border-top: 1px solid var(--pale-pink);
+    border-bottom: 1px solid var(--pale-pink);
+  }
 }
 
 .company_heading {
@@ -480,11 +617,7 @@ a:hover {
     gap: 20px;
   }
 
-  .page_link_c-content,
-  .page_link_client,
-  .page_link_access {
-    display: block;
-  }
+
 
   /*HBメニュー OP三本線全て*/
   #nav_open {

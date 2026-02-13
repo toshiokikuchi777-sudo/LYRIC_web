@@ -155,14 +155,41 @@ $(function () {
   });
 
   // 自動オープン：DOM準備完了から1.5秒後に開く（Load待ちはしない）
+  /*
   setTimeout(function () {
     console.log("Auto opening video modal...");
     $('.video-open').modaal('open');
   }, 1500);
+  */
+
+  // モーダル自動オープンを無効にしたため、ボタンを初期表示する
+  setTimeout(function () {
+    $('#floatingVideoBtn').fadeIn();
+  }, 1000);
 
 });
 
 // ページが完全に閉じられる前にセッションストレージをクリア（念のため残す）
 window.addEventListener('beforeunload', function () {
   sessionStorage.removeItem("modalShown");
+});
+
+// NEWSの日付フィルタリング（6ヶ月以前のものを非表示）
+document.addEventListener("DOMContentLoaded", function () {
+  const newsItems = document.querySelectorAll('.news_item');
+  const now = new Date();
+  const sixMonthsAgo = new Date();
+  sixMonthsAgo.setMonth(now.getMonth() - 6);
+
+  newsItems.forEach(function (item) {
+    const timeElement = item.querySelector('time');
+    if (timeElement) {
+      const newsDateStr = timeElement.getAttribute('datetime');
+      const newsDate = new Date(newsDateStr);
+
+      if (newsDate < sixMonthsAgo) {
+        item.style.display = 'none';
+      }
+    }
+  });
 });
