@@ -40,6 +40,7 @@ function resizeDimensions(int $width, int $height): array
         max(1, (int)floor($width * $scale)),
         max(1, (int)floor($height * $scale)),
     ];
+<<<<<<< ours
 }
 
 function sanitizeAttachmentName(string $name): string
@@ -88,6 +89,56 @@ function processWithImagick(string $tmpName, string $originalName): array
     ];
 }
 
+=======
+}
+
+function sanitizeAttachmentName(string $name): string
+{
+    $base = basename($name);
+    return preg_replace('/[^A-Za-z0-9._-]/', '_', $base) ?: 'attachment.jpg';
+}
+
+function processWithImagick(string $tmpName, string $originalName): array
+{
+    if (!class_exists('Imagick')) {
+        exit('HEIC/HEIF画像の処理に必要なサーバー設定が不足しています。JPG/PNGで再送してください。');
+    }
+
+    $image = new Imagick();
+    $image->readImage($tmpName);
+    $image->setIteratorIndex(0);
+    $image->setImageOrientation(Imagick::ORIENTATION_UNDEFINED);
+    $image->autoOrient();
+    $image->thumbnailImage(MAX_IMAGE_WIDTH, MAX_IMAGE_HEIGHT, true, true);
+    $image->setImageFormat('jpeg');
+    $image->setImageCompressionQuality(JPEG_QUALITY);
+
+    $tmpOutput = tempnam(sys_get_temp_dir(), 'lyric_img_');
+    if ($tmpOutput === false) {
+        exit('添付画像の一時ファイル作成に失敗しました。');
+    }
+
+    $image->writeImage($tmpOutput);
+    $image->clear();
+    $image->destroy();
+
+    if (filesize($tmpOutput) > MAX_ATTACHMENT_SIZE) {
+        @unlink($tmpOutput);
+        exit('画像サイズが大きすぎます。解像度を下げて再送してください。');
+    }
+
+    $nameWithoutExt = pathinfo($originalName, PATHINFO_FILENAME);
+    $safeName = sanitizeAttachmentName($nameWithoutExt . '.jpg');
+
+    return [
+        'tmp_name' => $tmpOutput,
+        'name' => $safeName,
+        'mime' => 'image/jpeg',
+        'converted' => true,
+    ];
+}
+
+>>>>>>> theirs
 function processWithGd(string $tmpName, string $mime, string $originalName): array
 {
     if (!function_exists('imagecreatetruecolor')) {
@@ -184,6 +235,46 @@ function processAttachment(string $tmpName, string $mime, string $originalName):
     return processWithGd($tmpName, $mime, $originalName);
 }
 
+<<<<<<< ours
+=======
+
+function getClientIp(): string
+{
+    $candidates = [
+        $_SERVER['HTTP_CF_CONNECTING_IP'] ?? null,
+        $_SERVER['HTTP_X_FORWARDED_FOR'] ?? null,
+        $_SERVER['HTTP_X_REAL_IP'] ?? null,
+        $_SERVER['REMOTE_ADDR'] ?? null,
+    ];
+
+    foreach ($candidates as $candidate) {
+        if (!is_string($candidate) || $candidate === '') {
+            continue;
+        }
+
+        $ips = array_map('trim', explode(',', $candidate));
+        foreach ($ips as $ip) {
+            if (filter_var($ip, FILTER_VALIDATE_IP)) {
+                return $ip;
+            }
+        }
+    }
+
+    return 'unknown';
+}
+
+
+function appendJsonLog(array $record): void
+{
+    $logPath = __DIR__ . '/contact_log.jsonl';
+    file_put_contents(
+        $logPath,
+        json_encode($record, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . PHP_EOL,
+        FILE_APPEND | LOCK_EX
+    );
+}
+
+>>>>>>> theirs
 // 入力値を取得（POST）
 $category = trim($_POST['category'] ?? '');
 $last_name = trim($_POST['last_name'] ?? '');
@@ -198,6 +289,7 @@ $tel = trim($_POST['tel'] ?? '');
 $fax = trim($_POST['fax'] ?? '');
 $email = trim($_POST['email'] ?? '');
 $message = trim($_POST['message'] ?? '');
+$clientIp = getClientIp();
 
 // 必須チェック
 if (!$category || !$last_name || !$first_name || !$last_kana || !$first_kana || !$tel || !$email || !$message) {
@@ -305,6 +397,10 @@ try {
     }
 
     $attachmentInfo = 'なし';
+<<<<<<< ours
+=======
+    $attachmentNames = [];
+>>>>>>> theirs
     if (!empty($attachments)) {
         $attachmentNames = array_map(static fn($file) => $file['name'], $attachments);
         $attachmentInfo = implode(', ', $attachmentNames);
@@ -337,6 +433,12 @@ try {
 【メールアドレス】
 {$email}
 
+<<<<<<< ours
+=======
+【送信元IP】
+{$clientIp}
+
+>>>>>>> theirs
 【添付画像】
 {$attachmentInfo}
 
@@ -352,9 +454,18 @@ EOT;
     // ログファイル記録
     file_put_contents(
         __DIR__ . '/contact_log.txt',
-        date('Y-m-d H:i:s') . " 送信成功: {$email}\n",
+        date('Y-m-d H:i:s') . " 送信成功: {$email} IP: {$clientIp}\n",
         FILE_APPEND
     );
+
+    appendJsonLog([
+        'timestamp' => date(DATE_ATOM),
+        'status' => 'success',
+        'email' => $email,
+        'ip' => $clientIp,
+        'category' => $category,
+        'attachments' => $attachmentNames,
+    ]);
 
     // サンキューページにリダイレクト
     header('Location: https://n-lyric.com/thanks.html');
@@ -365,9 +476,18 @@ EOT;
     // ログ記録
     file_put_contents(
         __DIR__ . '/contact_log.txt',
-        date('Y-m-d H:i:s') . " 送信失敗: {$email} エラー: {$mail->ErrorInfo}\n",
+        date('Y-m-d H:i:s') . " 送信失敗: {$email} IP: {$clientIp} エラー: {$mail->ErrorInfo}\n",
         FILE_APPEND
     );
+
+    appendJsonLog([
+        'timestamp' => date(DATE_ATOM),
+        'status' => 'error',
+        'email' => $email,
+        'ip' => $clientIp,
+        'category' => $category,
+        'error' => $mail->ErrorInfo,
+    ]);
     exit("メール送信エラー: {$mail->ErrorInfo}");
 }
 ?>
