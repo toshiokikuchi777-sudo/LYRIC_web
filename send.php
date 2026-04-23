@@ -6,19 +6,11 @@ require __DIR__ . '/phpmailer/Exception.php';
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-<<<<<<< ours
-<<<<<<< ours
-=======
 if (($_SERVER['REQUEST_METHOD'] ?? 'GET') !== 'POST') {
-=======
-if (!isset($_SERVER['REQUEST_METHOD']) || $_SERVER['REQUEST_METHOD'] !== 'POST') {
->>>>>>> theirs
     header('Location: https://n-lyric.com/company.html#Form');
     exit();
 }
 
-<<<<<<< ours
->>>>>>> theirs
 const MAX_ATTACHMENT_COUNT = 3;
 const MAX_ORIGINAL_ATTACHMENT_SIZE = 20 * 1024 * 1024; // 20MB（アップロード受け入れ上限）
 const MAX_ATTACHMENT_SIZE = 5 * 1024 * 1024; // 5MB（メール添付最終上限）
@@ -26,16 +18,6 @@ const MAX_IMAGE_WIDTH = 2000;
 const MAX_IMAGE_HEIGHT = 2000;
 const JPEG_QUALITY = 82;
 const ALLOWED_MIME_TYPES = [
-=======
-define('MAX_ATTACHMENT_COUNT', 3);
-define('MAX_ORIGINAL_ATTACHMENT_SIZE', 20 * 1024 * 1024);
-define('MAX_ATTACHMENT_SIZE', 5 * 1024 * 1024);
-define('MAX_IMAGE_WIDTH', 2000);
-define('MAX_IMAGE_HEIGHT', 2000);
-define('JPEG_QUALITY', 82);
-
-$ALLOWED_MIME_TYPES = array(
->>>>>>> theirs
     'image/jpeg',
     'image/png',
     'image/gif',
@@ -43,30 +25,11 @@ $ALLOWED_MIME_TYPES = array(
     'image/heic',
     'image/heif',
     'image/heic-sequence',
-<<<<<<< ours
     'image/heif-sequence',
 ];
 
-<<<<<<< ours
-<<<<<<< ours
 function cleanupTempFiles(array $files): void
-=======
-function cleanupTempFiles($files)
->>>>>>> theirs
-=======
-function cleanupTempFiles($files)
->>>>>>> theirs
 {
-=======
-    'image/heif-sequence'
-);
-
-function cleanupTempFiles($files)
-{
-    if (!is_array($files)) {
-        return;
-    }
->>>>>>> theirs
     foreach ($files as $filePath) {
         if (is_string($filePath) && $filePath !== '' && file_exists($filePath)) {
             @unlink($filePath);
@@ -74,67 +37,22 @@ function cleanupTempFiles($files)
     }
 }
 
-<<<<<<< ours
-<<<<<<< ours
-<<<<<<< ours
 function resizeDimensions(int $width, int $height): array
-=======
-function resizeDimensions($width, $height)
->>>>>>> theirs
-=======
-function resizeDimensions($width, $height)
->>>>>>> theirs
 {
     $scale = min(MAX_IMAGE_WIDTH / $width, MAX_IMAGE_HEIGHT / $height, 1);
     return [
         max(1, (int)floor($width * $scale)),
         max(1, (int)floor($height * $scale)),
     ];
-<<<<<<< ours
-<<<<<<< ours
-<<<<<<< ours
-<<<<<<< ours
-=======
->>>>>>> theirs
 }
 
 function sanitizeAttachmentName(string $name): string
-=======
-}
-
-function sanitizeAttachmentName($name)
->>>>>>> theirs
 {
     $base = basename($name);
     return preg_replace('/[^A-Za-z0-9._-]/', '_', $base) ?: 'attachment.jpg';
 }
 
-<<<<<<< ours
-<<<<<<< ours
-=======
 function detectMimeType(string $path): string
-=======
-function detectMimeType($path)
->>>>>>> theirs
-=======
-function resizeDimensions($width, $height)
-{
-    $scale = min(MAX_IMAGE_WIDTH / $width, MAX_IMAGE_HEIGHT / $height, 1);
-    return array(
-        max(1, (int)floor($width * $scale)),
-        max(1, (int)floor($height * $scale))
-    );
-}
-
-function sanitizeAttachmentName($name)
-{
-    $base = basename($name);
-    $safe = preg_replace('/[^A-Za-z0-9._-]/', '_', $base);
-    return $safe ? $safe : 'attachment.jpg';
-}
-
-function detectMimeType($path)
->>>>>>> theirs
 {
     if (class_exists('finfo')) {
         $finfo = new finfo(FILEINFO_MIME_TYPE);
@@ -152,35 +70,14 @@ function detectMimeType($path)
     }
 
     return 'application/octet-stream';
-<<<<<<< ours
-<<<<<<< ours
 }
 
->>>>>>> theirs
 function processWithImagick(string $tmpName, string $originalName): array
-=======
-}
-
-function processWithImagick($tmpName, $originalName)
->>>>>>> theirs
 {
     if (!class_exists('Imagick')) {
         exit('HEIC/HEIF画像の処理に必要なサーバー設定が不足しています。JPG/PNGで再送してください。');
     }
 
-<<<<<<< ours
-<<<<<<< ours
-    $image = new Imagick();
-    $image->readImage($tmpName);
-    $image->setIteratorIndex(0);
-    $image->setImageOrientation(Imagick::ORIENTATION_UNDEFINED);
-    $image->autoOrient();
-    $image->thumbnailImage(MAX_IMAGE_WIDTH, MAX_IMAGE_HEIGHT, true, true);
-    $image->setImageFormat('jpeg');
-    $image->setImageCompressionQuality(JPEG_QUALITY);
-=======
-=======
->>>>>>> theirs
     try {
         $image = new Imagick();
         $image->readImage($tmpName);
@@ -190,67 +87,9 @@ function processWithImagick($tmpName, $originalName)
         $image->thumbnailImage(MAX_IMAGE_WIDTH, MAX_IMAGE_HEIGHT, true, true);
         $image->setImageFormat('jpeg');
         $image->setImageCompressionQuality(JPEG_QUALITY);
-<<<<<<< ours
     } catch (Throwable $e) {
         exit('HEIC/HEIF画像の変換に失敗しました。iPhone設定で「互換性優先」に変更するか、JPG/PNGで再送してください。');
     }
->>>>>>> theirs
-=======
-    } catch (Exception $e) {
-        exit('HEIC/HEIF画像の変換に失敗しました。iPhone設定で「互換性優先」に変更するか、JPG/PNGで再送してください。');
-    }
->>>>>>> theirs
-
-    $tmpOutput = tempnam(sys_get_temp_dir(), 'lyric_img_');
-    if ($tmpOutput === false) {
-        exit('添付画像の一時ファイル作成に失敗しました。');
-    }
-
-    $image->writeImage($tmpOutput);
-    $image->clear();
-    $image->destroy();
-
-    if (filesize($tmpOutput) > MAX_ATTACHMENT_SIZE) {
-        @unlink($tmpOutput);
-        exit('画像サイズが大きすぎます。解像度を下げて再送してください。');
-    }
-
-    $nameWithoutExt = pathinfo($originalName, PATHINFO_FILENAME);
-    $safeName = sanitizeAttachmentName($nameWithoutExt . '.jpg');
-
-<<<<<<< ours
-    return [
-        'tmp_name' => $tmpOutput,
-        'name' => $safeName,
-        'mime' => 'image/jpeg',
-        'converted' => true,
-    ];
-}
-
-<<<<<<< ours
-=======
-}
-
-function sanitizeAttachmentName(string $name): string
-{
-    $base = basename($name);
-    return preg_replace('/[^A-Za-z0-9._-]/', '_', $base) ?: 'attachment.jpg';
-}
-
-function processWithImagick(string $tmpName, string $originalName): array
-{
-    if (!class_exists('Imagick')) {
-        exit('HEIC/HEIF画像の処理に必要なサーバー設定が不足しています。JPG/PNGで再送してください。');
-    }
-
-    $image = new Imagick();
-    $image->readImage($tmpName);
-    $image->setIteratorIndex(0);
-    $image->setImageOrientation(Imagick::ORIENTATION_UNDEFINED);
-    $image->autoOrient();
-    $image->thumbnailImage(MAX_IMAGE_WIDTH, MAX_IMAGE_HEIGHT, true, true);
-    $image->setImageFormat('jpeg');
-    $image->setImageCompressionQuality(JPEG_QUALITY);
 
     $tmpOutput = tempnam(sys_get_temp_dir(), 'lyric_img_');
     if ($tmpOutput === false) {
@@ -277,133 +116,6 @@ function processWithImagick(string $tmpName, string $originalName): array
     ];
 }
 
->>>>>>> theirs
-function processWithGd(string $tmpName, string $mime, string $originalName): array
-{
-    if (!function_exists('imagecreatetruecolor')) {
-        if (filesize($tmpName) <= MAX_ATTACHMENT_SIZE) {
-            return [
-                'tmp_name' => $tmpName,
-                'name' => sanitizeAttachmentName($originalName),
-                'mime' => $mime,
-                'converted' => false,
-            ];
-=======
-    return array(
-        'tmp_name' => $tmpOutput,
-        'name' => $safeName,
-        'mime' => 'image/jpeg',
-        'converted' => true
-    );
-}
-
-function processWithGd($tmpName, $mime, $originalName)
-{
-    if (!function_exists('imagecreatetruecolor')) {
-        if (filesize($tmpName) <= MAX_ATTACHMENT_SIZE) {
-            return array(
-                'tmp_name' => $tmpName,
-                'name' => sanitizeAttachmentName($originalName),
-                'mime' => $mime,
-                'converted' => false
-            );
->>>>>>> theirs
-        }
-        exit('画像圧縮に必要なサーバー設定が不足しています。画像を小さくして再送してください。');
-    }
-
-    switch ($mime) {
-        case 'image/jpeg':
-<<<<<<< ours
-            if (!function_exists('imagecreatefromjpeg')) {
-                exit('JPEG画像処理に失敗しました。');
-            }
-            $source = @imagecreatefromjpeg($tmpName);
-            break;
-        case 'image/png':
-            if (!function_exists('imagecreatefrompng')) {
-                exit('PNG画像処理に失敗しました。');
-            }
-            $source = @imagecreatefrompng($tmpName);
-            break;
-        case 'image/gif':
-            if (!function_exists('imagecreatefromgif')) {
-                exit('GIF画像処理に失敗しました。');
-            }
-            $source = @imagecreatefromgif($tmpName);
-            break;
-        case 'image/webp':
-            if (!function_exists('imagecreatefromwebp')) {
-                exit('WebP画像処理に失敗しました。');
-            }
-=======
-            if (!function_exists('imagecreatefromjpeg')) exit('JPEG画像処理に失敗しました。');
-            $source = @imagecreatefromjpeg($tmpName);
-            break;
-        case 'image/png':
-            if (!function_exists('imagecreatefrompng')) exit('PNG画像処理に失敗しました。');
-            $source = @imagecreatefrompng($tmpName);
-            break;
-        case 'image/gif':
-            if (!function_exists('imagecreatefromgif')) exit('GIF画像処理に失敗しました。');
-            $source = @imagecreatefromgif($tmpName);
-            break;
-        case 'image/webp':
-            if (!function_exists('imagecreatefromwebp')) exit('WebP画像処理に失敗しました。');
->>>>>>> theirs
-            $source = @imagecreatefromwebp($tmpName);
-            break;
-        default:
-            exit('対応していない画像形式です。');
-    }
-
-    if (!$source) {
-        exit('画像の読み込みに失敗しました。別の画像でお試しください。');
-    }
-
-    $width = imagesx($source);
-    $height = imagesy($source);
-<<<<<<< ours
-    [$newWidth, $newHeight] = resizeDimensions($width, $height);
-
-    $canvas = imagecreatetruecolor($newWidth, $newHeight);
-    if (!$canvas) {
-        imagedestroy($source);
-        exit('画像処理用メモリの確保に失敗しました。');
-    }
-
-    $white = imagecolorallocate($canvas, 255, 255, 255);
-    imagefill($canvas, 0, 0, $white);
-    imagecopyresampled($canvas, $source, 0, 0, 0, 0, $newWidth, $newHeight, $width, $height);
-
-    $tmpOutput = tempnam(sys_get_temp_dir(), 'lyric_img_');
-    if ($tmpOutput === false) {
-        imagedestroy($source);
-        imagedestroy($canvas);
-        exit('添付画像の一時ファイル作成に失敗しました。');
-    }
-
-    imagejpeg($canvas, $tmpOutput, JPEG_QUALITY);
-    imagedestroy($source);
-    imagedestroy($canvas);
-
-    if (filesize($tmpOutput) > MAX_ATTACHMENT_SIZE) {
-        @unlink($tmpOutput);
-        exit('画像サイズが大きすぎます。解像度を下げて再送してください。');
-    }
-
-    $nameWithoutExt = pathinfo($originalName, PATHINFO_FILENAME);
-    $safeName = sanitizeAttachmentName($nameWithoutExt . '.jpg');
-
-    return [
-        'tmp_name' => $tmpOutput,
-        'name' => $safeName,
-        'mime' => 'image/jpeg',
-        'converted' => true,
-    ];
-}
-
-=======
 function processWithGd(string $tmpName, string $mime, string $originalName): array
 {
     if (!function_exists('imagecreatetruecolor')) {
@@ -454,9 +166,6 @@ function processWithGd(string $tmpName, string $mime, string $originalName): arr
     $width = imagesx($source);
     $height = imagesy($source);
     [$newWidth, $newHeight] = resizeDimensions($width, $height);
-=======
-    list($newWidth, $newHeight) = resizeDimensions($width, $height);
->>>>>>> theirs
 
     $canvas = imagecreatetruecolor($newWidth, $newHeight);
     if (!$canvas) {
@@ -481,10 +190,6 @@ function processWithGd(string $tmpName, string $mime, string $originalName): arr
         @unlink($tmpOutput);
         exit('画像変換に失敗しました。別の画像でお試しください。');
     }
-<<<<<<< ours
-=======
-
->>>>>>> theirs
     imagedestroy($source);
     imagedestroy($canvas);
 
@@ -496,7 +201,6 @@ function processWithGd(string $tmpName, string $mime, string $originalName): arr
     $nameWithoutExt = pathinfo($originalName, PATHINFO_FILENAME);
     $safeName = sanitizeAttachmentName($nameWithoutExt . '.jpg');
 
-<<<<<<< ours
     return [
         'tmp_name' => $tmpOutput,
         'name' => $safeName,
@@ -505,169 +209,15 @@ function processWithGd(string $tmpName, string $mime, string $originalName): arr
     ];
 }
 
->>>>>>> theirs
 function processAttachment(string $tmpName, string $mime, string $originalName): array
-=======
-}
-
-function processWithImagick($tmpName, $originalName)
-{
-    if (!class_exists('Imagick')) {
-        exit('HEIC/HEIF画像の処理に必要なサーバー設定が不足しています。JPG/PNGで再送してください。');
-    }
-
-    try {
-        $image = new Imagick();
-        $image->readImage($tmpName);
-        $image->setIteratorIndex(0);
-        $image->setImageOrientation(Imagick::ORIENTATION_UNDEFINED);
-        $image->autoOrient();
-        $image->thumbnailImage(MAX_IMAGE_WIDTH, MAX_IMAGE_HEIGHT, true, true);
-        $image->setImageFormat('jpeg');
-        $image->setImageCompressionQuality(JPEG_QUALITY);
-    } catch (Exception $e) {
-        exit('HEIC/HEIF画像の変換に失敗しました。iPhone設定で「互換性優先」に変更するか、JPG/PNGで再送してください。');
-    }
-
-    $tmpOutput = tempnam(sys_get_temp_dir(), 'lyric_img_');
-    if ($tmpOutput === false) {
-        exit('添付画像の一時ファイル作成に失敗しました。');
-    }
-
-    $image->writeImage($tmpOutput);
-    $image->clear();
-    $image->destroy();
-
-    if (filesize($tmpOutput) > MAX_ATTACHMENT_SIZE) {
-        @unlink($tmpOutput);
-        exit('画像サイズが大きすぎます。解像度を下げて再送してください。');
-    }
-
-    $nameWithoutExt = pathinfo($originalName, PATHINFO_FILENAME);
-    $safeName = sanitizeAttachmentName($nameWithoutExt . '.jpg');
-
-    return [
-        'tmp_name' => $tmpOutput,
-        'name' => $safeName,
-        'mime' => 'image/jpeg',
-        'converted' => true,
-    ];
-}
-
-function processWithGd($tmpName, $mime, $originalName)
-{
-    if (!function_exists('imagecreatetruecolor')) {
-        if (filesize($tmpName) <= MAX_ATTACHMENT_SIZE) {
-            return [
-                'tmp_name' => $tmpName,
-                'name' => sanitizeAttachmentName($originalName),
-                'mime' => $mime,
-                'converted' => false,
-            ];
-        }
-        exit('画像圧縮に必要なサーバー設定が不足しています。画像を小さくして再送してください。');
-    }
-
-    switch ($mime) {
-        case 'image/jpeg':
-            if (!function_exists('imagecreatefromjpeg')) {
-                exit('JPEG画像処理に失敗しました。');
-            }
-            $source = @imagecreatefromjpeg($tmpName);
-            break;
-        case 'image/png':
-            if (!function_exists('imagecreatefrompng')) {
-                exit('PNG画像処理に失敗しました。');
-            }
-            $source = @imagecreatefrompng($tmpName);
-            break;
-        case 'image/gif':
-            if (!function_exists('imagecreatefromgif')) {
-                exit('GIF画像処理に失敗しました。');
-            }
-            $source = @imagecreatefromgif($tmpName);
-            break;
-        case 'image/webp':
-            if (!function_exists('imagecreatefromwebp')) {
-                exit('WebP画像処理に失敗しました。');
-            }
-            $source = @imagecreatefromwebp($tmpName);
-            break;
-        default:
-            exit('対応していない画像形式です。');
-    }
-
-    if (!$source) {
-        exit('画像の読み込みに失敗しました。別の画像でお試しください。');
-    }
-
-    $width = imagesx($source);
-    $height = imagesy($source);
-    [$newWidth, $newHeight] = resizeDimensions($width, $height);
-
-    $canvas = imagecreatetruecolor($newWidth, $newHeight);
-    if (!$canvas) {
-        imagedestroy($source);
-        exit('画像処理用メモリの確保に失敗しました。');
-    }
-
-    $white = imagecolorallocate($canvas, 255, 255, 255);
-    imagefill($canvas, 0, 0, $white);
-    imagecopyresampled($canvas, $source, 0, 0, 0, 0, $newWidth, $newHeight, $width, $height);
-
-    $tmpOutput = tempnam(sys_get_temp_dir(), 'lyric_img_');
-    if ($tmpOutput === false) {
-        imagedestroy($source);
-        imagedestroy($canvas);
-        exit('添付画像の一時ファイル作成に失敗しました。');
-    }
-
-    if (!imagejpeg($canvas, $tmpOutput, JPEG_QUALITY)) {
-        imagedestroy($source);
-        imagedestroy($canvas);
-        @unlink($tmpOutput);
-        exit('画像変換に失敗しました。別の画像でお試しください。');
-    }
-    imagedestroy($source);
-    imagedestroy($canvas);
-
-    if (filesize($tmpOutput) > MAX_ATTACHMENT_SIZE) {
-        @unlink($tmpOutput);
-        exit('画像サイズが大きすぎます。解像度を下げて再送してください。');
-    }
-
-    $nameWithoutExt = pathinfo($originalName, PATHINFO_FILENAME);
-    $safeName = sanitizeAttachmentName($nameWithoutExt . '.jpg');
-
-    return [
-        'tmp_name' => $tmpOutput,
-        'name' => $safeName,
-        'mime' => 'image/jpeg',
-        'converted' => true,
-    ];
-}
-
-function processAttachment($tmpName, $mime, $originalName)
->>>>>>> theirs
 {
     if (in_array($mime, ['image/heic', 'image/heif', 'image/heic-sequence', 'image/heif-sequence'], true)) {
         return processWithImagick($tmpName, $originalName);
     }
     return processWithGd($tmpName, $mime, $originalName);
 }
-
-<<<<<<< ours
-<<<<<<< ours
-<<<<<<< ours
-=======
-=======
->>>>>>> theirs
 
 function getClientIp(): string
-=======
-
-function getClientIp()
->>>>>>> theirs
 {
     $candidates = [
         $_SERVER['HTTP_CF_CONNECTING_IP'] ?? null,
@@ -692,12 +242,7 @@ function getClientIp()
     return 'unknown';
 }
 
-
-<<<<<<< ours
 function appendJsonLog(array $record): void
-=======
-function appendJsonLog($record)
->>>>>>> theirs
 {
     $logPath = __DIR__ . '/contact_log.jsonl';
     file_put_contents(
@@ -707,263 +252,6 @@ function appendJsonLog($record)
     );
 }
 
-<<<<<<< ours
-<<<<<<< ours
->>>>>>> theirs
-=======
->>>>>>> theirs
-=======
->>>>>>> theirs
-=======
-}
-
-function sanitizeAttachmentName($name)
-{
-    $base = basename($name);
-    return preg_replace('/[^A-Za-z0-9._-]/', '_', $base) ?: 'attachment.jpg';
-}
-
-function detectMimeType($path)
-{
-    if (class_exists('finfo')) {
-        $finfo = new finfo(FILEINFO_MIME_TYPE);
-        $mime = $finfo->file($path);
-        if (is_string($mime) && $mime !== '') {
-            return $mime;
-        }
-    }
-
-    if (function_exists('mime_content_type')) {
-        $mime = mime_content_type($path);
-        if (is_string($mime) && $mime !== '') {
-            return $mime;
-        }
-    }
-
-    return 'application/octet-stream';
-}
-
-function processWithImagick($tmpName, $originalName)
-{
-    if (!class_exists('Imagick')) {
-        exit('HEIC/HEIF画像の処理に必要なサーバー設定が不足しています。JPG/PNGで再送してください。');
-    }
-
-    try {
-        $image = new Imagick();
-        $image->readImage($tmpName);
-        $image->setIteratorIndex(0);
-        $image->setImageOrientation(Imagick::ORIENTATION_UNDEFINED);
-        $image->autoOrient();
-        $image->thumbnailImage(MAX_IMAGE_WIDTH, MAX_IMAGE_HEIGHT, true, true);
-        $image->setImageFormat('jpeg');
-        $image->setImageCompressionQuality(JPEG_QUALITY);
-    } catch (Exception $e) {
-        exit('HEIC/HEIF画像の変換に失敗しました。iPhone設定で「互換性優先」に変更するか、JPG/PNGで再送してください。');
-    }
-
-    $tmpOutput = tempnam(sys_get_temp_dir(), 'lyric_img_');
-    if ($tmpOutput === false) {
-        exit('添付画像の一時ファイル作成に失敗しました。');
-    }
-
-    $image->writeImage($tmpOutput);
-    $image->clear();
-    $image->destroy();
-
-    if (filesize($tmpOutput) > MAX_ATTACHMENT_SIZE) {
-        @unlink($tmpOutput);
-        exit('画像サイズが大きすぎます。解像度を下げて再送してください。');
-    }
-
-    $nameWithoutExt = pathinfo($originalName, PATHINFO_FILENAME);
-    $safeName = sanitizeAttachmentName($nameWithoutExt . '.jpg');
-
-    return [
-        'tmp_name' => $tmpOutput,
-        'name' => $safeName,
-        'mime' => 'image/jpeg',
-        'converted' => true,
-    ];
-}
-
-function processWithGd($tmpName, $mime, $originalName)
-{
-    if (!function_exists('imagecreatetruecolor')) {
-        if (filesize($tmpName) <= MAX_ATTACHMENT_SIZE) {
-            return [
-                'tmp_name' => $tmpName,
-                'name' => sanitizeAttachmentName($originalName),
-                'mime' => $mime,
-                'converted' => false,
-            ];
-        }
-        exit('画像圧縮に必要なサーバー設定が不足しています。画像を小さくして再送してください。');
-    }
-
-    switch ($mime) {
-        case 'image/jpeg':
-            if (!function_exists('imagecreatefromjpeg')) {
-                exit('JPEG画像処理に失敗しました。');
-            }
-            $source = @imagecreatefromjpeg($tmpName);
-            break;
-        case 'image/png':
-            if (!function_exists('imagecreatefrompng')) {
-                exit('PNG画像処理に失敗しました。');
-            }
-            $source = @imagecreatefrompng($tmpName);
-            break;
-        case 'image/gif':
-            if (!function_exists('imagecreatefromgif')) {
-                exit('GIF画像処理に失敗しました。');
-            }
-            $source = @imagecreatefromgif($tmpName);
-            break;
-        case 'image/webp':
-            if (!function_exists('imagecreatefromwebp')) {
-                exit('WebP画像処理に失敗しました。');
-            }
-            $source = @imagecreatefromwebp($tmpName);
-            break;
-        default:
-            exit('対応していない画像形式です。');
-    }
-
-    if (!$source) {
-        exit('画像の読み込みに失敗しました。別の画像でお試しください。');
-    }
-
-    $width = imagesx($source);
-    $height = imagesy($source);
-    [$newWidth, $newHeight] = resizeDimensions($width, $height);
-
-    $canvas = imagecreatetruecolor($newWidth, $newHeight);
-    if (!$canvas) {
-        imagedestroy($source);
-        exit('画像処理用メモリの確保に失敗しました。');
-    }
-
-    $white = imagecolorallocate($canvas, 255, 255, 255);
-    imagefill($canvas, 0, 0, $white);
-    imagecopyresampled($canvas, $source, 0, 0, 0, 0, $newWidth, $newHeight, $width, $height);
-
-    $tmpOutput = tempnam(sys_get_temp_dir(), 'lyric_img_');
-    if ($tmpOutput === false) {
-        imagedestroy($source);
-        imagedestroy($canvas);
-        exit('添付画像の一時ファイル作成に失敗しました。');
-    }
-
-    if (!imagejpeg($canvas, $tmpOutput, JPEG_QUALITY)) {
-        imagedestroy($source);
-        imagedestroy($canvas);
-        @unlink($tmpOutput);
-        exit('画像変換に失敗しました。別の画像でお試しください。');
-    }
-    imagedestroy($source);
-    imagedestroy($canvas);
-
-    if (filesize($tmpOutput) > MAX_ATTACHMENT_SIZE) {
-        @unlink($tmpOutput);
-        exit('画像サイズが大きすぎます。解像度を下げて再送してください。');
-    }
-
-    $nameWithoutExt = pathinfo($originalName, PATHINFO_FILENAME);
-    $safeName = sanitizeAttachmentName($nameWithoutExt . '.jpg');
-
-    return [
-        'tmp_name' => $tmpOutput,
-        'name' => $safeName,
-        'mime' => 'image/jpeg',
-        'converted' => true,
-    ];
-}
-
-function processAttachment($tmpName, $mime, $originalName)
-{
-    if (in_array($mime, ['image/heic', 'image/heif', 'image/heic-sequence', 'image/heif-sequence'], true)) {
-        return processWithImagick($tmpName, $originalName);
-    }
-    return processWithGd($tmpName, $mime, $originalName);
-}
-
-
-function getClientIp()
-{
-    $candidates = [
-        $_SERVER['HTTP_CF_CONNECTING_IP'] ?? null,
-        $_SERVER['HTTP_X_FORWARDED_FOR'] ?? null,
-        $_SERVER['HTTP_X_REAL_IP'] ?? null,
-        $_SERVER['REMOTE_ADDR'] ?? null,
-    ];
-
-    foreach ($candidates as $candidate) {
-        if (!is_string($candidate) || $candidate === '') {
-            continue;
-        }
-
-        $ips = array_map('trim', explode(',', $candidate));
-        foreach ($ips as $ip) {
-            if (filter_var($ip, FILTER_VALIDATE_IP)) {
-                return $ip;
-            }
-        }
-    }
-
-    return 'unknown';
-}
-
-
-=======
-    return array(
-        'tmp_name' => $tmpOutput,
-        'name' => $safeName,
-        'mime' => 'image/jpeg',
-        'converted' => true
-    );
-}
-
-function processAttachment($tmpName, $mime, $originalName)
-{
-    if (in_array($mime, array('image/heic', 'image/heif', 'image/heic-sequence', 'image/heif-sequence'), true)) {
-        return processWithImagick($tmpName, $originalName);
-    }
-    return processWithGd($tmpName, $mime, $originalName);
-}
-
-function getClientIp()
-{
-    $candidates = array(
-        isset($_SERVER['HTTP_CF_CONNECTING_IP']) ? $_SERVER['HTTP_CF_CONNECTING_IP'] : null,
-        isset($_SERVER['HTTP_X_FORWARDED_FOR']) ? $_SERVER['HTTP_X_FORWARDED_FOR'] : null,
-        isset($_SERVER['HTTP_X_REAL_IP']) ? $_SERVER['HTTP_X_REAL_IP'] : null,
-        isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : null,
-    );
-
-    foreach ($candidates as $candidate) {
-        if (!is_string($candidate) || $candidate === '') continue;
-        $ips = array_map('trim', explode(',', $candidate));
-        foreach ($ips as $ip) {
-            if (filter_var($ip, FILTER_VALIDATE_IP)) return $ip;
-        }
-    }
-    return 'unknown';
-}
-
->>>>>>> theirs
-function appendJsonLog($record)
-{
-    $logPath = __DIR__ . '/contact_log.jsonl';
-    file_put_contents(
-        $logPath,
-        json_encode($record, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . PHP_EOL,
-        FILE_APPEND | LOCK_EX
-    );
-}
-
-<<<<<<< ours
->>>>>>> theirs
 // 入力値を取得（POST）
 $category = trim($_POST['category'] ?? '');
 $last_name = trim($_POST['last_name'] ?? '');
@@ -981,23 +269,6 @@ $message = trim($_POST['message'] ?? '');
 $clientIp = getClientIp();
 
 // 必須チェック
-=======
-$category = isset($_POST['category']) ? trim($_POST['category']) : '';
-$last_name = isset($_POST['last_name']) ? trim($_POST['last_name']) : '';
-$first_name = isset($_POST['first_name']) ? trim($_POST['first_name']) : '';
-$last_kana = isset($_POST['last_kana']) ? trim($_POST['last_kana']) : '';
-$first_kana = isset($_POST['first_kana']) ? trim($_POST['first_kana']) : '';
-$postcode = isset($_POST['postcode']) ? trim($_POST['postcode']) : '';
-$prefecture = isset($_POST['prefecture']) ? trim($_POST['prefecture']) : '';
-$address = isset($_POST['address']) ? trim($_POST['address']) : '';
-$building = isset($_POST['building']) ? trim($_POST['building']) : '';
-$tel = isset($_POST['tel']) ? trim($_POST['tel']) : '';
-$fax = isset($_POST['fax']) ? trim($_POST['fax']) : '';
-$email = isset($_POST['email']) ? trim($_POST['email']) : '';
-$message = isset($_POST['message']) ? trim($_POST['message']) : '';
-$clientIp = getClientIp();
-
->>>>>>> theirs
 if (!$category || !$last_name || !$first_name || !$last_kana || !$first_kana || !$tel || !$email || !$message) {
     exit('必須項目が未入力です。');
 }
@@ -1006,18 +277,14 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     exit('メールアドレスが不正です。');
 }
 
-$token = isset($_POST['cf-turnstile-response']) ? $_POST['cf-turnstile-response'] : '';
+// Turnstile検証
+$token = $_POST['cf-turnstile-response'] ?? '';
 $ch = curl_init('https://challenges.cloudflare.com/turnstile/v0/siteverify');
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query(array(
+curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query([
     'secret' => '0x4AAAAAABiz_Xhe-J0-EB9ypk53QvLFwt8',
-<<<<<<< ours
     'response' => $token,
 ]));
-=======
-    'response' => $token
-)));
->>>>>>> theirs
 $response = curl_exec($ch);
 curl_close($ch);
 $result = json_decode($response, true);
@@ -1025,7 +292,6 @@ if (empty($result['success'])) {
     exit('Turnstile認証に失敗しました。戻ってやり直してください。');
 }
 
-<<<<<<< ours
 // 添付ファイル検証
 $attachments = [];
 $generatedTempFiles = [];
@@ -1038,20 +304,6 @@ if (isset($_FILES['attachments'])) {
     $validIndexes = [];
     foreach ($names as $i => $name) {
         if ($name !== '' || ($errors[$i] ?? UPLOAD_ERR_NO_FILE) !== UPLOAD_ERR_NO_FILE) {
-=======
-$attachments = array();
-$generatedTempFiles = array();
-if (isset($_FILES['attachments'])) {
-    $names = isset($_FILES['attachments']['name']) ? $_FILES['attachments']['name'] : array();
-    $tmpNames = isset($_FILES['attachments']['tmp_name']) ? $_FILES['attachments']['tmp_name'] : array();
-    $errors = isset($_FILES['attachments']['error']) ? $_FILES['attachments']['error'] : array();
-    $sizes = isset($_FILES['attachments']['size']) ? $_FILES['attachments']['size'] : array();
-
-    $validIndexes = array();
-    foreach ($names as $i => $name) {
-        $err = isset($errors[$i]) ? $errors[$i] : UPLOAD_ERR_NO_FILE;
-        if ($name !== '' || $err !== UPLOAD_ERR_NO_FILE) {
->>>>>>> theirs
             $validIndexes[] = $i;
         }
     }
@@ -1060,98 +312,35 @@ if (isset($_FILES['attachments'])) {
         exit('画像添付は最大3ファイルまでです。');
     }
 
-<<<<<<< ours
-<<<<<<< ours
-<<<<<<< ours
-<<<<<<< ours
-    $finfo = new finfo(FILEINFO_MIME_TYPE);
-=======
->>>>>>> theirs
-=======
->>>>>>> theirs
-=======
->>>>>>> theirs
     foreach ($validIndexes as $i) {
         $error = $errors[$i] ?? UPLOAD_ERR_NO_FILE;
-=======
-    foreach ($validIndexes as $i) {
-        $error = isset($errors[$i]) ? $errors[$i] : UPLOAD_ERR_NO_FILE;
->>>>>>> theirs
         if ($error !== UPLOAD_ERR_OK) {
             cleanupTempFiles($generatedTempFiles);
             exit('画像アップロードに失敗しました。別の画像でお試しください。');
         }
 
-<<<<<<< ours
         $tmpName = $tmpNames[$i] ?? '';
         $size = (int)($sizes[$i] ?? 0);
         $name = (string)($names[$i] ?? '');
-=======
-        $tmpName = isset($tmpNames[$i]) ? $tmpNames[$i] : '';
-        $size = isset($sizes[$i]) ? (int)$sizes[$i] : 0;
-        $name = isset($names[$i]) ? (string)$names[$i] : '';
->>>>>>> theirs
 
         if ($size <= 0 || $size > MAX_ORIGINAL_ATTACHMENT_SIZE) {
             cleanupTempFiles($generatedTempFiles);
             exit('画像サイズは1ファイル20MB以下にしてください。');
         }
 
-<<<<<<< ours
-<<<<<<< ours
-<<<<<<< ours
-<<<<<<< ours
-        $mime = $finfo->file($tmpName);
-=======
         $mime = detectMimeType($tmpName);
->>>>>>> theirs
-=======
-        $mime = detectMimeType($tmpName);
->>>>>>> theirs
-=======
-        $mime = detectMimeType($tmpName);
->>>>>>> theirs
         if (!in_array($mime, ALLOWED_MIME_TYPES, true)) {
-=======
-        $mime = detectMimeType($tmpName);
-        if (!in_array($mime, $ALLOWED_MIME_TYPES, true)) {
->>>>>>> theirs
             cleanupTempFiles($generatedTempFiles);
             exit('対応していない画像形式です。jpg / png / gif / webp / heic / heif をご利用ください。');
         }
 
-<<<<<<< ours
-<<<<<<< ours
-<<<<<<< ours
-<<<<<<< ours
-        $processed = processAttachment($tmpName, $mime, $name);
-=======
         try {
             $processed = processAttachment($tmpName, $mime, $name);
         } catch (Throwable $e) {
             cleanupTempFiles($generatedTempFiles);
             exit('画像処理中にエラーが発生しました。画像を変更して再度お試しください。');
         }
->>>>>>> theirs
-=======
-=======
->>>>>>> theirs
-=======
->>>>>>> theirs
-        try {
-            $processed = processAttachment($tmpName, $mime, $name);
-        } catch (Exception $e) {
-            cleanupTempFiles($generatedTempFiles);
-            exit('画像処理中にエラーが発生しました。画像を変更して再度お試しください。');
-        }
-<<<<<<< ours
-<<<<<<< ours
->>>>>>> theirs
-=======
->>>>>>> theirs
-=======
 
->>>>>>> theirs
         if (!empty($processed['converted'])) {
             $generatedTempFiles[] = $processed['tmp_name'];
         }
@@ -1159,10 +348,7 @@ if (isset($_FILES['attachments'])) {
     }
 }
 
-<<<<<<< ours
 // メール送信
-=======
->>>>>>> theirs
 $mail = new PHPMailer(true);
 
 try {
@@ -1178,35 +364,11 @@ try {
     foreach ($attachments as $attachment) {
         $mail->addAttachment($attachment['tmp_name'], $attachment['name']);
     }
-<<<<<<< ours
 
     $attachmentInfo = 'なし';
-<<<<<<< ours
-<<<<<<< ours
-<<<<<<< ours
-<<<<<<< ours
-=======
     $attachmentNames = [];
->>>>>>> theirs
     if (!empty($attachments)) {
         $attachmentNames = array_map(static fn($file) => $file['name'], $attachments);
-=======
-=======
->>>>>>> theirs
-=======
->>>>>>> theirs
-    $attachmentNames = [];
-    if (!empty($attachments)) {
-        $attachmentNames = array_map(function ($file) {
-            return $file['name'];
-        }, $attachments);
-<<<<<<< ours
-<<<<<<< ours
->>>>>>> theirs
-=======
->>>>>>> theirs
-=======
->>>>>>> theirs
         $attachmentInfo = implode(', ', $attachmentNames);
     }
 
@@ -1230,71 +392,27 @@ try {
 
 【電話番号】
 {$tel}
-=======
->>>>>>> theirs
 
-    $attachmentInfo = 'なし';
-    $attachmentNames = array();
-    if (!empty($attachments)) {
-        foreach ($attachments as $file) {
-            $attachmentNames[] = $file['name'];
-        }
-        $attachmentInfo = implode(', ', $attachmentNames);
-    }
+【FAX番号】
+{$fax}
 
-<<<<<<< ours
 【メールアドレス】
 {$email}
 
-<<<<<<< ours
-<<<<<<< ours
-<<<<<<< ours
-<<<<<<< ours
-=======
 【送信元IP】
 {$clientIp}
 
->>>>>>> theirs
-=======
-【送信元IP】
-{$clientIp}
-
->>>>>>> theirs
-=======
-【送信元IP】
-{$clientIp}
-
->>>>>>> theirs
-=======
-【送信元IP】
-{$clientIp}
-
->>>>>>> theirs
 【添付画像】
 {$attachmentInfo}
 
 【お問い合わせ内容】
 {$message}
 EOT;
-=======
-    $body = "以下の内容でお問い合わせがありました。\n\n"
-        . "【項目】\n{$category}\n\n"
-        . "【お名前】\n{$last_name} {$first_name}\n\n"
-        . "【フリガナ】\n{$last_kana} {$first_kana}\n\n"
-        . "【住所】\n〒{$postcode}\n{$prefecture}{$address}\n{$building}\n\n"
-        . "【電話番号】\n{$tel}\n\n"
-        . "【FAX番号】\n{$fax}\n\n"
-        . "【メールアドレス】\n{$email}\n\n"
-        . "【送信元IP】\n{$clientIp}\n\n"
-        . "【添付画像】\n{$attachmentInfo}\n\n"
-        . "【お問い合わせ内容】\n{$message}";
->>>>>>> theirs
 
     $mail->Body = $body;
     $mail->send();
     cleanupTempFiles($generatedTempFiles);
 
-<<<<<<< ours
     // ログファイル記録
     file_put_contents(
         __DIR__ . '/contact_log.txt',
@@ -1314,19 +432,7 @@ EOT;
     // サンキューページにリダイレクト
     header('Location: https://n-lyric.com/thanks.html');
     exit();
-<<<<<<< ours
-<<<<<<< ours
-<<<<<<< ours
 } catch (Exception $e) {
-=======
-} catch (Throwable $e) {
->>>>>>> theirs
-=======
-} catch (Exception $e) {
->>>>>>> theirs
-=======
-} catch (Exception $e) {
->>>>>>> theirs
     cleanupTempFiles($generatedTempFiles);
 
     // ログ記録
@@ -1337,37 +443,13 @@ EOT;
     );
 
     appendJsonLog([
-=======
-    file_put_contents(__DIR__ . '/contact_log.txt', date('Y-m-d H:i:s') . " 送信成功: {$email} IP: {$clientIp}\n", FILE_APPEND);
-    appendJsonLog(array(
-        'timestamp' => date(DATE_ATOM),
-        'status' => 'success',
-        'email' => $email,
-        'ip' => $clientIp,
-        'category' => $category,
-        'attachments' => $attachmentNames
-    ));
-
-    header('Location: https://n-lyric.com/thanks.html');
-    exit();
-} catch (Exception $e) {
-    cleanupTempFiles($generatedTempFiles);
-
-    file_put_contents(__DIR__ . '/contact_log.txt', date('Y-m-d H:i:s') . " 送信失敗: {$email} IP: {$clientIp} エラー: {$mail->ErrorInfo}\n", FILE_APPEND);
-    appendJsonLog(array(
->>>>>>> theirs
         'timestamp' => date(DATE_ATOM),
         'status' => 'error',
         'email' => $email,
         'ip' => $clientIp,
         'category' => $category,
-<<<<<<< ours
         'error' => $mail->ErrorInfo,
     ]);
-=======
-        'error' => $mail->ErrorInfo
-    ));
 
->>>>>>> theirs
     exit("メール送信エラー: {$mail->ErrorInfo}");
 }

@@ -1,5 +1,13 @@
 <?php
-// PHPMailerクラスを読み込み
+// SMTP疎通確認用の開発向けスクリプト。
+// 本番環境に残さないこと。アクセスは localhost / 特定IPに限定する。
+$allowedIps = ['127.0.0.1', '::1'];
+$clientIp = $_SERVER['REMOTE_ADDR'] ?? '';
+if (!in_array($clientIp, $allowedIps, true)) {
+    http_response_code(404);
+    exit();
+}
+
 require __DIR__ . '/phpmailer/PHPMailer.php';
 require __DIR__ . '/phpmailer/SMTP.php';
 require __DIR__ . '/phpmailer/Exception.php';
@@ -7,33 +15,20 @@ require __DIR__ . '/phpmailer/Exception.php';
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-// メール送信
+$to = getenv('LYRIC_MAILTEST_TO') ?: 'info@n-lyric.com';
+
 $mail = new PHPMailer(true);
 
 try {
-    // 文字エンコーディング
     $mail->CharSet = 'UTF-8';
-
-    // SMTPを使わずにmail()で送信
     $mail->isMail();
-
-    // 差出人
     $mail->setFrom('no-reply@n-lyric.com', '株式会社リリック');
-
-    // 宛先（ここをあなたのメールアドレスに変更）
-    $mail->addAddress('toshio.k@icloud.com', 'テスト受信者');
-
-    // 件名
+    $mail->addAddress($to, 'テスト受信者');
     $mail->Subject = 'テスト送信';
-
-    // 本文
     $mail->Body = "これはテスト送信です。\n改行もそのまま表示されます。";
-
-    // 送信
     $mail->send();
 
-    echo "✅ テストメールを送信しました！";
+    echo "OK: テストメールを送信しました (to={$to})";
 } catch (Exception $e) {
-    echo "❌ エラー: {$mail->ErrorInfo}";
+    echo "ERROR: {$mail->ErrorInfo}";
 }
-?>

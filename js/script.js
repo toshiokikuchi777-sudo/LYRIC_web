@@ -33,24 +33,47 @@ document.addEventListener("DOMContentLoaded", function () {
   // IntersectionObserver設定
   const observerOptions = {
     root: null,
-    rootMargin: '0px',
-    threshold: 0.1 // 少し見えたら発火（軽快に）
+    rootMargin: '0px 0px -8% 0px',
+    threshold: 0.12 // 少し見えたら発火（軽快に）
   };
 
-  const observer = new IntersectionObserver((entries, observer) => {
+  // prefers-reduced-motion 尊重
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // 旧: .fade-in-up → add('visible')（後方互換）
+  // 新: [data-reveal] → add('is-revealed')（最高版デザイン用）
+  const observer = new IntersectionObserver((entries, obs) => {
     entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-        observer.unobserve(entry.target); // 一度表示したら監視終了
+      if (!entry.isIntersecting) return;
+      const el = entry.target;
+      if (el.classList.contains('fade-in-up')) {
+        el.classList.add('visible');
       }
+      if (el.hasAttribute('data-reveal')) {
+        el.classList.add('is-revealed');
+      }
+      obs.unobserve(el);
     });
   }, observerOptions);
 
-  // 監視対象の要素
-  const targets = document.querySelectorAll('.fade-in-up');
-  targets.forEach(target => {
-    observer.observe(target);
-  });
+  // 監視対象：.fade-in-up と [data-reveal]
+  const legacyTargets = document.querySelectorAll('.fade-in-up');
+  const revealTargets = document.querySelectorAll('[data-reveal]');
+
+  if (prefersReduced) {
+    // モーション抑制時は即座に表示状態へ
+    legacyTargets.forEach(t => t.classList.add('visible'));
+    revealTargets.forEach(t => t.classList.add('is-revealed'));
+  } else {
+    legacyTargets.forEach(t => observer.observe(t));
+    // data-reveal は出現順に小さなディレイを付与（data-reveal-delay が無い場合）
+    revealTargets.forEach((t, i) => {
+      if (!t.hasAttribute('data-reveal-delay')) {
+        t.setAttribute('data-reveal-delay', String((i % 4) + 1));
+      }
+      observer.observe(t);
+    });
+  }
 });
 
 //ページトップボタン
@@ -174,22 +197,47 @@ window.addEventListener('beforeunload', function () {
   sessionStorage.removeItem("modalShown");
 });
 
-// NEWSの日付フィルタリング（6ヶ月以前のものを非表示）
+// NEWS表示制御：最新5件を表示、それ以外は「もっと見る」で展開
 document.addEventListener("DOMContentLoaded", function () {
-  const newsItems = document.querySelectorAll('.news_item');
-  const now = new Date();
-  const sixMonthsAgo = new Date();
-  sixMonthsAgo.setMonth(now.getMonth() - 6);
+  const newsList = document.querySelector('.news-list');
+  if (!newsList) return;
 
-  newsItems.forEach(function (item) {
-    const timeElement = item.querySelector('time');
-    if (timeElement) {
-      const newsDateStr = timeElement.getAttribute('datetime');
-      const newsDate = new Date(newsDateStr);
+  const items = Array.from(newsList.querySelectorAll('.news_item'));
+  const VISIBLE_COUNT = 5;
 
-      if (newsDate < sixMonthsAgo) {
-        item.style.display = 'none';
-      }
+  // datetime降順でソート
+  items.sort(function (a, b) {
+    const da = new Date(a.querySelector('time')?.getAttribute('datetime') || 0);
+    const db = new Date(b.querySelector('time')?.getAttribute('datetime') || 0);
+    return db - da;
+  });
+
+  items.forEach(function (item, index) {
+    newsList.appendChild(item);
+    if (index >= VISIBLE_COUNT) {
+      item.classList.add('news_item--hidden');
+      item.style.display = 'none';
     }
   });
+
+  // もっと見るボタン追加
+  if (items.length > VISIBLE_COUNT) {
+    const moreBtn = document.createElement('button');
+    moreBtn.type = 'button';
+    moreBtn.className = 'news-more-btn';
+    moreBtn.textContent = 'もっと見る';
+    moreBtn.setAttribute('aria-expanded', 'false');
+    newsList.parentNode.insertBefore(moreBtn, newsList.nextSibling);
+
+    moreBtn.addEventListener('click', function () {
+      const expanded = moreBtn.getAttribute('aria-expanded') === 'true';
+      items.forEach(function (item, index) {
+        if (index >= VISIBLE_COUNT) {
+          item.style.display = expanded ? 'none' : '';
+        }
+      });
+      moreBtn.setAttribute('aria-expanded', String(!expanded));
+      moreBtn.textContent = expanded ? 'もっと見る' : '閉じる';
+    });
+  }
 });

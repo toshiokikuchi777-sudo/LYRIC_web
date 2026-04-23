@@ -4,12 +4,71 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
+
+  <!-- Google Fonts: Noto Sans JP / M PLUS Rounded 1c -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
   <title>株式会社 リリック | 玩具・おもちゃ・キャラクターグッズ企画製造販売</title>
   <meta name="Keywords" content="水鉄砲,サマーグッズ,クリスマス,玩具,おもちゃ,キャラクターグッズ">
   <meta name="Description" content="水鉄砲、バブルガン、サマーグッズ、クリスマス商品等のキャラクター商品の企画製造販売会社です。">
+  <link rel="canonical" href="https://n-lyric.com/">
+
+  <!-- OGP -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="株式会社リリック">
+  <meta property="og:title" content="株式会社 リリック | 玩具・キャラクターグッズ企画製造販売">
+  <meta property="og:description" content="キャッチ！ティニピン、ムーミン、ちいかわ、クレヨンしんちゃんほか、キャラクター玩具・雑貨の企画製造販売。子どもたちに夢と希望を、大人たちに癒しを届けるエンタテインメントカンパニー。">
+  <meta property="og:url" content="https://n-lyric.com/">
+  <meta property="og:image" content="https://n-lyric.com/images/ogp.jpg">
+  <meta property="og:locale" content="ja_JP">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="株式会社 リリック | 玩具・キャラクターグッズ企画製造販売">
+  <meta name="twitter:description" content="キャッチ！ティニピン、ムーミン、ちいかわ他、キャラクター玩具の企画製造販売。">
+  <meta name="twitter:image" content="https://n-lyric.com/images/ogp.jpg">
+
+  <!-- 構造化データ -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "株式会社リリック",
+    "alternateName": "Lyric Co.,Ltd.",
+    "url": "https://n-lyric.com/",
+    "logo": "https://n-lyric.com/images/logo.svg",
+    "foundingDate": "2012-02",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "浅草橋5-2-3 鈴和ビル8階F室",
+      "addressLocality": "台東区",
+      "addressRegion": "東京都",
+      "postalCode": "111-0053",
+      "addressCountry": "JP"
+    },
+    "telephone": "+81-3-3862-7238",
+    "faxNumber": "+81-3-3865-3670",
+    "sameAs": [
+      "https://www.youtube.com/@%E6%A0%AA%E5%BC%8F%E4%BC%9A%E7%A4%BE%E3%83%AA%E3%83%AA%E3%83%83%E3%82%AF",
+      "https://www.tiktok.com/@lyric_co_ltd",
+      "https://www.instagram.com/lyric_toy_official/",
+      "https://x.com/Lyricshop2020"
+    ]
+  }
+  </script>
+
   <!-- ファビコン -->
   <link rel="icon" type="images/ico" href="images/favicon.ico">
 
+
+  <!-- パフォーマンス: 外部ドメインの事前接続 -->
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="preconnect" href="https://code.jquery.com" crossorigin>
+  <link rel="dns-prefetch" href="https://www.googletagmanager.com">
+
+  <!-- ヒーロー1枚目を先読み -->
+  <link rel="preload" as="image" href="images/slider18.webp" type="image/webp" fetchpriority="high">
 
   <!-- Slick CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
@@ -17,7 +76,7 @@
 
   <!-- ローカルCSS -->
   <link href="css/reset.css" rel="stylesheet" />
-  <link href="css/stylesheet20260209.css" rel="stylesheet" />
+  <link href="css/stylesheet20260209.css?v=2026042303" rel="stylesheet" />
   <link href="css/modaal.min.css" rel="stylesheet" />
 
 
@@ -173,41 +232,146 @@
   <!-- ハンバーガーメニュー終了 -->
   <!-- mainここから↓ -->
   <main>
-    <!-- 全画面ヒーローセクション -->
-    <section class="hero-section">
+    <!-- 全画面ヒーローセクション（商品主役・テキスト重ねなし） -->
+    <section class="hero-section" aria-label="最新の商品スライダー">
       <div class="slider hero-slider">
         <div>
+          <a href="ICEBLIZZERD.html">
+            <picture>
+              <source srcset="images/slider18.webp" type="image/webp">
+              <img src="images/slider18.png" alt="ICE BLIZZARD" fetchpriority="high" decoding="async" />
+            </picture>
+          </a>
+        </div>
+        <div>
           <a href="catchteenieping475.html">
-            <img src="images/slider16.png" alt="キャッチ！ティニピン×475" />
+            <picture>
+              <source srcset="images/slider16.webp" type="image/webp">
+              <img src="images/slider16.png" alt="キャッチ！ティニピン×475" loading="lazy" decoding="async" />
+            </picture>
           </a>
         </div>
         <div>
           <a href="catchteenieping2.html">
-            <img src="images/slider17.png" alt="シークレット キャッチ！ティニピン" />
+            <picture>
+              <source srcset="images/slider17.webp" type="image/webp">
+              <img src="images/slider17.png" alt="シークレット キャッチ！ティニピン" loading="lazy" decoding="async" />
+            </picture>
           </a>
         </div>
         <div>
           <a href="catchteenieping2.html">
-            <img src="images/slider15.png" alt="ティニピン" />
+            <picture>
+              <source srcset="images/slider15.webp" type="image/webp">
+              <img src="images/slider15.png" alt="ティニピン" loading="lazy" decoding="async" />
+            </picture>
           </a>
         </div>
         <div>
           <a href="catchteenieping.html">
-            <img src="images/slider12.png" alt="ティニピン ジュエルハートウィングフォン" />
+            <picture>
+              <source srcset="images/slider12.webp" type="image/webp">
+              <img src="images/slider12.png" alt="ティニピン ジュエルハートウィングフォン" loading="lazy" decoding="async" />
+            </picture>
           </a>
         </div>
         <div>
           <a href="gallery.html#moomin">
-            <img src="images/slider14.png" alt="Wooden Art ki-gu-mi ムーミンやしき" />
+            <picture>
+              <source srcset="images/slider14.webp" type="image/webp">
+              <img src="images/slider14.png" alt="Wooden Art ki-gu-mi ムーミンやしき" loading="lazy" decoding="async" />
+            </picture>
           </a>
         </div>
         <div>
           <a href="gallery.html#shinchan">
-            <img src="images/slider13.png" alt="WAGARA クレヨンしんちゃん" />
+            <picture>
+              <source srcset="images/slider13.webp" type="image/webp">
+              <img src="images/slider13.png" alt="WAGARA クレヨンしんちゃん" loading="lazy" decoding="async" />
+            </picture>
           </a>
         </div>
       </div>
+
+      <!-- スクロール誘導（スライダー下端・商品には被らない位置） -->
+      <a href="#hero-message" class="hero-scroll-cue" aria-label="ブランドメッセージへ">
+        <span class="hero-scroll-cue-label">SCROLL</span>
+        <span class="hero-scroll-cue-line" aria-hidden="true"></span>
+      </a>
     </section>
+
+    <!-- ブランドメッセージ（商品の下で主役化） -->
+    <section id="hero-message" class="hero-message" aria-label="LYRICのブランドメッセージ">
+      <div class="hero-message-inner">
+        <p class="hero-eyebrow" aria-hidden="true">
+          <span class="hero-eyebrow-line"></span>
+          WAKUWAKU, DESIGNED.
+          <span class="hero-eyebrow-line"></span>
+        </p>
+        <p class="hero-tagline"><span class="hero-tagline-grad">ワクワク</span>を、企画する。</p>
+        <h1 class="hero-title">キャラクター玩具の<br class="sp-br">エンタテインメントカンパニー</h1>
+        <p class="hero-subcopy">子どもの「ほしい！」の、ずっと前から。</p>
+        <ul class="hero-badges">
+          <li data-reveal><span class="hero-badge-num">15+</span><span class="hero-badge-label">キャラクターIP</span></li>
+          <li data-reveal><span class="hero-badge-num">2012</span><span class="hero-badge-label">創業</span></li>
+          <li data-reveal><span class="hero-badge-num">全国</span><span class="hero-badge-label">流通</span></li>
+        </ul>
+
+        <!-- IPロゴリボン -->
+        <div class="hero-ip-ribbon" aria-hidden="true">
+          <div class="hero-ip-ribbon-track">
+            <span class="hero-ip-chip" style="--brand-accent: var(--ip-teenieping);">キャッチ！ティニピン</span>
+            <span class="hero-ip-chip" style="--brand-accent: var(--ip-moomin);">ムーミン</span>
+            <span class="hero-ip-chip" style="--brand-accent: var(--ip-chiikawa);">ちいかわ</span>
+            <span class="hero-ip-chip" style="--brand-accent: var(--ip-shinchan);">クレヨンしんちゃん</span>
+            <span class="hero-ip-chip" style="--brand-accent: var(--ip-475);">475</span>
+            <span class="hero-ip-chip" style="--brand-accent: var(--ip-teenieping);">Wooden Art ki-gu-mi</span>
+            <!-- duplicate for seamless loop -->
+            <span class="hero-ip-chip" style="--brand-accent: var(--ip-teenieping);" aria-hidden="true">キャッチ！ティニピン</span>
+            <span class="hero-ip-chip" style="--brand-accent: var(--ip-moomin);" aria-hidden="true">ムーミン</span>
+            <span class="hero-ip-chip" style="--brand-accent: var(--ip-chiikawa);" aria-hidden="true">ちいかわ</span>
+            <span class="hero-ip-chip" style="--brand-accent: var(--ip-shinchan);" aria-hidden="true">クレヨンしんちゃん</span>
+            <span class="hero-ip-chip" style="--brand-accent: var(--ip-475);" aria-hidden="true">475</span>
+            <span class="hero-ip-chip" style="--brand-accent: var(--ip-teenieping);" aria-hidden="true">Wooden Art ki-gu-mi</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 偽アカウント警告バナー（モーダル起動） -->
+    <section class="fake-account-banner-container">
+      <a href="#fake-account-modal-content" class="fake-account-banner glass-card fade-in-up" id="fakeAccountBannerLink">
+        <div class="fake-account-banner-inner">
+          <span class="fake-account-icon" aria-hidden="true">⚠️</span>
+          <div class="fake-account-text">
+            <span class="fake-account-tag">重要なお知らせ</span>
+            <p class="fake-account-desc">弊社公式Instagramを装った偽アカウントにご注意ください</p>
+          </div>
+          <span class="fake-account-arrow" aria-hidden="true">›</span>
+        </div>
+      </a>
+    </section>
+
+    <!-- 偽アカウント警告モーダルコンテンツ（hidden） -->
+    <div id="fake-account-modal-content" style="display:none;">
+      <div class="fake-modal-body">
+        <h3 class="fake-modal-title">⚠️ 偽アカウントに関する重要なお知らせ</h3>
+        <p class="fake-modal-lead">平素は、弊社商品をご愛顧賜り、誠にありがとうございます。</p>
+        <p class="fake-modal-text">この度、株式会社リリックの公式インスタグラムアカウント「<strong>＠lyric_toy_official</strong>」を装った偽アカウントの存在が確認されました。<br>
+          偽アカウントは、似たユーザー名、同じプロフィール画像、同じ説明文、同じURLを使用しておりますが、弊社とは一切関係ございません。</p>
+        <div class="fake-modal-alert">
+          <p>偽アカウントから送信されたDM（ダイレクトメッセージ）に記載されたURLのクリックを行うと、受信者側の情報や個人情報が発信者に取得され、悪用される可能性がございます。</p>
+          <p style="margin-top:10px;">株式会社リリックの公式インスタグラムアカウント（<strong>＠lyric_toy_official</strong>）以外からの不審なDMを受け取った場合は、記載されたURLにはアクセスせずDM自体を削除し、被害防止のため、偽アカウントのブロックをお願いいたします。</p>
+        </div>
+        <p class="fake-modal-text">偽アカウントにつきましては、発見次第弊社よりInstagram側へ問い合わせをし、スパム報告およびなりすましアカウントであることの報告などの対応を行っております。</p>
+        <p class="fake-modal-text">またほかにも同様の偽アカウントが存在する可能性がございますので、必ずユーザーネームなどをご確認いただきますよう、お願い申し上げます。</p>
+        <div class="fake-modal-contact">
+          <p><strong>■ お問い合わせ先</strong></p>
+          <p>株式会社リリック お問い合わせフォーム</p>
+          <p><a href="https://n-lyric.com/company.html#Form" target="_blank" rel="noopener noreferrer">https://n-lyric.com/company.html#Form</a></p>
+        </div>
+      </div>
+    </div>
 
     <!-- youtube -->
     <!-- youtube -->
@@ -248,6 +412,12 @@
       <ul class="news-list">
 
         <li class="news_item glass-card fade-in-up">
+          <time class="date" datetime="2026-04-10">2026/04/10</time>
+          <p class="news_title"><a href="gallery.html">新商品情報を掲載しました。</a>
+          </p>
+        </li>
+
+        <li class="news_item glass-card fade-in-up">
           <time class="date" datetime="2025-12-07">2025/12/07</time>
           <p class="news_title"><a href="gallery.html#ctp2" target="_blank">シークレット キャッチ！ティニピンの新商品情報を掲載しました。</a>
           </p>
@@ -271,7 +441,7 @@
         <li class="news_item glass-card fade-in-up">
           <time class="date" datetime="2025-11-11">2025/11/11</time>
           <p class="news_title">
-            <a href="475shop.pdf" target="_blank">
+            <a href="pdf/475shop.pdf" target="_blank">
               キャッチ！ティニピン×475コラボグッズのお取り扱い店舗を掲載しました
             </a>
           </p>
@@ -303,7 +473,7 @@
         <li class="news_item glass-card fade-in-up">
 
           <time class="date" datetime="2024-10-22">2024/10/22</time>
-          <p class="news_title"><a href="shoplist.pdf" target="_blank">オシャレ魔女ラブandベリー ファミリーマート限定グッズの取り扱い店舗リストを掲載しました</a>
+          <p class="news_title"><a href="pdf/shoplist.pdf" target="_blank">オシャレ魔女ラブandベリー ファミリーマート限定グッズの取り扱い店舗リストを掲載しました</a>
           </p>
         </li>
 
@@ -323,27 +493,36 @@
     <!-- 固定バナー（上段一個だけ表示） -->
     <div class="fixed-banner-container">
       <a href="catchteenieping475.html" target="_blank" class="banner-preview2">
-        <img src="images/banner_catchteenieping475.png" alt="キャッチ！ティニピン×475">
+        <picture>
+          <source srcset="images/banner_catchteenieping475.webp" type="image/webp">
+          <img src="images/banner_catchteenieping475.png" alt="キャッチ！ティニピン×475" loading="lazy" decoding="async">
+        </picture>
       </a>
     </div>
 
     <!-- 固定バナー（中段2個横並び、スマホでは縦並び） -->
     <div class="fixed-banner-container">
       <a href="catchteenieping2.html" target="_blank" class="banner-preview">
-        <img src="images/banner_catchteenieping2.jpg" alt="シークレット キャッチ！ティニピン">
+        <img src="images/banner_catchteenieping2.jpg" alt="シークレット キャッチ！ティニピン" loading="lazy" decoding="async">
       </a>
       <a href="catchteenieping.html" target="_blank" class="banner-preview">
-        <img src="images/banner_catchteenieping.jpg" alt="キラキラ キャッチ！ティニピン">
+        <img src="images/banner_catchteenieping.jpg" alt="キラキラ キャッチ！ティニピン" loading="lazy" decoding="async">
       </a>
     </div>
 
     <!-- 固定バナー（下段2個横並び、スマホでは縦並び） -->
     <div class="fixed-banner-container">
       <a href="https://www.rakuten.co.jp/lyrictoyshop/" target="_blank" class="banner-preview">
-        <img src="images/banner _rakuten.png" alt="楽天 通販 ショップ">
+        <picture>
+          <source srcset="images/banner_rakuten.webp" type="image/webp">
+          <img src="images/banner _rakuten.png" alt="楽天 通販 ショップ" loading="lazy" decoding="async">
+        </picture>
       </a>
       <a href="https://item.rakuten.co.jp/lyrictoyshop/c/0000000017/" target="_blank" class="banner-preview">
-        <img src="images/banner _lab.jpg" alt="オシャレ魔女ラブ&ベリー">
+        <picture>
+          <source srcset="images/banner_lab.webp" type="image/webp">
+          <img src="images/banner _lab.jpg" alt="オシャレ魔女ラブ&ベリー" loading="lazy" decoding="async">
+        </picture>
       </a>
     </div>
 
@@ -357,10 +536,14 @@
     <section class="philosophy_box">
       <div class="philosophy_text" id="philosophy_text">
         <h2 class="philosophy_heading">企業理念</h2>
-        <p>自由で新しい発想を原動力に子どもたちに夢と希望を、大人たちに癒しや<br>
-          やすらぎを提供します。</p>
+        <p>自由で新しい発想を原動力に、子どもたちに夢と希望を、大人たちに癒しややすらぎを提供します。</p>
       </div>
-      <div class="philosophy_img" id="philosophy_img"><img src="images/sub2_w588.png" alt="すみっコぐらし" /></div>
+      <div class="philosophy_img" id="philosophy_img">
+        <picture>
+          <source srcset="images/sub2_w588.webp" type="image/webp">
+          <img src="images/sub2_w588.png" alt="すみっコぐらし" loading="lazy" decoding="async" />
+        </picture>
+      </div>
     </section>
     <!-- 企業理念終了 -->
 
@@ -404,6 +587,7 @@
 
         <li class="md-item"><a href="gallery.html#harapekoaomushi"><img src="images/logo_harapeko_w210.png"
               alt="はらぺこあおむし" /></a></li>
+        <li class="md-item"><a href="gallery.html#ICEBLIZZERD"><img src="images/logo_ICE_w210.png" alt="アイスブリザード" /></a></li>
         <li class="md-item"><a href="gallery.html#etc"><img src="images/logo_etc_w210.png" alt="etc" /></a></li>
       </ul>
     </section>
@@ -413,10 +597,14 @@
     <section class="company_box">
       <div class="company_text">
         <h2 class="company_heading">会社情報</h2>
-        <p>私たちは玩具や雑貨を通じて、世界中の人にワクワクやドキドキをお届けする<br>
-          エンタテインメントカンパニーです。</p>
+        <p>私たちは玩具や雑貨を通じて、世界中の人にワクワクやドキドキをお届けするエンタテインメントカンパニーです。</p>
       </div>
-      <div class="company_img"><a href="company.html"><img src="images/sub4_W646.png" alt="すみっコぐらし" /></a></div>
+      <div class="company_img"><a href="company.html">
+        <picture>
+          <source srcset="images/sub4_W646.webp" type="image/webp">
+          <img src="images/sub4_W646.png" alt="すみっコぐらし" loading="lazy" decoding="async" />
+        </picture>
+      </a></div>
     </section>
 
   </main>
@@ -515,6 +703,18 @@
         infinite: true,
         slidesToShow: 1,
         slidesToScroll: 1
+      });
+    });
+  </script>
+
+  <script>
+    $(function () {
+      // 偽アカウント警告モーダル
+      $('#fakeAccountBannerLink').modaal({
+        type: 'inline',
+        animation: 'fade',
+        overlay_opacity: 0.7,
+        custom_class: 'fake-account-modaal'
       });
     });
   </script>
