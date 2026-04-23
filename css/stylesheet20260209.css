@@ -2753,104 +2753,124 @@ footer small {
   transform: translateY(0);
 }
 
-/* ヒーローオーバーレイ */
+/* ヒーローセクション（商品スライダー主役・テキスト重ねなし） */
 .hero-section { position: relative; }
-.hero-overlay {
-  position: absolute;
-  z-index: 5;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
-  color: #fff;
-  pointer-events: none;
-  width: min(92%, 900px);
-  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.35);
-}
-.hero-tagline {
-  font-size: clamp(14px, 1.4vw, 18px);
-  letter-spacing: 0.28em;
-  font-weight: 600;
-  margin: 0 0 10px;
-  opacity: 0.95;
-}
-.hero-title {
-  font-size: clamp(22px, 3.2vw, 44px);
-  line-height: 1.45;
-  font-weight: 700;
-  margin: 0 0 22px;
-  letter-spacing: 0.04em;
-}
-.hero-badges {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: inline-flex;
-  gap: clamp(8px, 1.2vw, 18px);
-  flex-wrap: wrap;
-  justify-content: center;
-}
-.hero-badges li {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 10px 18px;
-  background: rgba(255, 255, 255, 0.18);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.35);
-  border-radius: 14px;
-  min-width: 92px;
-}
-.hero-badge-num {
-  font-size: clamp(18px, 2vw, 26px);
-  font-weight: 700;
-  line-height: 1;
-}
-.hero-badge-label {
-  font-size: clamp(10px, 0.9vw, 12px);
-  letter-spacing: 0.12em;
-  margin-top: 4px;
-  opacity: 0.9;
-}
 .sp-br { display: none; }
 @media screen and (max-width: 768px) {
-  .hero-overlay {
-    top: 40%;
-  }
   .sp-br { display: inline; }
-  .hero-badges li { padding: 8px 12px; min-width: 76px; }
 }
 
 /* ================================================
- * Hero Enhancements（最高版）
- * - scrim: 可読性を上げるグラデーション
- * - eyebrow: 上部の英字サインライン
- * - tagline-grad: 「ワクワク」の部分をブランドグラデで強調
- * - subcopy: 誠実さを添えるサブコピー
- * - ip-ribbon: IPロゴの無限スクロール
- * - scroll-cue: スクロール誘導
+ * Alert Banner（重要なお知らせ）
+ * 商品スライダーより前に配置される注意喚起
  * ================================================ */
-.hero-overlay {
-  pointer-events: none;
+.alert-banner {
+  padding: 14px 20px 0;
+  background: transparent;
+  position: relative;
+  z-index: 10;
 }
-.hero-overlay > * {
-  pointer-events: auto;
+.alert-banner-link {
+  display: flex;
+  align-items: stretch;
+  gap: 14px;
+  width: min(1180px, 100%);
+  margin: 0 auto;
+  padding: 14px 18px 14px 14px;
+  background: #fff;
+  border: 2px solid #f5a63d;
+  border-radius: 18px;
+  text-decoration: none;
+  color: #c25400;
+  font-family: inherit;
+  box-shadow: 0 6px 18px rgba(245, 166, 61, 0.15);
+  transition: transform 200ms var(--ease-out), box-shadow 200ms var(--ease-out);
 }
-.hero-scrim {
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  pointer-events: none;
-  background:
-    radial-gradient(ellipse at 50% 45%, rgba(43, 27, 58, 0.35) 0%, rgba(43, 27, 58, 0.55) 55%, rgba(43, 27, 58, 0.75) 100%),
-    linear-gradient(180deg, rgba(43, 27, 58, 0) 0%, rgba(43, 27, 58, 0) 60%, rgba(43, 27, 58, 0.55) 100%);
+.alert-banner-link:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 24px rgba(245, 166, 61, 0.22);
+  color: #a04500;
 }
-.hero-overlay {
-  z-index: 6; /* scrimより前 */
+.alert-banner-icon {
+  flex: 0 0 auto;
+  width: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f5a63d;
+  color: #fff;
+  border-radius: 10px;
+  align-self: stretch;
+}
+.alert-banner-body {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  justify-content: center;
+  min-width: 0;
+}
+.alert-banner-pill {
+  align-self: flex-start;
+  display: inline-block;
+  padding: 3px 12px;
+  border-radius: var(--radius-pill);
+  background: #f5a63d;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  line-height: 1.4;
+}
+.alert-banner-text {
+  font-size: clamp(14px, 1.4vw, 16px);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: #b35a00;
+  line-height: 1.5;
+}
+.alert-banner-arrow {
+  flex: 0 0 auto;
+  align-self: center;
+  font-size: 22px;
+  font-weight: 400;
+  color: #f5a63d;
+  transition: transform 200ms var(--ease-out);
+}
+.alert-banner-link:hover .alert-banner-arrow {
+  transform: translateX(3px);
+}
+@media screen and (max-width: 640px) {
+  .alert-banner { padding: 10px 12px 0; }
+  .alert-banner-link { gap: 10px; padding: 10px 12px 10px 10px; border-radius: 14px; }
+  .alert-banner-icon { width: 44px; border-radius: 8px; }
+  .alert-banner-text { font-size: 12.5px; }
+  .alert-banner-pill { font-size: 10.5px; padding: 2px 10px; }
+  .alert-banner-arrow { font-size: 18px; }
 }
 
-/* 上部のサインライン風 eyebrow */
+/* ================================================
+ * Hero Message Band（商品の下でブランド声を主役化）
+ * - 商品に文字が被らないよう、スライダーとは別のセクション
+ * ================================================ */
+.hero-message {
+  position: relative;
+  padding: clamp(48px, 7vw, 96px) 20px clamp(56px, 8vw, 120px);
+  background:
+    radial-gradient(ellipse at 20% 0%, rgba(255, 82, 136, 0.08) 0%, transparent 55%),
+    radial-gradient(ellipse at 100% 100%, rgba(184, 230, 217, 0.2) 0%, transparent 60%),
+    var(--color-paper);
+  text-align: center;
+  color: var(--color-ink);
+  overflow: hidden;
+}
+.hero-message-inner {
+  max-width: 960px;
+  margin: 0 auto;
+  position: relative;
+}
+
+/* eyebrow サインライン */
 .hero-eyebrow {
   display: inline-flex;
   align-items: center;
@@ -2858,26 +2878,25 @@ footer small {
   font-size: clamp(10px, 0.95vw, 12px);
   font-weight: 700;
   letter-spacing: 0.42em;
-  margin: 0 0 18px;
-  color: rgba(255, 255, 255, 0.88);
-  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.25);
+  margin: 0 0 22px;
+  color: var(--color-brand-accent);
 }
 .hero-eyebrow-line {
   display: inline-block;
-  width: clamp(28px, 4vw, 56px);
+  width: clamp(32px, 5vw, 60px);
   height: 1px;
-  background: rgba(255, 255, 255, 0.6);
+  background: currentColor;
+  opacity: 0.6;
 }
 
-/* タグライン：主役サイズ＋「ワクワク」をグラデーション文字 */
+/* タグライン：主役、「ワクワク」はブランドグラデ */
 .hero-tagline {
-  font-size: clamp(28px, 4.6vw, 64px);
-  letter-spacing: 0.06em;
+  font-size: clamp(32px, 5.2vw, 68px);
+  letter-spacing: 0.04em;
   font-weight: 800;
-  margin: 0 0 14px;
-  opacity: 1;
+  margin: 0 0 18px;
   line-height: 1.25;
-  text-shadow: 0 4px 24px rgba(0, 0, 0, 0.35);
+  color: var(--color-ink);
 }
 .hero-tagline-grad {
   background: var(--grad-brand);
@@ -2885,37 +2904,71 @@ footer small {
   background-clip: text;
   -webkit-text-fill-color: transparent;
   color: transparent;
-  /* フォールバック（グラデ非対応時に白文字が読める） */
-  filter: drop-shadow(0 2px 10px rgba(255, 82, 136, 0.3));
+  filter: drop-shadow(0 2px 10px rgba(255, 82, 136, 0.25));
 }
 
-/* タイトルは脇役サイズへ縮小し、タグライン主役を邪魔しない */
+/* タイトルは脇役サイズへ */
 .hero-title {
-  font-size: clamp(15px, 1.8vw, 22px);
+  font-size: clamp(14px, 1.6vw, 20px);
   font-weight: 600;
-  letter-spacing: 0.18em;
-  margin: 0 0 10px;
-  opacity: 0.95;
-  line-height: 1.55;
+  letter-spacing: 0.22em;
+  margin: 0 0 14px;
+  color: var(--color-ink);
+  opacity: 0.82;
+  line-height: 1.65;
 }
 
-/* サブコピー：誠実・歴史のトーン */
+/* サブコピー */
 .hero-subcopy {
-  font-size: clamp(12px, 1.1vw, 15px);
+  font-size: clamp(13px, 1.1vw, 16px);
   letter-spacing: 0.14em;
   font-weight: 500;
-  margin: 0 0 26px;
-  opacity: 0.82;
+  margin: 0 0 36px;
+  color: var(--color-ink);
+  opacity: 0.7;
   line-height: 1.6;
 }
 
-/* IPロゴリボン */
+/* バッジ */
+.hero-badges {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 44px;
+  display: inline-flex;
+  gap: clamp(10px, 1.4vw, 22px);
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.hero-badges li {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 14px 22px;
+  background: #fff;
+  border: 1px solid rgba(43, 27, 58, 0.08);
+  border-radius: 16px;
+  min-width: 110px;
+  box-shadow: 0 6px 18px rgba(43, 27, 58, 0.06);
+}
+.hero-badge-num {
+  font-size: clamp(20px, 2.2vw, 30px);
+  font-weight: 800;
+  line-height: 1;
+  color: var(--color-brand-accent);
+}
+.hero-badge-label {
+  font-size: clamp(10px, 0.9vw, 12px);
+  letter-spacing: 0.16em;
+  margin-top: 6px;
+  color: var(--color-ink);
+  opacity: 0.7;
+  font-weight: 600;
+}
+
+/* IPロゴリボン（hero-messageの下帯として内包） */
 .hero-ip-ribbon {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 72px; /* scroll-cue の上 */
-  z-index: 5;
+  position: relative;
+  margin-top: 8px;
   overflow: hidden;
   -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 10%, #000 90%, transparent 100%);
           mask-image: linear-gradient(90deg, transparent 0%, #000 10%, #000 90%, transparent 100%);
@@ -2932,17 +2985,15 @@ footer small {
 .hero-ip-chip {
   display: inline-flex;
   align-items: center;
-  height: 30px;
-  padding: 0 14px;
+  height: 32px;
+  padding: 0 16px;
   border-radius: var(--radius-pill);
-  background: rgba(255, 255, 255, 0.14);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border: 1px solid rgba(255, 255, 255, 0.28);
+  background: #fff;
+  border: 1px solid rgba(43, 27, 58, 0.1);
   font-size: 12px;
   letter-spacing: 0.1em;
-  font-weight: 600;
-  color: #fff;
+  font-weight: 700;
+  color: var(--color-ink);
   position: relative;
 }
 .hero-ip-chip::before {
@@ -2952,18 +3003,18 @@ footer small {
   border-radius: 50%;
   background: var(--brand-accent, var(--color-brand-accent));
   margin-right: 8px;
-  box-shadow: 0 0 10px 0 var(--brand-accent, var(--color-brand-accent));
+  box-shadow: 0 0 8px 0 var(--brand-accent, var(--color-brand-accent));
 }
 @keyframes hero-ip-marquee {
   from { transform: translateX(0); }
   to   { transform: translateX(-50%); }
 }
 
-/* スクロール誘導 */
+/* スクロール誘導（スライダー下端・商品には被らない） */
 .hero-scroll-cue {
   position: absolute;
   left: 50%;
-  bottom: 22px;
+  bottom: 14px;
   transform: translateX(-50%);
   z-index: 6;
   display: inline-flex;
@@ -2971,24 +3022,25 @@ footer small {
   align-items: center;
   gap: 6px;
   text-decoration: none;
-  color: rgba(255, 255, 255, 0.88);
+  color: rgba(255, 255, 255, 0.9);
   font-size: 10px;
   letter-spacing: 0.3em;
   font-weight: 700;
   padding: 6px 10px;
   border-radius: 8px;
-  transition: color 200ms var(--ease-out), transform 200ms var(--ease-out);
+  background: rgba(43, 27, 58, 0.35);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  transition: color 200ms var(--ease-out), transform 200ms var(--ease-out), background 200ms var(--ease-out);
 }
 .hero-scroll-cue:hover {
   color: #fff;
+  background: rgba(43, 27, 58, 0.55);
   transform: translate(-50%, 2px);
-}
-.hero-scroll-cue-label {
-  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.3);
 }
 .hero-scroll-cue-line {
   width: 1px;
-  height: 28px;
+  height: 24px;
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0) 100%);
   position: relative;
   overflow: hidden;
@@ -3011,15 +3063,54 @@ footer small {
 
 /* スマホ最適化 */
 @media screen and (max-width: 768px) {
-  .hero-tagline { font-size: clamp(24px, 8vw, 36px); letter-spacing: 0.04em; }
-  .hero-title   { font-size: 12px; letter-spacing: 0.16em; }
-  .hero-subcopy { font-size: 11px; margin-bottom: 18px; }
-  .hero-eyebrow { font-size: 10px; margin-bottom: 12px; gap: 8px; }
+  .hero-tagline { font-size: clamp(28px, 9vw, 42px); letter-spacing: 0.02em; }
+  .hero-title   { font-size: 12px; letter-spacing: 0.18em; }
+  .hero-subcopy { font-size: 12px; margin-bottom: 26px; }
+  .hero-eyebrow { font-size: 10px; margin-bottom: 16px; gap: 8px; }
   .hero-eyebrow-line { width: 24px; }
-  .hero-ip-ribbon { bottom: 58px; }
-  .hero-ip-chip { height: 26px; font-size: 10px; padding: 0 10px; }
-  .hero-scroll-cue { bottom: 14px; font-size: 9px; }
-  .hero-scroll-cue-line { height: 22px; }
+  .hero-badges { margin-bottom: 32px; gap: 8px; }
+  .hero-badges li { padding: 10px 14px; min-width: 88px; border-radius: 12px; }
+  .hero-ip-chip { height: 28px; font-size: 10.5px; padding: 0 12px; }
+  .hero-scroll-cue { bottom: 10px; font-size: 9px; }
+  .hero-scroll-cue-line { height: 20px; }
+}
+
+/* ================================================
+ * Fake Account Info（バナーのリンク先）
+ * ================================================ */
+.fake-account-info {
+  padding: clamp(40px, 6vw, 72px) 20px;
+  background: #fff;
+}
+.fake-account-info-inner {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: clamp(24px, 3vw, 40px);
+  border-left: 4px solid #f5a63d;
+  background: #fff9f0;
+  border-radius: 10px;
+}
+.fake-account-info-title {
+  margin: 0 0 14px;
+  font-size: clamp(16px, 1.8vw, 20px);
+  font-weight: 700;
+  color: #b35a00;
+  line-height: 1.5;
+}
+.fake-account-info-body {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.85;
+  color: var(--color-text-base);
+}
+.fake-account-info-body a {
+  color: var(--color-brand-accent);
+  font-weight: 700;
+  text-decoration: none;
+  border-bottom: 1px dotted currentColor;
+}
+.fake-account-info-body a:hover {
+  opacity: 0.75;
 }
 
 /* ================================================

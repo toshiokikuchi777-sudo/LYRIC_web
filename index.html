@@ -227,52 +227,26 @@
   <!-- ハンバーガーメニュー終了 -->
   <!-- mainここから↓ -->
   <main>
-    <!-- 全画面ヒーローセクション -->
-    <section class="hero-section" aria-label="LYRICのタグライン">
-      <!-- ヒーロー上に敷く暗グラデーション（可読性確保） -->
-      <div class="hero-scrim" aria-hidden="true"></div>
-
-      <!-- ヒーローオーバーレイ（キャッチ・バッジ） -->
-      <div class="hero-overlay">
-        <p class="hero-eyebrow" aria-hidden="true">
-          <span class="hero-eyebrow-line"></span>
-          WAKUWAKU, DESIGNED.
-          <span class="hero-eyebrow-line"></span>
-        </p>
-        <p class="hero-tagline"><span class="hero-tagline-grad">ワクワク</span>を、企画する。</p>
-        <h1 class="hero-title">キャラクター玩具の<br class="sp-br">エンタテインメントカンパニー</h1>
-        <p class="hero-subcopy">子どもの「ほしい！」の、ずっと前から。</p>
-        <ul class="hero-badges">
-          <li data-reveal><span class="hero-badge-num">15+</span><span class="hero-badge-label">取扱ブランド</span></li>
-          <li data-reveal><span class="hero-badge-num">2012</span><span class="hero-badge-label">創業</span></li>
-          <li data-reveal><span class="hero-badge-num">全国</span><span class="hero-badge-label">流通</span></li>
-        </ul>
-      </div>
-
-      <!-- IPロゴリボン（無限スクロールのマーキー） -->
-      <div class="hero-ip-ribbon" aria-hidden="true">
-        <div class="hero-ip-ribbon-track">
-          <span class="hero-ip-chip" style="--brand-accent: var(--ip-teenieping);">キャッチ！ティニピン</span>
-          <span class="hero-ip-chip" style="--brand-accent: var(--ip-moomin);">ムーミン</span>
-          <span class="hero-ip-chip" style="--brand-accent: var(--ip-chiikawa);">ちいかわ</span>
-          <span class="hero-ip-chip" style="--brand-accent: var(--ip-shinchan);">クレヨンしんちゃん</span>
-          <span class="hero-ip-chip" style="--brand-accent: var(--ip-475);">475</span>
-          <span class="hero-ip-chip" style="--brand-accent: var(--ip-teenieping);">Wooden Art ki-gu-mi</span>
-          <!-- duplicate for seamless loop -->
-          <span class="hero-ip-chip" style="--brand-accent: var(--ip-teenieping);" aria-hidden="true">キャッチ！ティニピン</span>
-          <span class="hero-ip-chip" style="--brand-accent: var(--ip-moomin);" aria-hidden="true">ムーミン</span>
-          <span class="hero-ip-chip" style="--brand-accent: var(--ip-chiikawa);" aria-hidden="true">ちいかわ</span>
-          <span class="hero-ip-chip" style="--brand-accent: var(--ip-shinchan);" aria-hidden="true">クレヨンしんちゃん</span>
-          <span class="hero-ip-chip" style="--brand-accent: var(--ip-475);" aria-hidden="true">475</span>
-          <span class="hero-ip-chip" style="--brand-accent: var(--ip-teenieping);" aria-hidden="true">Wooden Art ki-gu-mi</span>
-        </div>
-      </div>
-
-      <!-- スクロール誘導 -->
-      <a href="#news" class="hero-scroll-cue" aria-label="下へスクロール">
-        <span class="hero-scroll-cue-label">SCROLL</span>
-        <span class="hero-scroll-cue-line" aria-hidden="true"></span>
+    <!-- 重要なお知らせバナー -->
+    <section class="alert-banner" aria-label="重要なお知らせ">
+      <a class="alert-banner-link" href="#fake-account-info">
+        <span class="alert-banner-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 3 1.5 21h21L12 3z"></path>
+            <path d="M12 10v5"></path>
+            <circle cx="12" cy="18" r="0.6" fill="currentColor"></circle>
+          </svg>
+        </span>
+        <span class="alert-banner-body">
+          <span class="alert-banner-pill">重要なお知らせ</span>
+          <span class="alert-banner-text">弊社公式Instagramを装った偽アカウントにご注意ください</span>
+        </span>
+        <span class="alert-banner-arrow" aria-hidden="true">›</span>
       </a>
+    </section>
+
+    <!-- 全画面ヒーローセクション（商品主役・テキスト重ねなし） -->
+    <section class="hero-section" aria-label="最新の商品スライダー">
       <div class="slider hero-slider">
         <div>
           <a href="catchteenieping475.html">
@@ -322,6 +296,63 @@
             </picture>
           </a>
         </div>
+      </div>
+
+      <!-- スクロール誘導（スライダー下端・商品には被らない位置） -->
+      <a href="#hero-message" class="hero-scroll-cue" aria-label="ブランドメッセージへ">
+        <span class="hero-scroll-cue-label">SCROLL</span>
+        <span class="hero-scroll-cue-line" aria-hidden="true"></span>
+      </a>
+    </section>
+
+    <!-- ブランドメッセージ（商品の下で主役化） -->
+    <section id="hero-message" class="hero-message" aria-label="LYRICのブランドメッセージ">
+      <div class="hero-message-inner">
+        <p class="hero-eyebrow" aria-hidden="true">
+          <span class="hero-eyebrow-line"></span>
+          WAKUWAKU, DESIGNED.
+          <span class="hero-eyebrow-line"></span>
+        </p>
+        <p class="hero-tagline"><span class="hero-tagline-grad">ワクワク</span>を、企画する。</p>
+        <h1 class="hero-title">キャラクター玩具の<br class="sp-br">エンタテインメントカンパニー</h1>
+        <p class="hero-subcopy">子どもの「ほしい！」の、ずっと前から。</p>
+        <ul class="hero-badges">
+          <li data-reveal><span class="hero-badge-num">15+</span><span class="hero-badge-label">取扱ブランド</span></li>
+          <li data-reveal><span class="hero-badge-num">2012</span><span class="hero-badge-label">創業</span></li>
+          <li data-reveal><span class="hero-badge-num">全国</span><span class="hero-badge-label">流通</span></li>
+        </ul>
+
+        <!-- IPロゴリボン -->
+        <div class="hero-ip-ribbon" aria-hidden="true">
+          <div class="hero-ip-ribbon-track">
+            <span class="hero-ip-chip" style="--brand-accent: var(--ip-teenieping);">キャッチ！ティニピン</span>
+            <span class="hero-ip-chip" style="--brand-accent: var(--ip-moomin);">ムーミン</span>
+            <span class="hero-ip-chip" style="--brand-accent: var(--ip-chiikawa);">ちいかわ</span>
+            <span class="hero-ip-chip" style="--brand-accent: var(--ip-shinchan);">クレヨンしんちゃん</span>
+            <span class="hero-ip-chip" style="--brand-accent: var(--ip-475);">475</span>
+            <span class="hero-ip-chip" style="--brand-accent: var(--ip-teenieping);">Wooden Art ki-gu-mi</span>
+            <!-- duplicate for seamless loop -->
+            <span class="hero-ip-chip" style="--brand-accent: var(--ip-teenieping);" aria-hidden="true">キャッチ！ティニピン</span>
+            <span class="hero-ip-chip" style="--brand-accent: var(--ip-moomin);" aria-hidden="true">ムーミン</span>
+            <span class="hero-ip-chip" style="--brand-accent: var(--ip-chiikawa);" aria-hidden="true">ちいかわ</span>
+            <span class="hero-ip-chip" style="--brand-accent: var(--ip-shinchan);" aria-hidden="true">クレヨンしんちゃん</span>
+            <span class="hero-ip-chip" style="--brand-accent: var(--ip-475);" aria-hidden="true">475</span>
+            <span class="hero-ip-chip" style="--brand-accent: var(--ip-teenieping);" aria-hidden="true">Wooden Art ki-gu-mi</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 偽アカウント注意喚起（バナーのリンク先） -->
+    <section id="fake-account-info" class="fake-account-info" aria-label="偽アカウント注意喚起">
+      <div class="fake-account-info-inner">
+        <h2 class="fake-account-info-title">弊社公式Instagramを装った偽アカウントにご注意ください</h2>
+        <p class="fake-account-info-body">
+          当社公式Instagram（<a href="https://www.instagram.com/lyric_toy_official/" target="_blank" rel="noopener noreferrer">@lyric_toy_official</a>）を装い、
+          当社と関係のないアカウントがダイレクトメッセージを送信している事例が確認されております。<br>
+          不審なDM内のURLは<strong>絶対にクリックせず</strong>、個人情報の入力もお控えください。
+          公式アカウント以外からのご連絡は当社と無関係です。
+        </p>
       </div>
     </section>
 
