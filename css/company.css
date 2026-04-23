@@ -44,18 +44,26 @@ main {
    - センターにグラデーションアンダーラインを配置
    - 上には小さな eyebrow ドットを入れる
    -------------------------------------------------- */
-.company_heading {
+.company_heading,
+h1.company_heading,
+h2.company_heading {
   position: relative;
-  margin: 0 auto 28px;
-  padding: 14px 24px 18px;
+  margin: 0 auto 28px !important;
+  padding: 14px 24px 18px !important;
   font-family: "M PLUS 1p", "Noto Sans JP", sans-serif;
   font-weight: 800;
   font-size: clamp(20px, 2.6vw, 30px);
   letter-spacing: 0.05em;
   color: var(--co-ink);
-  text-align: center;
+  text-align: center !important;
+  background: transparent !important;
   border: 0 !important;
   border-left: 0 !important;
+  border-right: 0 !important;
+  border-top: 0 !important;
+  border-bottom: 0 !important;
+  outline: 0 !important;
+  box-shadow: none !important;
 }
 
 .company_heading::before {
