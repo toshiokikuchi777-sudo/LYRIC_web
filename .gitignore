@@ -23,6 +23,9 @@ contact_log.txt
 *.log
 tmp/
 
+# Archive (local only, not tracked)
+_archive/
+
 # Numbers / Excel temp
 ~$*
 .~*
