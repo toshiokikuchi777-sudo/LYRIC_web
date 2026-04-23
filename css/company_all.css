@@ -730,7 +730,7 @@ footer small {
 
 /* main ラッパー */
 main {
-  padding: 0 16px;
+  padding: 80px 16px 0;
   max-width: 1100px;
   margin: 0 auto;
 }
@@ -988,10 +988,10 @@ h3[style*="text-align:center"]::after {
   background: var(--co-cta);
 }
 
-/* ---- 50px スペーサーを縮める ---- */
+/* ---- 50px スペーサー: main側で余白を確保するためゼロ化 ---- */
 main > div[style*="height:50px"],
 body > div[style*="height:50px"] {
-  height: 24px !important;
+  height: 0 !important;
 }
 
 /* ---- Cloudflare Turnstile ---- */
@@ -1016,7 +1016,7 @@ body > div[style*="height:50px"] {
 
 /* ---- レスポンシブ (スマホ) ---- */
 @media (max-width: 600px) {
-  main { padding: 0 12px; }
+  main { padding: 56px 12px 0; }
 
   .Form { border-radius: 14px; }
 
