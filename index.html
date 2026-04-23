@@ -228,17 +228,51 @@
   <!-- mainここから↓ -->
   <main>
     <!-- 全画面ヒーローセクション -->
-    <section class="hero-section">
+    <section class="hero-section" aria-label="LYRICのタグライン">
+      <!-- ヒーロー上に敷く暗グラデーション（可読性確保） -->
+      <div class="hero-scrim" aria-hidden="true"></div>
+
       <!-- ヒーローオーバーレイ（キャッチ・バッジ） -->
-      <div class="hero-overlay" aria-hidden="true">
-        <p class="hero-tagline">ワクワクを、企画する。</p>
+      <div class="hero-overlay">
+        <p class="hero-eyebrow" aria-hidden="true">
+          <span class="hero-eyebrow-line"></span>
+          WAKUWAKU, DESIGNED.
+          <span class="hero-eyebrow-line"></span>
+        </p>
+        <p class="hero-tagline"><span class="hero-tagline-grad">ワクワク</span>を、企画する。</p>
         <h1 class="hero-title">キャラクター玩具の<br class="sp-br">エンタテインメントカンパニー</h1>
+        <p class="hero-subcopy">子どもの「ほしい！」の、ずっと前から。</p>
         <ul class="hero-badges">
-          <li><span class="hero-badge-num">15+</span><span class="hero-badge-label">取扱ブランド</span></li>
-          <li><span class="hero-badge-num">2012</span><span class="hero-badge-label">創業</span></li>
-          <li><span class="hero-badge-num">全国</span><span class="hero-badge-label">流通</span></li>
+          <li data-reveal><span class="hero-badge-num">15+</span><span class="hero-badge-label">取扱ブランド</span></li>
+          <li data-reveal><span class="hero-badge-num">2012</span><span class="hero-badge-label">創業</span></li>
+          <li data-reveal><span class="hero-badge-num">全国</span><span class="hero-badge-label">流通</span></li>
         </ul>
       </div>
+
+      <!-- IPロゴリボン（無限スクロールのマーキー） -->
+      <div class="hero-ip-ribbon" aria-hidden="true">
+        <div class="hero-ip-ribbon-track">
+          <span class="hero-ip-chip" style="--brand-accent: var(--ip-teenieping);">キャッチ！ティニピン</span>
+          <span class="hero-ip-chip" style="--brand-accent: var(--ip-moomin);">ムーミン</span>
+          <span class="hero-ip-chip" style="--brand-accent: var(--ip-chiikawa);">ちいかわ</span>
+          <span class="hero-ip-chip" style="--brand-accent: var(--ip-shinchan);">クレヨンしんちゃん</span>
+          <span class="hero-ip-chip" style="--brand-accent: var(--ip-475);">475</span>
+          <span class="hero-ip-chip" style="--brand-accent: var(--ip-teenieping);">Wooden Art ki-gu-mi</span>
+          <!-- duplicate for seamless loop -->
+          <span class="hero-ip-chip" style="--brand-accent: var(--ip-teenieping);" aria-hidden="true">キャッチ！ティニピン</span>
+          <span class="hero-ip-chip" style="--brand-accent: var(--ip-moomin);" aria-hidden="true">ムーミン</span>
+          <span class="hero-ip-chip" style="--brand-accent: var(--ip-chiikawa);" aria-hidden="true">ちいかわ</span>
+          <span class="hero-ip-chip" style="--brand-accent: var(--ip-shinchan);" aria-hidden="true">クレヨンしんちゃん</span>
+          <span class="hero-ip-chip" style="--brand-accent: var(--ip-475);" aria-hidden="true">475</span>
+          <span class="hero-ip-chip" style="--brand-accent: var(--ip-teenieping);" aria-hidden="true">Wooden Art ki-gu-mi</span>
+        </div>
+      </div>
+
+      <!-- スクロール誘導 -->
+      <a href="#news" class="hero-scroll-cue" aria-label="下へスクロール">
+        <span class="hero-scroll-cue-label">SCROLL</span>
+        <span class="hero-scroll-cue-line" aria-hidden="true"></span>
+      </a>
       <div class="slider hero-slider">
         <div>
           <a href="catchteenieping475.html">

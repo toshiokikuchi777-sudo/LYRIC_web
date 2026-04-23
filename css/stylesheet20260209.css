@@ -15,6 +15,23 @@
   --color-brand-soft:    #ffe6f0;   /* 淡ピンク（背景用） */
   --color-brand-dot:     #ffc9dd;
 
+  /* Extended brand palette —「企画屋 / 遊び心 / 誠実」を支える軸色 */
+  --color-ink:           #2B1B3A;   /* Deep Plum Navy — 誠実・骨格 */
+  --color-paper:         #FFF7F0;   /* Warm Cream — 余白・呼吸 */
+  --color-mint:          #B8E6D9;   /* Soda Mint — 遊び心・差し色 */
+  --color-sun:           #FFD66B;   /* 子ども玩具的なハイライト */
+
+  /* IP accent tokens（キャラクター別アクセント色） */
+  --ip-teenieping:       #ff5288;
+  --ip-moomin:           #4aa3c7;
+  --ip-chiikawa:         #f4c05a;
+  --ip-shinchan:         #f5c84b;
+  --ip-475:              #ff8ab6;
+
+  /* Brand gradient — HeroやCTAのアクセント */
+  --grad-brand: linear-gradient(135deg, #ff5288 0%, #fa86c4 45%, #ffb199 100%);
+  --grad-soft:  linear-gradient(180deg, #fff7f0 0%, #ffe6f0 100%);
+
   /* Semantic text */
   --color-text-base:     #333;
   --color-text-muted:    #888;
@@ -2803,4 +2820,268 @@ footer small {
   }
   .sp-br { display: inline; }
   .hero-badges li { padding: 8px 12px; min-width: 76px; }
+}
+
+/* ================================================
+ * Hero Enhancements（最高版）
+ * - scrim: 可読性を上げるグラデーション
+ * - eyebrow: 上部の英字サインライン
+ * - tagline-grad: 「ワクワク」の部分をブランドグラデで強調
+ * - subcopy: 誠実さを添えるサブコピー
+ * - ip-ribbon: IPロゴの無限スクロール
+ * - scroll-cue: スクロール誘導
+ * ================================================ */
+.hero-overlay {
+  pointer-events: none;
+}
+.hero-overlay > * {
+  pointer-events: auto;
+}
+.hero-scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at 50% 45%, rgba(43, 27, 58, 0.35) 0%, rgba(43, 27, 58, 0.55) 55%, rgba(43, 27, 58, 0.75) 100%),
+    linear-gradient(180deg, rgba(43, 27, 58, 0) 0%, rgba(43, 27, 58, 0) 60%, rgba(43, 27, 58, 0.55) 100%);
+}
+.hero-overlay {
+  z-index: 6; /* scrimより前 */
+}
+
+/* 上部のサインライン風 eyebrow */
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-size: clamp(10px, 0.95vw, 12px);
+  font-weight: 700;
+  letter-spacing: 0.42em;
+  margin: 0 0 18px;
+  color: rgba(255, 255, 255, 0.88);
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.25);
+}
+.hero-eyebrow-line {
+  display: inline-block;
+  width: clamp(28px, 4vw, 56px);
+  height: 1px;
+  background: rgba(255, 255, 255, 0.6);
+}
+
+/* タグライン：主役サイズ＋「ワクワク」をグラデーション文字 */
+.hero-tagline {
+  font-size: clamp(28px, 4.6vw, 64px);
+  letter-spacing: 0.06em;
+  font-weight: 800;
+  margin: 0 0 14px;
+  opacity: 1;
+  line-height: 1.25;
+  text-shadow: 0 4px 24px rgba(0, 0, 0, 0.35);
+}
+.hero-tagline-grad {
+  background: var(--grad-brand);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  /* フォールバック（グラデ非対応時に白文字が読める） */
+  filter: drop-shadow(0 2px 10px rgba(255, 82, 136, 0.3));
+}
+
+/* タイトルは脇役サイズへ縮小し、タグライン主役を邪魔しない */
+.hero-title {
+  font-size: clamp(15px, 1.8vw, 22px);
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  margin: 0 0 10px;
+  opacity: 0.95;
+  line-height: 1.55;
+}
+
+/* サブコピー：誠実・歴史のトーン */
+.hero-subcopy {
+  font-size: clamp(12px, 1.1vw, 15px);
+  letter-spacing: 0.14em;
+  font-weight: 500;
+  margin: 0 0 26px;
+  opacity: 0.82;
+  line-height: 1.6;
+}
+
+/* IPロゴリボン */
+.hero-ip-ribbon {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 72px; /* scroll-cue の上 */
+  z-index: 5;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 10%, #000 90%, transparent 100%);
+          mask-image: linear-gradient(90deg, transparent 0%, #000 10%, #000 90%, transparent 100%);
+  pointer-events: none;
+}
+.hero-ip-ribbon-track {
+  display: inline-flex;
+  gap: 10px;
+  padding: 8px 0;
+  white-space: nowrap;
+  animation: hero-ip-marquee 42s linear infinite;
+  will-change: transform;
+}
+.hero-ip-chip {
+  display: inline-flex;
+  align-items: center;
+  height: 30px;
+  padding: 0 14px;
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, 0.14);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  font-weight: 600;
+  color: #fff;
+  position: relative;
+}
+.hero-ip-chip::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--brand-accent, var(--color-brand-accent));
+  margin-right: 8px;
+  box-shadow: 0 0 10px 0 var(--brand-accent, var(--color-brand-accent));
+}
+@keyframes hero-ip-marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* スクロール誘導 */
+.hero-scroll-cue {
+  position: absolute;
+  left: 50%;
+  bottom: 22px;
+  transform: translateX(-50%);
+  z-index: 6;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.88);
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  font-weight: 700;
+  padding: 6px 10px;
+  border-radius: 8px;
+  transition: color 200ms var(--ease-out), transform 200ms var(--ease-out);
+}
+.hero-scroll-cue:hover {
+  color: #fff;
+  transform: translate(-50%, 2px);
+}
+.hero-scroll-cue-label {
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.3);
+}
+.hero-scroll-cue-line {
+  width: 1px;
+  height: 28px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0) 100%);
+  position: relative;
+  overflow: hidden;
+}
+.hero-scroll-cue-line::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: -100%;
+  width: 100%;
+  height: 50%;
+  background: rgba(255, 255, 255, 0.9);
+  animation: hero-scroll-cue-fall 1.8s var(--ease-out) infinite;
+}
+@keyframes hero-scroll-cue-fall {
+  0%   { top: -60%; opacity: 0; }
+  20%  { opacity: 1; }
+  100% { top: 100%; opacity: 0; }
+}
+
+/* スマホ最適化 */
+@media screen and (max-width: 768px) {
+  .hero-tagline { font-size: clamp(24px, 8vw, 36px); letter-spacing: 0.04em; }
+  .hero-title   { font-size: 12px; letter-spacing: 0.16em; }
+  .hero-subcopy { font-size: 11px; margin-bottom: 18px; }
+  .hero-eyebrow { font-size: 10px; margin-bottom: 12px; gap: 8px; }
+  .hero-eyebrow-line { width: 24px; }
+  .hero-ip-ribbon { bottom: 58px; }
+  .hero-ip-chip { height: 26px; font-size: 10px; padding: 0 10px; }
+  .hero-scroll-cue { bottom: 14px; font-size: 9px; }
+  .hero-scroll-cue-line { height: 22px; }
+}
+
+/* ================================================
+ * 汎用モーションユーティリティ
+ * .u-lift    : hover で浮かせる（カード、CTA）
+ * [data-reveal] : スクロールで下からフェードイン
+ * ================================================ */
+.u-lift {
+  transition:
+    transform 280ms var(--ease-out),
+    box-shadow 280ms var(--ease-out);
+  will-change: transform;
+}
+.u-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lift);
+}
+
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity 620ms var(--ease-out),
+    transform 620ms var(--ease-out);
+}
+[data-reveal].is-revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+[data-reveal][data-reveal-delay="1"] { transition-delay: 80ms; }
+[data-reveal][data-reveal-delay="2"] { transition-delay: 160ms; }
+[data-reveal][data-reveal-delay="3"] { transition-delay: 240ms; }
+[data-reveal][data-reveal-delay="4"] { transition-delay: 320ms; }
+
+/* ================================================
+ * アクセシビリティ
+ * - focus-visible: キーボード操作時の明確なフォーカスリング
+ * - prefers-reduced-motion: 動きを止める
+ * ================================================ */
+:focus-visible {
+  outline: 3px solid var(--color-brand-accent);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+/* マウス操作時はフォーカスリングを消す（:focus-visibleが制御） */
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .hero-ip-ribbon-track { animation: none; }
+  .hero-scroll-cue-line::after { animation: none; opacity: 0; }
+  [data-reveal] {
+    opacity: 1;
+    transform: none;
+  }
 }
