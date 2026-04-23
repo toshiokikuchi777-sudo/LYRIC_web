@@ -69,6 +69,13 @@
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-bounce: cubic-bezier(0.175, 0.885, 0.32, 1.275);
 
+  /* Typography stacks
+   * - body: Noto Sans JP (クリーンで可読性の高い本文用)
+   * - heading: M PLUS Rounded 1c (丸みのあるブランドトーン見出し)
+   * - 旧「Comic Sans MS」「M+A1 regular 30/2.0」のフォールバックは撤廃 */
+  --font-body: "Noto Sans JP", "M PLUS Rounded 1c", "M PLUS 1p", "Hiragino Sans", "ヒラギノ角ゴシック", "Yu Gothic", "Meiryo", system-ui, sans-serif;
+  --font-heading: "M PLUS Rounded 1c", "Noto Sans JP", "M PLUS 1p", "Hiragino Maru Gothic ProN", "Yu Gothic", sans-serif;
+
   /* Legacy aliases（既存CSS互換。新規コードでは semantic 版を使う） */
   --primary-bg: var(--color-bg-base);
   --text-main: var(--color-text-base);
@@ -98,8 +105,20 @@ html {
 body {
   /* 背景は body::before に移動して 3D canvas (z-index: -1) より背面に配置 */
   background: transparent;
-  font-family: "M PLUS 1p", "Comic Sans MS", "M+A1 regular 30/2.0", sans-serif;
+  font-family: var(--font-body);
+  font-feature-settings: "palt" 1; /* 日本語カーニング */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   color: var(--color-text-warm);
+  letter-spacing: 0.02em;
+  line-height: 1.75;
+}
+
+/* 見出し共通タイポ */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  font-feature-settings: "palt" 1;
+  letter-spacing: 0.04em;
 }
 
 body::before {
@@ -196,7 +215,7 @@ h6,
   border-bottom: 3px solid var(--accent-pink);
   padding-bottom: 15px;
   margin-bottom: 40px;
-  font-family: "M PLUS 1p", sans-serif;
+  font-family: var(--font-heading);
   letter-spacing: 0.05em;
 }
 
@@ -815,7 +834,7 @@ main {
 
 /* NEWS一覧 */
 .news_heading {
-  font-family: "Comic Sans MS", "M PLUS 1p", sans-serif;
+  font-family: var(--font-body);
   font-size: 1.8rem;
   text-align: center;
   margin-bottom: 40px;
@@ -1098,7 +1117,7 @@ main {
 }
 
 .philosophy_heading {
-  font-family: "Comic Sans MS", "M PLUS 1p", sans-serif;
+  font-family: var(--font-body);
   font-size: 1.6rem;
 }
 
@@ -1122,7 +1141,7 @@ main {
 
 /* 商品情報　円アイコン */
 .merchandise_heading {
-  font-family: "Comic Sans MS", "M PLUS 1p", sans-serif;
+  font-family: var(--font-body);
   font-size: 1.6rem;
   text-align: center;
   margin: 8vh 0 2vh 0;
@@ -1169,7 +1188,7 @@ main {
 }
 
 .company_heading {
-  font-family: "Comic Sans MS", "M PLUS 1p", sans-serif;
+  font-family: var(--font-body);
   font-size: 1.6rem;
 }
 
@@ -1196,7 +1215,7 @@ main {
 .news_heading,
 .philosophy_heading,
 .company_heading {
-  font-family: "M PLUS 1p", sans-serif;
+  font-family: var(--font-heading);
   font-size: 2rem;
   font-weight: bold;
   color: var(--text-dark-brown);
@@ -1785,7 +1804,7 @@ footer small {
   width: clamp(350px, 65vw, 61vw);
   font-size: clamp(1.5rem, 1.5rem, 1.9rem);
   letter-spacing: 0.07em;
-  font-family: "M PLUS 1p", "Comic Sans MS", "M+A1 regular 30/2.0", sans-serif;
+  font-family: var(--font-heading);
   margin: 0 auto 10px auto;
   padding: clamp(23px, 1vw, 15px);
   text-align: center;
@@ -1814,7 +1833,7 @@ footer small {
   color: #FFF;
   padding: clamp(10px, 1vw, 15px);
   background: #D7342E;
-  font-family: "M PLUS 1p", "Comic Sans MS", "M+A1 regular 30/2.0", sans-serif;
+  font-family: var(--font-heading);
   margin: 3vh auto 3vh auto;
   letter-spacing: 0.07em;
 }
@@ -1846,7 +1865,7 @@ footer small {
   font-size: clamp(14.5px, 2vw, 17px);
   line-height: 3rem;
   letter-spacing: 0.10em;
-  font-family: "M PLUS 1p", "Comic Sans MS", "M+A1 regular 30/2.0", sans-serif;
+  font-family: var(--font-heading);
   text-align: left;
   margin: 0 auto 50px auto;
 }
@@ -1898,7 +1917,7 @@ footer small {
   text-align: left;
   font-size: 18px;
   line-height: 1.5em;
-  font-family: "M PLUS 1p", "Comic Sans MS", "M+A1 regular 30/2.0", sans-serif;
+  font-family: var(--font-heading);
   letter-spacing: 0.07em;
 }
 
@@ -1964,7 +1983,7 @@ footer small {
   width: clamp(350px, 65vw, 61vw);
   font-size: clamp(1.5rem, 1.5rem, 1.9rem);
   letter-spacing: 0.07em;
-  font-family: "M PLUS 1p", "Comic Sans MS", "M+A1 regular 30/2.0", sans-serif;
+  font-family: var(--font-heading);
   margin: 0 auto 10px auto;
   padding: clamp(23px, 1vw, 15px);
   text-align: center;
@@ -2472,7 +2491,7 @@ footer small {
   width: clamp(350px, 65vw, 61vw);
   font-size: clamp(1.5rem, 1.5rem, 1.9rem);
   letter-spacing: 0.07em;
-  font-family: "M PLUS 1p", "Comic Sans MS", "M+A1 regular 30/2.0", sans-serif;
+  font-family: var(--font-heading);
   margin: 0 auto 3px auto;
   padding: clamp(23px, 1vw, 15px);
   text-align: center;
@@ -2654,7 +2673,7 @@ footer small {
 
 /* 商品情報 円アイコン */
 .merchandise_heading {
-  font-family: "Comic Sans MS", "M PLUS 1p", sans-serif;
+  font-family: var(--font-body);
   font-size: 1.6rem;
   text-align: center;
   margin: 8vh 0 2vh 0;

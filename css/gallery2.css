@@ -39,7 +39,7 @@
 /* ページ大見出し */
 .merchandise_heading,
 .gallery h2 {
-    font-family: "M PLUS 1p", sans-serif;
+    font-family: var(--font-heading);
     font-size: 2rem;
     color: var(--text-dark-brown);
     text-align: center;
@@ -49,7 +49,7 @@
 
 /* セクション内の見出し (h2) */
 .main_gallery h2 {
-    font-family: "M PLUS 1p", sans-serif;
+    font-family: var(--font-heading);
     font-size: 1.8rem;
     color: var(--text-dark-brown);
     text-align: center;
