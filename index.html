@@ -63,7 +63,7 @@
   <link rel="dns-prefetch" href="https://www.googletagmanager.com">
 
   <!-- ヒーロー1枚目を先読み -->
-  <link rel="preload" as="image" href="images/slider16.webp" type="image/webp" fetchpriority="high">
+  <link rel="preload" as="image" href="images/slider18.webp" type="image/webp" fetchpriority="high">
 
   <!-- Slick CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
@@ -249,10 +249,18 @@
     <section class="hero-section" aria-label="最新の商品スライダー">
       <div class="slider hero-slider">
         <div>
+          <a href="ICEBLIZZERD.html">
+            <picture>
+              <source srcset="images/slider18.webp" type="image/webp">
+              <img src="images/slider18.png" alt="ICE BLIZZARD" fetchpriority="high" decoding="async" />
+            </picture>
+          </a>
+        </div>
+        <div>
           <a href="catchteenieping475.html">
             <picture>
               <source srcset="images/slider16.webp" type="image/webp">
-              <img src="images/slider16.png" alt="キャッチ！ティニピン×475" fetchpriority="high" decoding="async" />
+              <img src="images/slider16.png" alt="キャッチ！ティニピン×475" loading="lazy" decoding="async" />
             </picture>
           </a>
         </div>
@@ -393,6 +401,12 @@
     <article class="news" id="news">
       <h2 class="news_heading">NEWS</h2>
       <ul class="news-list">
+
+        <li class="news_item glass-card fade-in-up">
+          <time class="date" datetime="2026-04-10">2026/04/10</time>
+          <p class="news_title"><a href="gallery.html">新商品情報を掲載しました。</a>
+          </p>
+        </li>
 
         <li class="news_item glass-card fade-in-up">
           <time class="date" datetime="2025-12-07">2025/12/07</time>
@@ -565,6 +579,7 @@
 
         <li class="md-item"><a href="gallery.html#harapekoaomushi"><img src="images/logo_harapeko_w210.png"
               alt="はらぺこあおむし" /></a></li>
+        <li class="md-item"><a href="gallery.html#ICEBLIZZERD"><img src="images/logo_ICE_w210.png" alt="アイスブリザード" /></a></li>
         <li class="md-item"><a href="gallery.html#etc"><img src="images/logo_etc_w210.png" alt="etc" /></a></li>
       </ul>
     </section>
