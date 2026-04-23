@@ -198,6 +198,9 @@ th {
   --color-mint:   #B8E6D9;
   --color-sun:    #FFD66B;
 
+  /* Section heading (index 4セクション共通: NEWS/企業理念/商品情報/会社情報) */
+  --color-heading: var(--color-ink);
+
   /* IP accent */
   --ip-teenieping: #ff5288;
   --ip-moomin:     #4aa3c7;
@@ -1308,16 +1311,45 @@ header {
    12. NEWS LIST
    ========================================================================== */
 
-.news_heading {
+/* --- 共通セクション見出し (NEWS / 企業理念 / 商品情報 / 会社情報) --- */
+.news_heading,
+.philosophy_heading,
+.merchandise_heading,
+.company_heading {
   font-family: var(--font-heading);
-  font-size: var(--fs-2xl);
-  font-weight: var(--fw-bold);
-  color: var(--text-dark-brown) !important;
+  font-size: var(--fs-xl);
+  font-weight: var(--fw-extrabold);
+  color: var(--color-heading);
+  letter-spacing: var(--ls-normal);
+  line-height: var(--lh-snug);
+  margin-bottom: 20px;
+  padding-bottom: 14px;
+  position: relative;
+}
+
+.news_heading::after,
+.philosophy_heading::after,
+.merchandise_heading::after,
+.company_heading::after {
+  content: "";
+  display: block;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 40px;
+  height: 3px;
+  border-radius: 999px;
+  background: var(--grad-brand);
+}
+
+.news_heading {
   text-align: center;
   margin: 60px 0 40px;
-  display: block;
-  border-bottom: none;
-  position: relative;
+}
+
+.news_heading::after {
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .news-list {
@@ -1482,27 +1514,7 @@ header {
   margin-top: 0;
 }
 
-.philosophy_heading {
-  font-family: var(--font-heading);
-  font-size: var(--fs-xl);
-  font-weight: var(--fw-extrabold);
-  color: var(--color-ink);
-  margin-bottom: 20px;
-  position: relative;
-  padding-bottom: 14px;
-}
-
-.philosophy_heading::after {
-  content: "";
-  display: block;
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 40px;
-  height: 3px;
-  border-radius: 999px;
-  background: var(--grad-brand);
-}
+/* .philosophy_heading: 共通見出しスタイルを継承 (上部グループセレクタ参照) */
 
 .philosophy_img { width: clamp(320px, 35vw, 450px); }
 .philosophy_img img { max-width: 100%; }
@@ -1526,12 +1538,14 @@ header {
 }
 
 .merchandise_heading {
-  font-family: var(--font-body);
+  /* 共通見出しスタイルを継承、中央寄せ + 上マージンのみ上書き */
   text-align: center;
-  font-size: var(--fs-xl);
   margin-top: 60px;
-  margin-bottom: 20px;
-  font-weight: var(--fw-bold);
+}
+
+.merchandise_heading::after {
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .merchandise_container {
@@ -1594,28 +1608,7 @@ header {
   margin-top: 0;
 }
 
-.company_heading {
-  font-family: var(--font-heading);
-  font-size: var(--fs-xl);
-  font-weight: var(--fw-extrabold);
-  color: var(--color-ink) !important;
-  margin-bottom: 20px;
-  text-align: left;
-  padding-bottom: 14px;
-  position: relative;
-}
-
-.company_heading::after {
-  content: "";
-  display: block;
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 40px;
-  height: 3px;
-  border-radius: 999px;
-  background: var(--grad-brand);
-}
+/* .company_heading: 共通見出しスタイルを継承 (上部グループセレクタ参照) */
 
 .company_img {
   width: clamp(280px, 90vw, 450px);
