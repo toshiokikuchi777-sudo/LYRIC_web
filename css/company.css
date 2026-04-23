@@ -67,14 +67,7 @@ h2.company_heading {
 }
 
 .company_heading::before {
-  content: "";
-  display: block;
-  width: 8px;
-  height: 8px;
-  margin: 0 auto 10px;
-  border-radius: 50%;
-  background: var(--co-cta);
-  box-shadow: 0 0 0 4px rgba(255, 82, 136, 0.12);
+  content: none;
 }
 
 .company_heading::after {
