@@ -174,22 +174,47 @@ window.addEventListener('beforeunload', function () {
   sessionStorage.removeItem("modalShown");
 });
 
-// NEWSの日付フィルタリング（6ヶ月以前のものを非表示）
+// NEWS表示制御：最新5件を表示、それ以外は「もっと見る」で展開
 document.addEventListener("DOMContentLoaded", function () {
-  const newsItems = document.querySelectorAll('.news_item');
-  const now = new Date();
-  const sixMonthsAgo = new Date();
-  sixMonthsAgo.setMonth(now.getMonth() - 6);
+  const newsList = document.querySelector('.news-list');
+  if (!newsList) return;
 
-  newsItems.forEach(function (item) {
-    const timeElement = item.querySelector('time');
-    if (timeElement) {
-      const newsDateStr = timeElement.getAttribute('datetime');
-      const newsDate = new Date(newsDateStr);
+  const items = Array.from(newsList.querySelectorAll('.news_item'));
+  const VISIBLE_COUNT = 5;
 
-      if (newsDate < sixMonthsAgo) {
-        item.style.display = 'none';
-      }
+  // datetime降順でソート
+  items.sort(function (a, b) {
+    const da = new Date(a.querySelector('time')?.getAttribute('datetime') || 0);
+    const db = new Date(b.querySelector('time')?.getAttribute('datetime') || 0);
+    return db - da;
+  });
+
+  items.forEach(function (item, index) {
+    newsList.appendChild(item);
+    if (index >= VISIBLE_COUNT) {
+      item.classList.add('news_item--hidden');
+      item.style.display = 'none';
     }
   });
+
+  // もっと見るボタン追加
+  if (items.length > VISIBLE_COUNT) {
+    const moreBtn = document.createElement('button');
+    moreBtn.type = 'button';
+    moreBtn.className = 'news-more-btn';
+    moreBtn.textContent = 'もっと見る';
+    moreBtn.setAttribute('aria-expanded', 'false');
+    newsList.parentNode.insertBefore(moreBtn, newsList.nextSibling);
+
+    moreBtn.addEventListener('click', function () {
+      const expanded = moreBtn.getAttribute('aria-expanded') === 'true';
+      items.forEach(function (item, index) {
+        if (index >= VISIBLE_COUNT) {
+          item.style.display = expanded ? 'none' : '';
+        }
+      });
+      moreBtn.setAttribute('aria-expanded', String(!expanded));
+      moreBtn.textContent = expanded ? 'もっと見る' : '閉じる';
+    });
+  }
 });

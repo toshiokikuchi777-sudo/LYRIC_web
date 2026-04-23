@@ -1,5 +1,69 @@
 @charset "utf-8";
 
+/* ================================================
+ * LYRIC Design Tokens
+ * - color: サイトのブランドカラー（ピンク基調）
+ * - space: 余白スケール
+ * - radius: 角丸スケール
+ * - shadow: 影のプリセット
+ * - ease: イージング
+ * ================================================ */
+:root {
+  /* Brand colors */
+  --color-brand-primary: #fa86c4;   /* 薄ピンク（ブランド主色） */
+  --color-brand-accent:  #ff5288;   /* 濃ピンク（アクセント） */
+  --color-brand-soft:    #ffe6f0;   /* 淡ピンク（背景用） */
+  --color-brand-dot:     #ffc9dd;
+
+  /* Semantic text */
+  --color-text-base:     #333;
+  --color-text-muted:    #888;
+  --color-text-warm:     #ae8046;
+  --color-text-dark:     #5d3416;
+
+  /* Semantic background */
+  --color-bg-base:       #fff;
+  --color-bg-page:       linear-gradient(180deg, #ffecfa 0%, #d4efff 100%);
+
+  /* Glass / overlay */
+  --glass-bg:            rgba(255, 255, 255, 0.7);
+  --glass-border:        rgba(255, 255, 255, 0.4);
+
+  /* Shadow */
+  --shadow-soft:         0 8px 32px 0 rgba(31, 38, 135, 0.1);
+  --shadow-lift:         0 12px 30px 0 rgba(31, 38, 135, 0.15);
+
+  /* Radius */
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 24px;
+  --radius-pill: 999px;
+
+  /* Space scale */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-12: 48px;
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-bounce: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+  /* Legacy aliases（既存CSS互換。新規コードでは semantic 版を使う） */
+  --primary-bg: var(--color-bg-base);
+  --text-main: var(--color-text-base);
+  --text-dark-brown: var(--color-text-dark);
+  --primary-pink: var(--color-brand-primary);
+  --accent-pink: var(--color-brand-accent);
+  --accent-orange: var(--color-brand-accent);
+  --pale-pink: var(--color-brand-soft);
+  --dot-pink: var(--color-brand-dot);
+  --bg-gradient-top: var(--color-bg-page);
+}
+
 html {
   max-width: 100%;
   min-height: 100%;
@@ -11,36 +75,14 @@ html {
 @font-face {
   font-family: "M PLUS 1p";
   src: url("../MPLUS1p-Medium_subset.woff") format("woff");
+  font-display: swap;
 }
 
 body {
   /* 背景は body::before に移動して 3D canvas (z-index: -1) より背面に配置 */
   background: transparent;
-  /* 背景固定でリッチ感 */
   font-family: "M PLUS 1p", "Comic Sans MS", "M+A1 regular 30/2.0", sans-serif;
-  color: #ae8046;
-
-  /* 変数定義（サイトカラー：ピンク系） */
-  --primary-bg: #fff;
-  --text-main: #333;
-  --text-dark-brown: #5d3416;
-  /* 統一した濃い茶色 */
-
-  --primary-pink: #fa86c4;
-  /* 既存のピンク（薄め） */
-  --accent-pink: #ff5288;
-  /* アクセント用の濃いピンク */
-  --accent-orange: #ff5288;
-  /* 旧変数名もピンクにしておく（置換漏れ対策） */
-
-  /* 薄い色（背景用） */
-  --pale-pink: #ffe6f0;
-  --dot-pink: #ffc9dd;
-
-  --bg-gradient-top: linear-gradient(180deg, #ffecfa 0%, #d4efff 100%);
-  --glass-bg: rgba(255, 255, 255, 0.7);
-  --glass-border: rgba(255, 255, 255, 0.4);
-  --shadow-soft: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+  color: var(--color-text-warm);
 }
 
 body::before {
@@ -2668,4 +2710,97 @@ footer small {
   .md-item {
     flex: 0 0 20%;
   }
+}
+/* NEWS「もっと見る」ボタン */
+.news-more-btn {
+  display: block;
+  margin: 20px auto 40px;
+  padding: 12px 36px;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  color: #333;
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 999px;
+  backdrop-filter: blur(8px);
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+.news-more-btn:hover {
+  transform: translateY(-1px);
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+}
+.news-more-btn:active {
+  transform: translateY(0);
+}
+
+/* ヒーローオーバーレイ */
+.hero-section { position: relative; }
+.hero-overlay {
+  position: absolute;
+  z-index: 5;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: #fff;
+  pointer-events: none;
+  width: min(92%, 900px);
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.35);
+}
+.hero-tagline {
+  font-size: clamp(14px, 1.4vw, 18px);
+  letter-spacing: 0.28em;
+  font-weight: 600;
+  margin: 0 0 10px;
+  opacity: 0.95;
+}
+.hero-title {
+  font-size: clamp(22px, 3.2vw, 44px);
+  line-height: 1.45;
+  font-weight: 700;
+  margin: 0 0 22px;
+  letter-spacing: 0.04em;
+}
+.hero-badges {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: inline-flex;
+  gap: clamp(8px, 1.2vw, 18px);
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.hero-badges li {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px 18px;
+  background: rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 14px;
+  min-width: 92px;
+}
+.hero-badge-num {
+  font-size: clamp(18px, 2vw, 26px);
+  font-weight: 700;
+  line-height: 1;
+}
+.hero-badge-label {
+  font-size: clamp(10px, 0.9vw, 12px);
+  letter-spacing: 0.12em;
+  margin-top: 4px;
+  opacity: 0.9;
+}
+.sp-br { display: none; }
+@media screen and (max-width: 768px) {
+  .hero-overlay {
+    top: 40%;
+  }
+  .sp-br { display: inline; }
+  .hero-badges li { padding: 8px 12px; min-width: 76px; }
 }

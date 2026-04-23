@@ -1,0 +1,28 @@
+# macOS
+.DS_Store
+._*
+.AppleDouble
+.LSOverride
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Claude Code
+.claude/
+
+# Backup
+*.bak
+*.orig
+*~
+
+# Logs & temp
+contact_log.txt
+*.log
+tmp/
+
+# Numbers / Excel temp
+~$*
+.~*
