@@ -1711,6 +1711,7 @@ header {
   height: 48px;
   background: var(--color-ink);
   border-radius: 50%;
+  color: #fff;
   transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -1721,20 +1722,18 @@ header {
   box-shadow: 0 6px 18px rgba(255, 82, 136, 0.35);
 }
 
-.sns-item_container .sns-item a img,
-.sns-item_s_container .sns-item a img,
-.sns-item a img,
-.sp_sns a img {
-  width: 24px !important;
-  height: 24px !important;
-  filter: brightness(0) invert(1);
-  transition: none;
-  transform: none;
+.sns-item a .sns-glyph,
+.sp_sns a .sns-glyph {
+  width: 22px;
+  height: 22px;
+  display: block;
 }
 
-.sns-item a:hover img,
-.sp_sns a:hover img {
-  transform: none;
+/* 旧img要素が残っていても白グリフ相当に正規化 */
+.sns-item a img,
+.sp_sns a img {
+  width: 22px !important;
+  height: 22px !important;
   filter: brightness(0) invert(1);
 }
 
