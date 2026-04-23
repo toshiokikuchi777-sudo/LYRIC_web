@@ -480,7 +480,9 @@ header {
 
   .sp_sns_text {
     display: block;
-    color: var(--color-ip-475);
+    color: var(--color-ink);
+    font-weight: var(--fw-bold);
+    letter-spacing: var(--ls-wide);
     margin-top: 80px;
     text-align: center;
   }
@@ -494,7 +496,9 @@ header {
 
   .sp_sns_p_text {
     display: block;
-    color: var(--color-ip-teenieping);
+    color: var(--color-brand-accent);
+    font-weight: var(--fw-bold);
+    letter-spacing: var(--ls-wide);
     margin-top: 20px;
     text-align: center;
   }
@@ -565,8 +569,8 @@ header {
   .sp_sns {
     display: block;
     list-style-type: none;
-    width: 45px;
-    height: 45px;
+    width: 48px;
+    height: 48px;
   }
 
   /* 背景オーバーレイ */
@@ -1670,18 +1674,20 @@ header {
 
 .sns_title_l {
   text-align: center;
-  color: var(--color-ip-475);
+  color: var(--color-ink);
   font-size: var(--fs-lg);
   font-weight: var(--fw-bold);
+  letter-spacing: var(--ls-wide);
   width: 50%;
   margin-bottom: 15px;
 }
 
 .sns_title_p {
   text-align: center;
-  color: var(--color-ip-teenieping);
+  color: var(--color-brand-accent);
   font-size: var(--fs-lg);
   font-weight: var(--fw-bold);
+  letter-spacing: var(--ls-wide);
   width: 50%;
   margin-bottom: 15px;
 }
@@ -1690,21 +1696,46 @@ header {
 .sns-item_s_container {
   display: flex;
   justify-content: center;
-  gap: 30px;
+  gap: 20px;
   width: 50%;
   z-index: 100;
 }
 
-.sns-item_container .sns-item a img,
-.sns-item_s_container .sns-item a img { width: 50px; }
-
-.sns-item a img {
-  transition: transform 0.4s var(--ease-bounce);
+/* SNSアイコン統一スタイル: インク色の円背景 + 白グリフ + ピンクホバー */
+.sns-item a,
+.sp_sns a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  background: var(--color-ink);
+  border-radius: 50%;
+  transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.sns-item a:hover img {
-  transform: scale(1.2) rotate(10deg);
-  filter: drop-shadow(0 5px 15px rgba(235, 97, 0, 0.3));
+.sns-item a:hover,
+.sp_sns a:hover {
+  background: var(--color-brand-accent);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(255, 82, 136, 0.35);
+}
+
+.sns-item_container .sns-item a img,
+.sns-item_s_container .sns-item a img,
+.sns-item a img,
+.sp_sns a img {
+  width: 24px !important;
+  height: 24px !important;
+  filter: brightness(0) invert(1);
+  transition: none;
+  transform: none;
+}
+
+.sns-item a:hover img,
+.sp_sns a:hover img {
+  transform: none;
+  filter: brightness(0) invert(1);
 }
 
 @media all and (max-width: 800px) {
