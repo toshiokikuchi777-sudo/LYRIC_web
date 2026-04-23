@@ -477,6 +477,9 @@ header {
     display: block;
     font-size: var(--fs-xs);
     padding-top: 5px;
+    color: var(--color-ink);
+    font-weight: var(--fw-bold);
+    letter-spacing: var(--ls-wide);
   }
 
   .sp_menu_under { border-bottom: none; }
