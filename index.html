@@ -333,18 +333,40 @@
       </div>
     </section>
 
-    <!-- 偽アカウント注意喚起（バナーのリンク先） -->
-    <section id="fake-account-info" class="fake-account-info" aria-label="偽アカウント注意喚起">
-      <div class="fake-account-info-inner">
-        <h2 class="fake-account-info-title">弊社公式Instagramを装った偽アカウントにご注意ください</h2>
-        <p class="fake-account-info-body">
-          当社公式Instagram（<a href="https://www.instagram.com/lyric_toy_official/" target="_blank" rel="noopener noreferrer">@lyric_toy_official</a>）を装い、
-          当社と関係のないアカウントがダイレクトメッセージを送信している事例が確認されております。<br>
-          不審なDM内のURLは<strong>絶対にクリックせず</strong>、個人情報の入力もお控えください。
-          公式アカウント以外からのご連絡は当社と無関係です。
-        </p>
-      </div>
+    <!-- 偽アカウント警告バナー（モーダル起動） -->
+    <section class="fake-account-banner-container">
+      <a href="#fake-account-modal-content" class="fake-account-banner glass-card fade-in-up" id="fakeAccountBannerLink">
+        <div class="fake-account-banner-inner">
+          <span class="fake-account-icon" aria-hidden="true">⚠️</span>
+          <div class="fake-account-text">
+            <span class="fake-account-tag">重要なお知らせ</span>
+            <p class="fake-account-desc">弊社公式Instagramを装った偽アカウントにご注意ください</p>
+          </div>
+          <span class="fake-account-arrow" aria-hidden="true">›</span>
+        </div>
+      </a>
     </section>
+
+    <!-- 偽アカウント警告モーダルコンテンツ（hidden） -->
+    <div id="fake-account-modal-content" style="display:none;">
+      <div class="fake-modal-body">
+        <h3 class="fake-modal-title">⚠️ 偽アカウントに関する重要なお知らせ</h3>
+        <p class="fake-modal-lead">平素は、弊社商品をご愛顧賜り、誠にありがとうございます。</p>
+        <p class="fake-modal-text">この度、株式会社リリックの公式インスタグラムアカウント「<strong>＠lyric_toy_official</strong>」を装った偽アカウントの存在が確認されました。<br>
+          偽アカウントは、似たユーザー名、同じプロフィール画像、同じ説明文、同じURLを使用しておりますが、弊社とは一切関係ございません。</p>
+        <div class="fake-modal-alert">
+          <p>偽アカウントから送信されたDM（ダイレクトメッセージ）に記載されたURLのクリックを行うと、受信者側の情報や個人情報が発信者に取得され、悪用される可能性がございます。</p>
+          <p style="margin-top:10px;">株式会社リリックの公式インスタグラムアカウント（<strong>＠lyric_toy_official</strong>）以外からの不審なDMを受け取った場合は、記載されたURLにはアクセスせずDM自体を削除し、被害防止のため、偽アカウントのブロックをお願いいたします。</p>
+        </div>
+        <p class="fake-modal-text">偽アカウントにつきましては、発見次第弊社よりInstagram側へ問い合わせをし、スパム報告およびなりすましアカウントであることの報告などの対応を行っております。</p>
+        <p class="fake-modal-text">またほかにも同様の偽アカウントが存在する可能性がございますので、必ずユーザーネームなどをご確認いただきますよう、お願い申し上げます。</p>
+        <div class="fake-modal-contact">
+          <p><strong>■ お問い合わせ先</strong></p>
+          <p>株式会社リリック お問い合わせフォーム</p>
+          <p><a href="https://n-lyric.com/company.html#Form" target="_blank" rel="noopener noreferrer">https://n-lyric.com/company.html#Form</a></p>
+        </div>
+      </div>
+    </div>
 
     <!-- youtube -->
     <!-- youtube -->
@@ -678,6 +700,18 @@
         infinite: true,
         slidesToShow: 1,
         slidesToScroll: 1
+      });
+    });
+  </script>
+
+  <script>
+    $(function () {
+      // 偽アカウント警告モーダル
+      $('#fakeAccountBannerLink').modaal({
+        type: 'inline',
+        animation: 'fade',
+        overlay_opacity: 0.7,
+        custom_class: 'fake-account-modaal'
       });
     });
   </script>

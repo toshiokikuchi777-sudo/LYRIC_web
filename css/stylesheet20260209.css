@@ -3076,41 +3076,168 @@ footer small {
 }
 
 /* ================================================
- * Fake Account Info（バナーのリンク先）
+ * 偽アカウント警告バナー（モーダル起動）
  * ================================================ */
-.fake-account-info {
-  padding: clamp(40px, 6vw, 72px) 20px;
-  background: #fff;
+.fake-account-banner-container {
+  width: clamp(280px, 95vw, 1000px);
+  margin: 40px auto 28px;
+  padding: 0 20px;
 }
-.fake-account-info-inner {
-  max-width: 780px;
-  margin: 0 auto;
-  padding: clamp(24px, 3vw, 40px);
-  border-left: 4px solid #f5a63d;
-  background: #fff9f0;
-  border-radius: 10px;
-}
-.fake-account-info-title {
-  margin: 0 0 14px;
-  font-size: clamp(16px, 1.8vw, 20px);
-  font-weight: 700;
-  color: #b35a00;
-  line-height: 1.5;
-}
-.fake-account-info-body {
-  margin: 0;
-  font-size: 14px;
-  line-height: 1.85;
-  color: var(--color-text-base);
-}
-.fake-account-info-body a {
-  color: var(--color-brand-accent);
-  font-weight: 700;
+
+.fake-account-banner {
+  display: block;
   text-decoration: none;
-  border-bottom: 1px dotted currentColor;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+  border: 2px solid #e07000 !important;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #fff8f0;
+  cursor: pointer;
 }
-.fake-account-info-body a:hover {
-  opacity: 0.75;
+
+.fake-account-banner-inner {
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+
+.fake-account-icon {
+  font-size: 1.6rem;
+  padding: 15px 18px;
+  background: #e07000;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+}
+
+.fake-account-text {
+  flex-grow: 1;
+  padding: 12px 16px;
+}
+
+.fake-account-tag {
+  display: inline-block;
+  background: #e07000;
+  color: #fff;
+  font-size: 0.78rem;
+  font-weight: bold;
+  padding: 2px 10px;
+  border-radius: 50px;
+  margin-bottom: 5px;
+}
+
+.fake-account-desc {
+  color: #7a3a00;
+  font-weight: bold;
+  font-size: 1rem;
+  margin: 0;
+}
+
+.fake-account-arrow {
+  color: #e07000;
+  font-size: 1.8rem;
+  font-weight: bold;
+  padding: 15px 18px;
+  transition: transform 0.3s ease;
+}
+
+.fake-account-banner:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 35px rgba(224, 112, 0, 0.2) !important;
+}
+
+.fake-account-banner:hover .fake-account-arrow {
+  transform: translateX(5px);
+}
+
+@media all and (max-width: 800px) {
+  .fake-account-banner-inner {
+    flex-direction: column;
+    text-align: center;
+  }
+  .fake-account-icon {
+    width: 100%;
+    padding: 12px;
+    font-size: 1.4rem;
+  }
+  .fake-account-text {
+    width: 100%;
+    padding: 12px;
+  }
+  .fake-account-arrow {
+    display: none;
+  }
+}
+
+/* 偽アカウント警告モーダル内スタイル */
+.fake-account-modaal .modaal-content-container {
+  padding: 0;
+}
+
+.fake-modal-body {
+  padding: 30px;
+  max-width: 680px;
+  margin: 0 auto;
+  color: #333;
+  line-height: 1.8;
+}
+
+.fake-modal-title {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: #7a3a00 !important;
+  border-bottom: 3px solid #e07000;
+  padding-bottom: 12px;
+  margin-bottom: 20px;
+}
+
+.fake-modal-lead {
+  font-size: 0.95rem;
+  margin-bottom: 16px;
+  color: #555;
+}
+
+.fake-modal-text {
+  font-size: 0.92rem;
+  margin-bottom: 16px;
+  color: #444;
+}
+
+.fake-modal-alert {
+  background: #fff3e0;
+  border-left: 4px solid #e07000;
+  border-radius: 6px;
+  padding: 16px 20px;
+  margin: 16px 0 20px;
+  font-size: 0.92rem;
+  color: #5a2d00;
+  line-height: 1.8;
+}
+
+.fake-modal-contact {
+  background: #f5f5f5;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-top: 20px;
+  font-size: 0.9rem;
+  color: #444;
+}
+
+.fake-modal-contact a {
+  color: #e07000;
+  text-decoration: underline;
+  word-break: break-all;
+}
+
+@media all and (max-width: 600px) {
+  .fake-modal-body {
+    padding: 20px 16px;
+  }
+  .fake-modal-title {
+    font-size: 1.1rem;
+  }
 }
 
 /* ================================================
