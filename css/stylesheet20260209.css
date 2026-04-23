@@ -1114,18 +1114,47 @@ main {
 }
 
 .philosophy_text {
-  line-height: 2;
+  line-height: 1;
   text-align: left;
+  max-width: 400px;
 }
 
-.philosophy_text h2,
 .philosophy_text p {
-  width: 300px;
+  font-family: var(--font-body);
+  font-size: clamp(15px, 1.5vw, 17px);
+  line-height: 2.1;
+  color: var(--color-text-dark);
+  letter-spacing: 0.04em;
+  margin-top: 0;
 }
 
 .philosophy_heading {
-  font-family: var(--font-body);
-  font-size: 1.6rem;
+  font-family: var(--font-heading);
+  font-size: clamp(1.4rem, 2.2vw, 1.9rem);
+  font-weight: 800;
+  color: var(--color-ink);
+  margin-bottom: 20px;
+  position: relative;
+  padding-bottom: 14px;
+}
+
+.philosophy_heading::after {
+  content: "";
+  display: block;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 40px;
+  height: 3px;
+  border-radius: 999px;
+  background: var(--grad-brand);
+}
+
+@media all and (max-width: 800px) {
+  .philosophy_heading::after {
+    left: 50%;
+    transform: translateX(-50%);
+  }
 }
 
 .philosophy_img {
@@ -1182,40 +1211,26 @@ main {
 /* 会社概要 */
 .company_box {
   display: flex;
-  text-align: center;
-  align-items: center;
-  justify-content: center;
-  margin-top: 8vh;
-}
-
-.company_text {
-  width: 300px;
-  line-height: 2;
-  text-align: left;
-}
-
-.company_heading {
-  font-family: var(--font-body);
-  font-size: 1.6rem;
-}
-
-/* Company / Philosophy Section */
-.company_box {
-  display: flex;
   justify-content: center;
   align-items: center;
   gap: 40px;
-  /* 間隔を広げる */
   margin-bottom: 80px;
-  /* セクション間の余白 */
   padding: 0 20px;
 }
-
-/* 偶数番目のセクション（もしあれば）は逆配置にするなどの工夫も可能だが現状維持 */
 
 .company_text {
   width: clamp(280px, 90vw, 500px);
   max-width: 100%;
+  text-align: left;
+}
+
+.company_text p {
+  font-family: var(--font-body);
+  font-size: clamp(15px, 1.5vw, 17px);
+  line-height: 2.1;
+  color: var(--color-text-dark);
+  letter-spacing: 0.04em;
+  margin-top: 0;
 }
 
 /* 共通見出しスタイル */
@@ -1228,16 +1243,43 @@ main {
   color: var(--text-dark-brown);
   text-align: center;
   margin: 60px 0 40px;
-  /* 上下の余白 */
   display: block;
-  /* ブロック要素として中央揃え */
   border-bottom: none;
-  /* 既存の下線をリセット */
   position: relative;
 }
 
-/* 下線が必要な場合はpseudo要素などで統一感出すか、border-bottomを追加 */
-/* 今回はシンプルに統一 */
+/* 会社概要見出し */
+.company_heading {
+  font-family: var(--font-heading);
+  font-size: clamp(1.4rem, 2.2vw, 1.9rem);
+  font-weight: 800;
+  color: var(--color-ink);
+  margin-bottom: 20px;
+  text-align: left;
+  padding-bottom: 14px;
+}
+
+.company_heading::after {
+  content: "";
+  display: block;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 40px;
+  height: 3px;
+  border-radius: 999px;
+  background: var(--grad-brand);
+}
+
+@media all and (max-width: 800px) {
+  .company_heading {
+    text-align: center;
+  }
+  .company_heading::after {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
 
 .company_p {
   line-height: 1.8;
