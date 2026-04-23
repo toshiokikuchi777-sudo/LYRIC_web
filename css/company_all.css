@@ -52,7 +52,7 @@ ul, ol {
   list-style: none;
 }
 
-dt { font-weight: bold; }
+dt { font-weight: var(--fw-bold); }
 dd { margin-left: 0; }
 
 hr {
@@ -166,7 +166,7 @@ td, th {
 }
 th {
   text-align: left;
-  font-weight: bold;
+  font-weight: var(--fw-bold);
 }
 
 
@@ -219,6 +219,19 @@ th {
   --font-body:    "Noto Sans JP", "M PLUS Rounded 1c", "M PLUS 1p", "Hiragino Sans", "ヒラギノ角ゴシック", "Yu Gothic", "Meiryo", system-ui, sans-serif;
   --font-heading: "M PLUS Rounded 1c", "Noto Sans JP", "M PLUS 1p", "Hiragino Maru Gothic ProN", "Yu Gothic", sans-serif;
 
+  /* Typography Scale (統一スケール — index_all.css と共通) */
+  --fs-2xs: clamp(10px, 0.85vw, 12px);
+  --fs-xs:  clamp(11px, 1vw, 13px);
+  --fs-sm:  clamp(12px, 1.1vw, 14px);
+  --fs-md:  clamp(14px, 1.25vw, 16px);
+  --fs-lg:  clamp(16px, 1.6vw, 20px);
+  --fs-xl:  clamp(20px, 2.4vw, 30px);
+  --fs-2xl: clamp(28px, 3.6vw, 42px);
+  --fs-3xl: clamp(32px, 5.2vw, 68px);
+  --ls-tight: 0.02em; --ls-normal: 0.04em; --ls-wide: 0.1em; --ls-wider: 0.18em; --ls-widest: 0.3em;
+  --fw-medium: 500; --fw-semibold: 600; --fw-bold: 700; --fw-extrabold: 800;
+  --lh-tight: 1.25; --lh-snug: 1.4; --lh-base: 1.6; --lh-loose: 1.8;
+
   /* Legacy aliases */
   --primary-bg:       var(--color-bg-base);
   --text-main:        var(--color-text-base);
@@ -257,8 +270,8 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: var(--color-text-warm);
-  letter-spacing: 0.02em;
-  line-height: 1.75;
+  letter-spacing: var(--ls-tight);
+  line-height: var(--lh-loose);
 }
 
 body::before {
@@ -276,7 +289,7 @@ body::before {
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-heading);
   font-feature-settings: "palt" 1;
-  letter-spacing: 0.04em;
+  letter-spacing: var(--ls-normal);
   color: var(--text-dark-brown);
 }
 
@@ -324,14 +337,14 @@ header {
   gap: clamp(12px, 1.8vw, 26px);
   margin: 0;
   width: auto;
-  font-weight: bold;
+  font-weight: var(--fw-bold);
   flex-wrap: nowrap;
   align-items: center;
 }
 
 #sp_menu a {
   color: var(--text-dark-brown);
-  font-weight: 700;
+  font-weight: var(--fw-bold);
   transition: color 0.3s;
 }
 
@@ -413,7 +426,7 @@ header {
 
   .page_link_recruit a {
     padding: 10px 30px;
-    font-size: 1.1rem;
+    font-size: var(--fs-lg);
   }
 
   /* 三本線ボタン */
@@ -438,7 +451,7 @@ header {
 
   .sp_btn_text {
     display: block;
-    font-size: 11px;
+    font-size: var(--fs-xs);
     padding-top: 5px;
   }
 
@@ -553,7 +566,7 @@ footer {
 }
 
 footer small {
-  font-size: 12px;
+  font-size: var(--fs-xs);
   color: #fff;
   text-align: center;
   width: 100%;
@@ -570,8 +583,8 @@ footer small {
 .sns_title_l {
   text-align: center;
   color: #ee8236;
-  font-size: 18px;
-  font-weight: bold;
+  font-size: var(--fs-lg);
+  font-weight: var(--fw-bold);
   width: 50%;
   margin-bottom: 15px;
 }
@@ -579,8 +592,8 @@ footer small {
 .sns_title_p {
   text-align: center;
   color: #ff8dea;
-  font-size: 18px;
-  font-weight: bold;
+  font-size: var(--fs-lg);
+  font-weight: var(--fw-bold);
   width: 50%;
   margin-bottom: 15px;
 }
@@ -718,9 +731,9 @@ h2.company_heading {
   margin: 0 auto 28px !important;
   padding: 14px 24px 18px !important;
   font-family: var(--font-heading);
-  font-weight: 800;
-  font-size: clamp(20px, 2.6vw, 30px);
-  letter-spacing: 0.05em;
+  font-weight: var(--fw-extrabold);
+  font-size: var(--fs-xl);
+  letter-spacing: var(--ls-normal);
   color: var(--co-ink);
   text-align: center !important;
   background: transparent !important;
@@ -742,7 +755,7 @@ h2.company_heading {
 }
 
 h1.company_heading {
-  font-size: clamp(26px, 3.4vw, 40px);
+  font-size: var(--fs-2xl);
 }
 
 /* ---- パネル (.Form) カード化 ---- */
@@ -755,7 +768,7 @@ h1.company_heading {
   box-shadow: var(--co-panel-shadow);
   overflow: hidden;
   font-family: var(--font-body);
-  line-height: 1.8;
+  line-height: var(--lh-loose);
   color: var(--co-td-text);
 }
 
@@ -770,7 +783,7 @@ h1.company_heading {
   padding: 16px 22px;
   vertical-align: top;
   border-bottom: 1px solid rgba(43, 27, 58, 0.06);
-  font-size: 15px;
+  font-size: var(--fs-md);
 }
 
 .Form tr:last-child th,
@@ -782,18 +795,18 @@ h1.company_heading {
   width: 30%;
   min-width: 140px;
   text-align: center;
-  font-weight: 700;
-  letter-spacing: 0.04em;
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--ls-normal);
   border-right: 1px solid rgba(235, 97, 0, 0.08);
 }
 
 /* 単独 td (取引先一覧・本文) */
 .Form td:only-child {
   text-align: center;
-  font-weight: 600;
+  font-weight: var(--fw-semibold);
   background: var(--co-td-bg-alt);
   color: var(--co-ink);
-  letter-spacing: 0.02em;
+  letter-spacing: var(--ls-tight);
 }
 
 /* 単独 th (プライバシー見出し) */
@@ -804,7 +817,7 @@ h1.company_heading {
   color: var(--co-accent-deep);
   border-left: 4px solid var(--co-accent);
   padding-left: 22px;
-  font-size: 15px;
+  font-size: var(--fs-md);
 }
 
 .Form tr:hover td,
@@ -826,7 +839,7 @@ h1.company_heading {
   display: inline-block;
   margin-right: 10px;
   cursor: pointer;
-  font-weight: 500;
+  font-weight: var(--fw-medium);
   color: var(--co-ink);
 }
 
@@ -840,7 +853,7 @@ h1.company_heading {
   border: 1.5px solid rgba(43, 27, 58, 0.15);
   border-radius: 10px;
   box-sizing: border-box;
-  font-size: 15px;
+  font-size: var(--fs-md);
   font-family: inherit;
   background: #fff;
   color: var(--co-ink);
@@ -860,11 +873,11 @@ h1.company_heading {
 .Form textarea {
   height: 140px;
   resize: vertical;
-  line-height: 1.7;
+  line-height: var(--lh-loose);
 }
 
 .Form input[type="file"] {
-  font-size: 14px;
+  font-size: var(--fs-md);
   padding: 6px 0;
 }
 
@@ -881,9 +894,9 @@ h1.company_heading {
   padding: 2px 8px;
   background: var(--co-required-bg);
   color: #fff;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.06em;
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--ls-normal);
   border: 0;
   border-radius: 999px;
   vertical-align: middle;
@@ -898,9 +911,9 @@ button[type="submit"] {
   color: #fff;
   border: 0;
   border-radius: 999px;
-  font-size: 17px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
+  font-size: var(--fs-lg);
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--ls-wide);
   cursor: pointer;
   box-shadow: 0 12px 28px rgba(255, 82, 136, 0.28);
   transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease;
@@ -945,10 +958,10 @@ h3[style*="text-align:center"] {
   margin: 56px auto 20px;
   padding-bottom: 12px;
   font-family: var(--font-heading);
-  font-weight: 700;
-  font-size: clamp(17px, 2vw, 22px);
+  font-weight: var(--fw-bold);
+  font-size: var(--fs-lg);
   color: var(--co-ink);
-  letter-spacing: 0.05em;
+  letter-spacing: var(--ls-normal);
 }
 
 h3[style*="text-align:center"]::after {
@@ -980,7 +993,7 @@ body > div[style*="height:50px"] {
   .Form th,
   .Form td {
     padding: 14px 16px;
-    font-size: 14px;
+    font-size: var(--fs-md);
   }
 
   .Form th {
@@ -1015,9 +1028,9 @@ body > div[style*="height:50px"] {
   .Form th {
     background: transparent;
     color: var(--co-accent-deep);
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 0.08em;
+    font-size: var(--fs-xs);
+    font-weight: var(--fw-bold);
+    letter-spacing: var(--ls-wide);
     text-transform: none;
     padding-top: 18px;
     padding-bottom: 2px;
@@ -1039,7 +1052,7 @@ body > div[style*="height:50px"] {
   }
 
   .company_heading {
-    font-size: clamp(18px, 5vw, 22px);
+    font-size: var(--fs-lg);
     margin-bottom: 20px;
   }
 
@@ -1047,6 +1060,6 @@ body > div[style*="height:50px"] {
     min-width: 0;
     width: 100%;
     padding: 14px 20px;
-    font-size: 16px;
+    font-size: var(--fs-lg);
   }
 }

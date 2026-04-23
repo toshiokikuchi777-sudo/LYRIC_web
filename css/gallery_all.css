@@ -55,7 +55,7 @@ ul, ol {
   list-style: none;
 }
 
-dt { font-weight: bold; }
+dt { font-weight: var(--fw-bold); }
 dd { margin-left: 0; }
 
 hr {
@@ -169,7 +169,7 @@ td, th {
 }
 th {
   text-align: left;
-  font-weight: bold;
+  font-weight: var(--fw-bold);
 }
 
 
@@ -222,6 +222,19 @@ th {
   --font-body:    "Noto Sans JP", "M PLUS Rounded 1c", "M PLUS 1p", "Hiragino Sans", "ヒラギノ角ゴシック", "Yu Gothic", "Meiryo", system-ui, sans-serif;
   --font-heading: "M PLUS Rounded 1c", "Noto Sans JP", "M PLUS 1p", "Hiragino Maru Gothic ProN", "Yu Gothic", sans-serif;
 
+  /* Typography Scale (統一スケール — index_all.css と共通) */
+  --fs-2xs: clamp(10px, 0.85vw, 12px);
+  --fs-xs:  clamp(11px, 1vw, 13px);
+  --fs-sm:  clamp(12px, 1.1vw, 14px);
+  --fs-md:  clamp(14px, 1.25vw, 16px);
+  --fs-lg:  clamp(16px, 1.6vw, 20px);
+  --fs-xl:  clamp(20px, 2.4vw, 30px);
+  --fs-2xl: clamp(28px, 3.6vw, 42px);
+  --fs-3xl: clamp(32px, 5.2vw, 68px);
+  --ls-tight: 0.02em; --ls-normal: 0.04em; --ls-wide: 0.1em; --ls-wider: 0.18em; --ls-widest: 0.3em;
+  --fw-medium: 500; --fw-semibold: 600; --fw-bold: 700; --fw-extrabold: 800;
+  --lh-tight: 1.25; --lh-snug: 1.4; --lh-base: 1.6; --lh-loose: 1.8;
+
   /* Legacy aliases */
   --primary-bg:       var(--color-bg-base);
   --text-main:        var(--color-text-base);
@@ -260,8 +273,8 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: var(--color-text-warm);
-  letter-spacing: 0.02em;
-  line-height: 1.75;
+  letter-spacing: var(--ls-tight);
+  line-height: var(--lh-loose);
 }
 
 body::before {
@@ -279,7 +292,7 @@ body::before {
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-heading);
   font-feature-settings: "palt" 1;
-  letter-spacing: 0.04em;
+  letter-spacing: var(--ls-normal);
   color: var(--text-dark-brown);
 }
 
@@ -336,14 +349,14 @@ header {
   gap: clamp(12px, 1.8vw, 26px);
   margin: 0;
   width: auto;
-  font-weight: bold;
+  font-weight: var(--fw-bold);
   flex-wrap: nowrap;
   align-items: center;
 }
 
 #sp_menu a {
   color: var(--text-dark-brown);
-  font-weight: 700;
+  font-weight: var(--fw-bold);
   transition: color 0.3s;
 }
 
@@ -425,7 +438,7 @@ header {
 
   .page_link_recruit a {
     padding: 10px 30px;
-    font-size: 1.1rem;
+    font-size: var(--fs-lg);
   }
 
   /* 三本線ボタン */
@@ -450,7 +463,7 @@ header {
 
   .sp_btn_text {
     display: block;
-    font-size: 11px;
+    font-size: var(--fs-xs);
     padding-top: 5px;
   }
 
@@ -564,11 +577,11 @@ header {
 
 .merchandise_heading {
   font-family: var(--font-heading);
-  font-size: 2rem;
+  font-size: var(--fs-2xl);
   color: var(--text-dark-brown);
   text-align: center;
   margin: 60px 0 40px;
-  font-weight: bold;
+  font-weight: var(--fw-bold);
 }
 
 .merchandise_container {
@@ -625,7 +638,7 @@ section.main_gallery {
 
 .main_gallery h2 {
   font-family: var(--font-heading);
-  font-size: 1.8rem;
+  font-size: var(--fs-2xl);
   color: var(--text-dark-brown);
   text-align: center;
   border-bottom: 3px solid var(--accent-pink);
@@ -687,27 +700,27 @@ section.main_gallery {
 
 /* 商品名 */
 .card .name {
-  font-size: 1.1rem;
-  font-weight: bold;
+  font-size: var(--fs-lg);
+  font-weight: var(--fw-bold);
   color: var(--text-dark-brown);
   margin-bottom: 10px;
   min-height: 3em;
   display: flex;
   align-items: center;
   justify-content: center;
-  line-height: 1.4;
+  line-height: var(--lh-snug);
 }
 
 /* 商品名内のサブ表記 (.prod p.name span) */
 .prod p.name span {
-  font-size: 1rem;
-  font-weight: normal;
+  font-size: var(--fs-md);
+  font-weight: var(--fw-medium);
   display: block;
 }
 
 /* 価格 */
 .card .price {
-  font-size: 0.9rem;
+  font-size: var(--fs-md);
   color: #666;
   margin-bottom: 15px;
 }
@@ -725,7 +738,7 @@ section.main_gallery {
 
 /* 発売元 */
 .card .agency {
-  font-size: 0.8rem;
+  font-size: var(--fs-sm);
   color: #999;
   margin-bottom: 15px;
   margin-top: auto;
@@ -739,7 +752,7 @@ section.main_gallery {
   margin-top: 10px;
   text-align: center;
   color: #fff;
-  font-size: 1rem;
+  font-size: var(--fs-md);
 }
 
 .card .purchase a {
@@ -749,7 +762,7 @@ section.main_gallery {
   color: #fff;
   text-decoration: none;
   border-radius: 20px;
-  font-size: 0.9rem;
+  font-size: var(--fs-md);
   transition: opacity 0.3s, background 0.3s;
   margin: 5px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
@@ -763,7 +776,7 @@ section.main_gallery {
 /* 楽天「ご購入はこちら」アイコン (Font Awesome) */
 .card .purchase a::after {
   font-family: "Font Awesome 5 Free";
-  font-weight: 900;
+  font-weight: var(--fw-extrabold);
   content: "\f138";
   margin-left: 0.5rem;
 }
@@ -792,8 +805,8 @@ section.main_gallery {
 .sns_title_l {
   text-align: center;
   color: #ee8236;
-  font-size: 18px;
-  font-weight: bold;
+  font-size: var(--fs-lg);
+  font-weight: var(--fw-bold);
   width: 50%;
   margin-bottom: 15px;
 }
@@ -801,8 +814,8 @@ section.main_gallery {
 .sns_title_p {
   text-align: center;
   color: #ff8dea;
-  font-size: 18px;
-  font-weight: bold;
+  font-size: var(--fs-lg);
+  font-weight: var(--fw-bold);
   width: 50%;
   margin-bottom: 15px;
 }
@@ -869,7 +882,7 @@ footer {
 }
 
 footer small {
-  font-size: 12px;
+  font-size: var(--fs-xs);
   color: #fff;
   text-align: center;
   width: 100%;
@@ -952,7 +965,7 @@ footer small {
   }
 
   .main_gallery h2 {
-    font-size: 1.4rem;
+    font-size: var(--fs-xl);
     margin-bottom: 25px;
     border-bottom-width: 2px;
   }
@@ -965,14 +978,14 @@ footer small {
   .card img { height: 140px; }
 
   .card .name {
-    font-size: 0.9rem;
+    font-size: var(--fs-md);
     min-height: 2.8em;
   }
 
-  .card .price { font-size: 0.8rem; }
+  .card .price { font-size: var(--fs-sm); }
 
   .card .purchase a {
-    font-size: 0.75rem;
+    font-size: var(--fs-xs);
     padding: 6px 10px;
   }
 }

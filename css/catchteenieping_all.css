@@ -32,7 +32,7 @@ button[disabled], [type="button"][disabled], [type="reset"][disabled], [type="su
 table { border-collapse: collapse; border-spacing: 0; }
 caption { text-align: left; }
 td, th { vertical-align: top; padding: 0; }
-th { text-align: left; font-weight: bold; }
+th { text-align: left; font-weight: var(--fw-bold); }
 
 /* ==========================================================================
    2. Design Tokens
@@ -73,6 +73,18 @@ th { text-align: left; font-weight: bold; }
   /* Fonts */
   --font-base: "Noto Sans JP", "Hiragino Sans", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
   --font-heading: "M PLUS Rounded 1c", "Noto Sans JP", "Hiragino Sans", Meiryo, sans-serif;
+  /* Typography Scale (統一スケール — index_all.css と共通) */
+  --fs-2xs: clamp(10px, 0.85vw, 12px);
+  --fs-xs:  clamp(11px, 1vw, 13px);
+  --fs-sm:  clamp(12px, 1.1vw, 14px);
+  --fs-md:  clamp(14px, 1.25vw, 16px);
+  --fs-lg:  clamp(16px, 1.6vw, 20px);
+  --fs-xl:  clamp(20px, 2.4vw, 30px);
+  --fs-2xl: clamp(28px, 3.6vw, 42px);
+  --fs-3xl: clamp(32px, 5.2vw, 68px);
+  --ls-tight: 0.02em; --ls-normal: 0.04em; --ls-wide: 0.1em; --ls-wider: 0.18em; --ls-widest: 0.3em;
+  --fw-medium: 500; --fw-semibold: 600; --fw-bold: 700; --fw-extrabold: 800;
+  --lh-tight: 1.25; --lh-snug: 1.4; --lh-base: 1.6; --lh-loose: 1.8;
 }
 
 /* ==========================================================================
@@ -82,13 +94,13 @@ html { scroll-behavior: smooth; }
 body {
   font-family: var(--font-base);
   color: var(--color-text-base);
-  line-height: 1.7;
+  line-height: var(--lh-loose);
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   /* body の background は HTML 内 <style> 側でページ専用グラデーションを指定 */
 }
-h1, h2, h3, h4, h5, h6 { font-family: var(--font-heading); line-height: 1.4; }
+h1, h2, h3, h4, h5, h6 { font-family: var(--font-heading); line-height: var(--lh-snug); }
 a { transition: color .2s var(--ease-standard), opacity .2s var(--ease-standard); }
 a:hover { opacity: .85; }
 img, picture { max-width: 100%; height: auto; }
@@ -141,11 +153,11 @@ header {
   transition: transform .3s var(--ease-emphasized), opacity .3s var(--ease-standard);
 }
 .sp_btn_text {
-  font-size: 9px;
+  font-size: var(--fs-2xs);
   color: #fff;
-  letter-spacing: 0.08em;
+  letter-spacing: var(--ls-wide);
   margin-top: 4px;
-  font-weight: 700;
+  font-weight: var(--fw-bold);
 }
 
 #input:checked ~ #nav_open .sp_btn:nth-child(1) { transform: translateY(6px) rotate(45deg); }
@@ -187,8 +199,8 @@ header {
 }
 #sp_menu .page_link a {
   display: block;
-  font-size: 16px;
-  font-weight: 700;
+  font-size: var(--fs-lg);
+  font-weight: var(--fw-bold);
   color: var(--color-text-base);
   font-family: var(--font-heading);
 }
@@ -212,11 +224,11 @@ header {
 .sp_sns_text,
 .sp_sns_p_text,
 .sp_sns_s_text {
-  font-size: 13px;
-  font-weight: 700;
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-bold);
   margin: 18px 0 10px;
   color: var(--color-text-soft);
-  letter-spacing: 0.06em;
+  letter-spacing: var(--ls-normal);
 }
 .sp_sns_p_text { color: var(--color-brand-accent); }
 .sp_sns_s_text { color: var(--color-ip-sw); }
@@ -275,13 +287,13 @@ header {
 .ctp_heading {
   display: block;
   width: clamp(350px, 65vw, 61vw);
-  font-size: clamp(1.5rem, 1.5rem, 1.9rem);
-  letter-spacing: 0.07em;
+  font-size: var(--fs-xl);
+  letter-spacing: var(--ls-normal);
   font-family: var(--font-heading);
   margin: 0 auto 3px;
   padding: clamp(15px, 1vw, 23px);
   text-align: center;
-  font-weight: 500;
+  font-weight: var(--fw-medium);
   color: var(--color-text-base);
 }
 .ctp_main1 {
@@ -298,7 +310,7 @@ header {
 /* Purchase Button */
 .purchase_ctp {
   color: #fff;
-  font-size: 1.5rem;
+  font-size: var(--fs-xl);
   margin-top: 1rem;
   margin-bottom: 0.5rem;
   text-align: center;
@@ -310,7 +322,7 @@ header {
   padding: 0.5rem 1.5rem 0.5rem 1.5rem;
   border-radius: 2vh;
   transition: background-image .25s var(--ease-standard), transform .2s var(--ease-standard);
-  font-weight: 700;
+  font-weight: var(--fw-bold);
 }
 .purchase_ctp a:hover {
   background-image: var(--grad-purchase-hover);
@@ -319,7 +331,7 @@ header {
 }
 .purchase_ctp a::after {
   font-family: "Font Awesome 5 Free";
-  font-weight: 900;
+  font-weight: var(--fw-extrabold);
   content: "\f138";
   margin-left: 0.5rem;
 }
@@ -338,9 +350,9 @@ header {
 .sns_title_s {
   display: inline-block;
   font-family: var(--font-heading);
-  font-weight: 700;
-  font-size: clamp(1rem, 1.4vw, 1.25rem);
-  letter-spacing: 0.06em;
+  font-weight: var(--fw-bold);
+  font-size: var(--fs-md);
+  letter-spacing: var(--ls-normal);
   margin-bottom: 14px;
   padding: 4px 16px;
   border-radius: var(--radius-pill);
@@ -405,9 +417,9 @@ footer {
 }
 .copyright {
   display: block;
-  font-size: 12px;
+  font-size: var(--fs-xs);
   color: var(--color-text-soft);
-  letter-spacing: 0.08em;
+  letter-spacing: var(--ls-wide);
 }
 
 /* ==========================================================================
@@ -425,9 +437,9 @@ footer {
   .ctp_heading {
     width: 90vw;
   }
-  .ctp_heading { font-size: 1.15rem; padding: 12px; }
+  .ctp_heading { font-size: var(--fs-lg); padding: 12px; }
   .ctp_product { margin-bottom: 36px; }
-  .purchase_ctp { font-size: 1.15rem; }
+  .purchase_ctp { font-size: var(--fs-lg); }
   .sns-item a { width: 48px; height: 48px; }
   .sns-item img { width: 26px; height: 26px; }
   .page-top img { width: 56px; }

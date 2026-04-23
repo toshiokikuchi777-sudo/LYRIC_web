@@ -27,7 +27,7 @@ button, [type="button"], [type="reset"], [type="submit"] { cursor: pointer; }
 table { border-collapse: collapse; border-spacing: 0; }
 caption { text-align: left; }
 td, th { vertical-align: top; padding: 0; }
-th { text-align: left; font-weight: bold; }
+th { text-align: left; font-weight: var(--fw-bold); }
 
 /* ==========================================================================
    2. Design Tokens
@@ -61,6 +61,18 @@ th { text-align: left; font-weight: bold; }
   /* Text */
   --color-text-base: #333;
   --color-text-soft: #555;
+  /* Typography Scale (統一スケール — index_all.css と共通) */
+  --fs-2xs: clamp(10px, 0.85vw, 12px);
+  --fs-xs:  clamp(11px, 1vw, 13px);
+  --fs-sm:  clamp(12px, 1.1vw, 14px);
+  --fs-md:  clamp(14px, 1.25vw, 16px);
+  --fs-lg:  clamp(16px, 1.6vw, 20px);
+  --fs-xl:  clamp(20px, 2.4vw, 30px);
+  --fs-2xl: clamp(28px, 3.6vw, 42px);
+  --fs-3xl: clamp(32px, 5.2vw, 68px);
+  --ls-tight: 0.02em; --ls-normal: 0.04em; --ls-wide: 0.1em; --ls-wider: 0.18em; --ls-widest: 0.3em;
+  --fw-medium: 500; --fw-semibold: 600; --fw-bold: 700; --fw-extrabold: 800;
+  --lh-tight: 1.25; --lh-snug: 1.4; --lh-base: 1.6; --lh-loose: 1.8;
 }
 
 /* ==========================================================================
@@ -70,14 +82,14 @@ html { scroll-behavior: smooth; }
 body {
   font-family: var(--font-base);
   color: var(--color-text-base);
-  line-height: 1.7;
+  line-height: var(--lh-loose);
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   /* body の background はページ専用 <style> 側で指定 */
 }
 body > * { position: relative; z-index: 1; }
-h1, h2, h3, h4, h5, h6 { font-family: var(--font-heading); line-height: 1.4; }
+h1, h2, h3, h4, h5, h6 { font-family: var(--font-heading); line-height: var(--lh-snug); }
 a { transition: color .2s var(--ease-standard), opacity .2s var(--ease-standard); }
 img, picture { max-width: 100%; height: auto; }
 
@@ -141,11 +153,11 @@ header {
   transition: transform .3s var(--ease-emphasized), opacity .3s var(--ease-standard);
 }
 .sp_btn_text {
-  font-size: 9px;
+  font-size: var(--fs-2xs);
   color: #fff;
-  letter-spacing: 0.08em;
+  letter-spacing: var(--ls-wide);
   margin-top: 4px;
-  font-weight: 700;
+  font-weight: var(--fw-bold);
 }
 #input:checked ~ #nav_open .sp_btn:nth-child(1) { transform: translateY(6px) rotate(45deg); }
 #input:checked ~ #nav_open .sp_btn:nth-child(2) { opacity: 0; }
@@ -186,8 +198,8 @@ header {
 }
 #sp_menu .page_link a {
   display: block;
-  font-size: 16px;
-  font-weight: 700;
+  font-size: var(--fs-lg);
+  font-weight: var(--fw-bold);
   color: var(--color-text-base);
   font-family: var(--font-heading);
 }
@@ -209,11 +221,11 @@ header {
 }
 .sp_sns_text,
 .sp_sns_p_text {
-  font-size: 13px;
-  font-weight: 700;
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-bold);
   margin: 18px 0 10px;
   color: var(--color-text-soft);
-  letter-spacing: 0.06em;
+  letter-spacing: var(--ls-normal);
 }
 .sp_sns_p_text { color: var(--color-brand-accent); }
 .sp_sns_menu {
@@ -278,11 +290,11 @@ header {
 .catch-copy h2,
 .catch-copy p { color: var(--color-ctp2-magenta); }
 .catch-copy h2 {
-  font-size: 2rem;
-  font-weight: bold;
+  font-size: var(--fs-2xl);
+  font-weight: var(--fw-bold);
   margin-bottom: 10px;
 }
-.catch-copy p { font-size: 1.2rem; }
+.catch-copy p { font-size: var(--fs-lg); }
 .catch-logo {
   max-width: 70%;
   height: auto;
@@ -308,8 +320,8 @@ header {
 }
 .product h2 {
   color: var(--color-ctp2-pink);
-  font-weight: bold;
-  font-size: 1.8rem;
+  font-weight: var(--fw-bold);
+  font-size: var(--fs-2xl);
   text-align: center;
   margin-bottom: 20px;
 }
@@ -388,7 +400,7 @@ header {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  font-size: 2rem;
+  font-size: var(--fs-2xl);
   color: var(--color-ctp2-pink);
   background-color: rgba(255, 255, 255, 0.7);
   border-radius: 50%;
@@ -427,8 +439,8 @@ header {
    ========================================================================== */
 .product-info {
   color: var(--color-ctp2-text);
-  font-size: 16px;
-  line-height: 1.8;
+  font-size: var(--fs-lg);
+  line-height: var(--lh-loose);
   background-color: rgba(255, 255, 255, 0.6);
   padding: 15px 20px;
   border-radius: 15px;
@@ -452,9 +464,9 @@ header {
   color: #fff;
   padding: 12px 24px;
   border-radius: 25px;
-  font-weight: bold;
+  font-weight: var(--fw-bold);
   text-decoration: none;
-  font-size: 1rem;
+  font-size: var(--fs-md);
   transition: transform .3s var(--ease-standard), box-shadow .3s var(--ease-standard), background .3s var(--ease-standard);
 }
 .purchase-button:hover {
@@ -475,9 +487,9 @@ header {
 .sns_title_p {
   display: inline-block;
   font-family: var(--font-heading);
-  font-weight: 700;
-  font-size: clamp(1rem, 1.4vw, 1.25rem);
-  letter-spacing: 0.06em;
+  font-weight: var(--fw-bold);
+  font-size: var(--fs-md);
+  letter-spacing: var(--ls-normal);
   margin-bottom: 14px;
   padding: 4px 16px;
   border-radius: var(--radius-pill);
@@ -534,8 +546,8 @@ footer {
 }
 .footer_list li a {
   color: var(--color-text-base);
-  font-size: 14px;
-  font-weight: 500;
+  font-size: var(--fs-md);
+  font-weight: var(--fw-medium);
   transition: color .2s var(--ease-standard);
 }
 .footer_list li a:hover { color: var(--color-brand-accent); }
@@ -560,9 +572,9 @@ footer {
 }
 .copyright {
   display: block;
-  font-size: 12px;
+  font-size: var(--fs-xs);
   color: var(--color-text-soft);
-  letter-spacing: 0.08em;
+  letter-spacing: var(--ls-wide);
 }
 
 /* ==========================================================================
@@ -572,7 +584,7 @@ footer {
   .product-section { flex-direction: column; align-items: center; }
   .slide.wide { width: 100%; }
   .top-image { max-width: 100%; }
-  .product-info { font-size: 15px; padding: 12px 15px; }
+  .product-info { font-size: var(--fs-md); padding: 12px 15px; }
   .top-main-image { transform: none; }
   .top-visual { padding-top: 30px; }
   header { padding: 8px 12px; }
