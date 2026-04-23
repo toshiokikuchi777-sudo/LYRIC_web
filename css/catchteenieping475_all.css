@@ -63,9 +63,19 @@ th { text-align: left; font-weight: var(--fw-bold); }
   /* Fonts */
   --font-base: "Noto Sans JP", "Hiragino Sans", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
   --font-heading: "M PLUS Rounded 1c", "Noto Sans JP", "Hiragino Sans", Meiryo, sans-serif;
-  /* Text */
-  --color-text-base: #333;
-  --color-text-soft: #555;
+  /* Text (統一スケール — index_all.css と共通) */
+  --color-text-base:   #333;
+  --color-text-soft:   #555;
+  --color-text-muted:  #888;
+  --color-text-faint:  #999;
+  --color-text-warm:   #ae8046;
+  --color-text-dark:   #5d3416;
+  --color-text-invert: #fff;
+  --color-text-black:  #000;
+  /* IP accent color */
+  --color-ip-teenieping: #ff8dea;
+  --color-ip-475:        #ee8236;
+  --color-ip-sw:         #d53428;
   /* Typography Scale (統一スケール — index_all.css と共通) */
   --fs-2xs: clamp(10px, 0.85vw, 12px);
   --fs-xs:  clamp(11px, 1vw, 13px);
@@ -233,7 +243,7 @@ header {
 }
 .sp_sns_p_text {
   display: block;
-  color: #ff8dea;
+  color: var(--color-ip-teenieping);
   margin-top: 20px;
   text-align: center;
   font-weight: var(--fw-bold);
@@ -241,7 +251,7 @@ header {
 }
 .sp_sns_s_text {
   display: block;
-  color: #d53428;
+  color: var(--color-ip-sw);
   margin-top: 20px;
   text-align: center;
   font-weight: var(--fw-bold);
@@ -490,7 +500,7 @@ header {
 .prev:hover,
 .next:hover {
   background-color: var(--color-475-pink);
-  color: #fff;
+  color: var(--color-text-invert);
   transform: translateY(-50%) scale(1.1);
 }
 .prev { left: 10px; }
@@ -538,7 +548,7 @@ header {
 .purchase_ctp a,
 .purchase-button {
   display: inline-block;
-  color: #fff;
+  color: var(--color-text-invert);
   background-image: var(--grad-475-purchase);
   padding: 12px 24px;
   border-radius: 25px;

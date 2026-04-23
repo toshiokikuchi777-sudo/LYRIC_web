@@ -43,14 +43,21 @@ th { text-align: left; font-weight: var(--fw-bold); }
   --color-brand-accent: #ff5288;
   --color-brand-soft: #ffe6f0;
   --color-brand-dot: #ffc9dd;
-  /* IP accents */
+  /* IP accents (統一スケール — index_all.css と共通) */
   --color-ip-ctp: #ff8dea;
   --color-ip-ctp-line: #fef100;
   --color-ip-sw: #d53428;
-  /* Text */
-  --color-text-base: #333;
-  --color-text-soft: #555;
+  --color-ip-teenieping: #ff8dea;
+  --color-ip-475:        #ee8236;
+  /* Text (統一スケール — index_all.css と共通) */
+  --color-text-base:   #333;
+  --color-text-soft:   #555;
+  --color-text-muted:  #888;
+  --color-text-faint:  #999;
+  --color-text-warm:   #ae8046;
+  --color-text-dark:   #5d3416;
   --color-text-invert: #fff;
+  --color-text-black:  #000;
   /* Surfaces */
   --color-bg-card: #fff;
   /* Gradients */
@@ -154,7 +161,7 @@ header {
 }
 .sp_btn_text {
   font-size: var(--fs-2xs);
-  color: #fff;
+  color: var(--color-text-invert);
   letter-spacing: var(--ls-wide);
   margin-top: 4px;
   font-weight: var(--fw-bold);
@@ -309,7 +316,7 @@ header {
 
 /* Purchase Button */
 .purchase_ctp {
-  color: #fff;
+  color: var(--color-text-invert);
   font-size: var(--fs-xl);
   margin-top: 1rem;
   margin-bottom: 0.5rem;
@@ -317,7 +324,7 @@ header {
 }
 .purchase_ctp a {
   display: inline-block;
-  color: #fff;
+  color: var(--color-text-invert);
   background-image: var(--grad-purchase);
   padding: 0.5rem 1.5rem 0.5rem 1.5rem;
   border-radius: 2vh;

@@ -67,7 +67,18 @@ button, input, optgroup, select, textarea {
 
 
 /* ==========================================================================
-   2. BASE  —  背景グラデーション + タイポ
+   2. TOKENS (統一スケール — index_all.css と共通)
+   ========================================================================== */
+:root {
+  --color-text-base:   #333;
+  --color-text-soft:   #555;
+  --color-text-muted:  #888;
+  --color-text-invert: #fff;
+  --lh-loose: 1.8;
+}
+
+/* ==========================================================================
+   3. BASE  —  背景グラデーション + タイポ
    ========================================================================== */
 
 html {
@@ -81,8 +92,8 @@ body {
   font-feature-settings: "palt" 1;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: #333;
-  line-height: 1.75;
+  color: var(--color-text-base);
+  line-height: var(--lh-loose);
 }
 
 body::before {
