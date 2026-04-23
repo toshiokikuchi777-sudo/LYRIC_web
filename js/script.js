@@ -165,7 +165,7 @@ $(function () {
     },
     after_close: function () {
       $('html').css('overflow-y', 'scroll');
-      $('#floatingVideoBtn').fadeIn();
+      $('#floatingVideoBtn').css('display', 'flex').hide().fadeIn();
     },
     error: function (e) {
       console.error("Modaal Error:", e);
@@ -187,7 +187,7 @@ $(function () {
 
   // モーダル自動オープンを無効にしたため、ボタンを初期表示する
   setTimeout(function () {
-    $('#floatingVideoBtn').fadeIn();
+    $('#floatingVideoBtn').css('display', 'flex').hide().fadeIn();
   }, 1000);
 
 });
