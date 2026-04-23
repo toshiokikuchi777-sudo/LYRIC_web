@@ -43,8 +43,8 @@
   --color-bg-page:       linear-gradient(180deg, #ffecfa 0%, #d4efff 100%);
 
   /* Glass / overlay */
-  --glass-bg:            rgba(255, 255, 255, 0.7);
-  --glass-border:        rgba(255, 255, 255, 0.4);
+  --glass-bg:            rgba(255, 255, 255, 0.92);
+  --glass-border:        rgba(255, 255, 255, 0.6);
 
   /* Shadow */
   --shadow-soft:         0 8px 32px 0 rgba(31, 38, 135, 0.1);
@@ -134,6 +134,12 @@ body::before {
   z-index: -2;
 }
 
+/* 3D canvas(Three.js)の存在感を抑えてコンテンツ可読性を確保 */
+body > canvas {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
 /* ... (Animations省略) ... */
 
 /* ヘッダー */
@@ -173,13 +179,13 @@ header {
 /* ナビゲーションメニュー（デスクトップ） */
 #sp_menu {
   position: static;
-  /* absolute/relativeをやめてFlex配置 */
   display: flex;
-  gap: 30px;
-  /* 間隔調整 */
+  gap: clamp(12px, 1.8vw, 26px);
   margin: 0;
   width: auto;
   font-weight: bold;
+  flex-wrap: nowrap;
+  align-items: center;
 }
 
 /* メニューリンクの文字色を濃く */
@@ -631,7 +637,8 @@ a:hover {
 }
 
 .page_link {
-  width: 80px;
+  width: auto;
+  white-space: nowrap;
 }
 
 .sp_btn_text {
@@ -2571,8 +2578,8 @@ footer small {
 
 /* スライダー全体のレイアウト調整 */
 .slider {
-  max-width: 800px;
-  margin: 60px auto;
+  max-width: 860px;
+  margin: 20px auto 40px;
   position: relative;
   z-index: 1;
 }
