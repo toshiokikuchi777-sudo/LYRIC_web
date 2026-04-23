@@ -635,8 +635,8 @@ section.main_gallery {
   width: 100%;
 }
 
-/* Bootstrap container/row のリセット & Grid化 */
-.main_gallery .container {
+/* ギャラリー グリッドラッパー（旧 Bootstrap container/row 置換） */
+.main_gallery .bb2 {
   max-width: 100%;
   width: 100%;
   padding: 0;
@@ -644,26 +644,21 @@ section.main_gallery {
 }
 
 .main_gallery .row {
-  margin: 0 !important;
-  padding: 0 !important;
-  display: grid !important;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)) !important;
-  gap: 25px !important;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 25px;
 }
 
-.main_gallery .prod,
-.main_gallery .col-12,
-.main_gallery .col-sm-12,
-.main_gallery .col-lg-6 {
-  width: 100% !important;
-  max-width: 100% !important;
-  min-width: 0 !important;
-  flex: none !important;
-  padding: 0 !important;
-  margin: 0 !important;
+.main_gallery .prod {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  padding: 0;
+  margin: 0;
+  display: flex;
 }
-
-.main_gallery .col-lg-1:empty { display: none !important; }
 
 
 /* ==========================================================================
@@ -677,9 +672,9 @@ section.main_gallery {
   padding: 20px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  height: 100%;
-  display: flex !important;
-  flex-direction: column !important;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
   align-items: center;
   text-align: center;
   overflow: hidden;
@@ -952,8 +947,8 @@ footer small {
   }
 
   .main_gallery .row {
-    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)) !important;
-    gap: 12px !important;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 12px;
   }
 
   .main_gallery h2 {
@@ -984,7 +979,7 @@ footer small {
 
 @media screen and (max-width: 480px) {
   .main_gallery .row {
-    grid-template-columns: 1fr !important;
+    grid-template-columns: 1fr;
   }
 
   .card img {
