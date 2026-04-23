@@ -459,9 +459,15 @@ h6,
   max-width: 100%;
   /* overflow: hidden; 拡大時にはみ出しても良いようにvisible推奨だが横スクロール注意 */
   overflow-x: hidden;
-  /* 上の余白を詰める、下はドット用に確保（少し詰める） */
-  padding: 10px 0 50px 0;
+  /* ヘッダー(absolute)との間に余白を確保、下はドット用に確保 */
+  padding: 90px 0 50px 0;
   background: var(--bg-gradient-top);
+}
+
+@media screen and (max-width: 768px) {
+  .hero-section {
+    padding-top: 70px;
+  }
 }
 
 /* Slickの内部コンテナのはみ出しを許可 */
