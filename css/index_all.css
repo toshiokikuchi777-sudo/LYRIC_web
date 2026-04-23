@@ -63,7 +63,7 @@ ul, ol {
   list-style: none;
 }
 
-dt { font-weight: bold; }
+dt { font-weight: var(--fw-bold); }
 dd { margin-left: 0; }
 
 hr {
@@ -177,7 +177,7 @@ td, th {
 }
 th {
   text-align: left;
-  font-weight: bold;
+  font-weight: var(--fw-bold);
 }
 
 
@@ -241,6 +241,38 @@ th {
   --font-body:    "Noto Sans JP", "M PLUS Rounded 1c", "M PLUS 1p", "Hiragino Sans", "ヒラギノ角ゴシック", "Yu Gothic", "Meiryo", system-ui, sans-serif;
   --font-heading: "M PLUS Rounded 1c", "Noto Sans JP", "M PLUS 1p", "Hiragino Maru Gothic ProN", "Yu Gothic", sans-serif;
 
+  /* ==========================================================================
+     Typography Scale (統一スケール — すべてここに集約)
+     ========================================================================== */
+  /* Font Size — モジュラースケール（clamp で滑らかに） */
+  --fs-2xs: clamp(10px, 0.85vw, 12px);   /* eyebrow / scroll cue / chip */
+  --fs-xs:  clamp(11px, 1vw, 13px);      /* badge / caption / copyright */
+  --fs-sm:  clamp(12px, 1.1vw, 14px);    /* sub copy / news date / meta */
+  --fs-md:  clamp(14px, 1.25vw, 16px);   /* body */
+  --fs-lg:  clamp(16px, 1.6vw, 20px);    /* lead / sub heading */
+  --fs-xl:  clamp(20px, 2.4vw, 30px);    /* section heading */
+  --fs-2xl: clamp(28px, 3.6vw, 42px);    /* large heading */
+  --fs-3xl: clamp(32px, 5.2vw, 68px);    /* hero title */
+
+  /* Letter Spacing */
+  --ls-tight:   0.02em;
+  --ls-normal:  0.04em;   /* 見出しの基本値 */
+  --ls-wide:    0.1em;
+  --ls-wider:   0.18em;
+  --ls-widest:  0.3em;
+
+  /* Font Weight */
+  --fw-medium:    500;
+  --fw-semibold:  600;
+  --fw-bold:      700;
+  --fw-extrabold: 800;
+
+  /* Line Height */
+  --lh-tight:  1.25;
+  --lh-snug:   1.4;
+  --lh-base:   1.6;
+  --lh-loose:  1.8;
+
   /* Legacy aliases */
   --primary-bg:       var(--color-bg-base);
   --text-main:        var(--color-text-base);
@@ -279,8 +311,8 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: var(--color-text-warm);
-  letter-spacing: 0.02em;
-  line-height: 1.75;
+  letter-spacing: var(--ls-tight);
+  line-height: var(--lh-loose);
 }
 
 body::before {
@@ -304,7 +336,7 @@ body > canvas {
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-heading);
   font-feature-settings: "palt" 1;
-  letter-spacing: 0.04em;
+  letter-spacing: var(--ls-normal);
   color: var(--text-dark-brown);
 }
 
@@ -363,14 +395,14 @@ header {
   gap: clamp(12px, 1.8vw, 26px);
   margin: 0;
   width: auto;
-  font-weight: bold;
+  font-weight: var(--fw-bold);
   flex-wrap: nowrap;
   align-items: center;
 }
 
 #sp_menu a {
   color: var(--text-dark-brown);
-  font-weight: 700;
+  font-weight: var(--fw-bold);
   transition: color 0.3s;
 }
 
@@ -460,7 +492,7 @@ header {
 
   .page_link_recruit a {
     padding: 10px 30px;
-    font-size: 1.1rem;
+    font-size: var(--fs-lg);
   }
 
   /* 三本線ボタン */
@@ -485,7 +517,7 @@ header {
 
   .sp_btn_text {
     display: block;
-    font-size: 11px;
+    font-size: var(--fs-xs);
     padding-top: 5px;
   }
 
@@ -651,7 +683,7 @@ header {
 .slick-next:before {
   color: #000;
   opacity: 1;
-  font-size: 40px;
+  font-size: var(--fs-2xl);
 }
 
 /* Slick ドット */
@@ -728,9 +760,9 @@ header {
   display: inline-flex;
   align-items: center;
   gap: 12px;
-  font-size: clamp(10px, 0.95vw, 12px);
-  font-weight: 700;
-  letter-spacing: 0.42em;
+  font-size: var(--fs-2xs);
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--ls-widest);
   margin: 0 0 22px;
   color: var(--color-brand-accent);
 }
@@ -744,11 +776,11 @@ header {
 }
 
 .hero-tagline {
-  font-size: clamp(32px, 5.2vw, 68px);
-  letter-spacing: 0.04em;
-  font-weight: 800;
+  font-size: var(--fs-3xl);
+  letter-spacing: var(--ls-normal);
+  font-weight: var(--fw-extrabold);
   margin: 0 0 18px;
-  line-height: 1.25;
+  line-height: var(--lh-tight);
   color: var(--color-ink);
 }
 
@@ -762,23 +794,23 @@ header {
 }
 
 .hero-title {
-  font-size: clamp(14px, 1.6vw, 20px);
-  font-weight: 600;
-  letter-spacing: 0.22em;
+  font-size: var(--fs-lg);
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--ls-wider);
   margin: 0 0 14px;
   color: var(--color-ink);
   opacity: 0.82;
-  line-height: 1.65;
+  line-height: var(--lh-base);
 }
 
 .hero-subcopy {
-  font-size: clamp(13px, 1.1vw, 16px);
-  letter-spacing: 0.14em;
-  font-weight: 500;
+  font-size: var(--fs-md);
+  letter-spacing: var(--ls-wide);
+  font-weight: var(--fw-medium);
   margin: 0 0 36px;
   color: var(--color-ink);
   opacity: 0.7;
-  line-height: 1.6;
+  line-height: var(--lh-base);
 }
 
 .hero-badges {
@@ -804,19 +836,19 @@ header {
 }
 
 .hero-badge-num {
-  font-size: clamp(20px, 2.2vw, 30px);
-  font-weight: 800;
+  font-size: var(--fs-xl);
+  font-weight: var(--fw-extrabold);
   line-height: 1;
   color: var(--color-brand-accent);
 }
 
 .hero-badge-label {
-  font-size: clamp(10px, 0.9vw, 12px);
-  letter-spacing: 0.16em;
+  font-size: var(--fs-2xs);
+  letter-spacing: var(--ls-wider);
   margin-top: 6px;
   color: var(--color-ink);
   opacity: 0.7;
-  font-weight: 600;
+  font-weight: var(--fw-semibold);
 }
 
 /* IPロゴリボン (横スクロール) */
@@ -846,9 +878,9 @@ header {
   border-radius: var(--radius-pill);
   background: #fff;
   border: 1px solid rgba(43, 27, 58, 0.1);
-  font-size: 12px;
-  letter-spacing: 0.1em;
-  font-weight: 700;
+  font-size: var(--fs-xs);
+  letter-spacing: var(--ls-wide);
+  font-weight: var(--fw-bold);
   color: var(--color-ink);
   position: relative;
 }
@@ -881,9 +913,9 @@ header {
   gap: 6px;
   text-decoration: none;
   color: rgba(255, 255, 255, 0.9);
-  font-size: 10px;
-  letter-spacing: 0.3em;
-  font-weight: 700;
+  font-size: var(--fs-2xs);
+  letter-spacing: var(--ls-widest);
+  font-weight: var(--fw-bold);
   padding: 6px 10px;
   border-radius: 8px;
   background: rgba(43, 27, 58, 0.35);
@@ -924,15 +956,15 @@ header {
 }
 
 @media screen and (max-width: 768px) {
-  .hero-tagline { font-size: clamp(28px, 9vw, 42px); letter-spacing: 0.02em; }
-  .hero-title   { font-size: 12px; letter-spacing: 0.18em; }
-  .hero-subcopy { font-size: 12px; margin-bottom: 26px; }
-  .hero-eyebrow { font-size: 10px; margin-bottom: 16px; gap: 8px; }
+  .hero-tagline { font-size: var(--fs-2xl); letter-spacing: var(--ls-tight); }
+  .hero-title   { font-size: var(--fs-xs); letter-spacing: var(--ls-wider); }
+  .hero-subcopy { font-size: var(--fs-xs); margin-bottom: 26px; }
+  .hero-eyebrow { font-size: var(--fs-2xs); margin-bottom: 16px; gap: 8px; }
   .hero-eyebrow-line { width: 24px; }
   .hero-badges { margin-bottom: 32px; gap: 8px; }
   .hero-badges li { padding: 10px 14px; min-width: 88px; border-radius: 12px; }
-  .hero-ip-chip { height: 28px; font-size: 10.5px; padding: 0 12px; }
-  .hero-scroll-cue { bottom: 10px; font-size: 9px; }
+  .hero-ip-chip { height: 28px; font-size: var(--fs-2xs); padding: 0 12px; }
+  .hero-scroll-cue { bottom: 10px; font-size: var(--fs-2xs); }
   .hero-scroll-cue-line { height: 20px; }
 }
 
@@ -965,7 +997,7 @@ header {
 }
 
 .fake-account-icon {
-  font-size: 1.6rem;
+  font-size: var(--fs-xl);
   padding: 15px 18px;
   background: #e07000;
   color: #fff;
@@ -984,8 +1016,8 @@ header {
   display: inline-block;
   background: #e07000;
   color: #fff;
-  font-size: 0.78rem;
-  font-weight: bold;
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-bold);
   padding: 2px 10px;
   border-radius: 50px;
   margin-bottom: 5px;
@@ -993,15 +1025,15 @@ header {
 
 .fake-account-desc {
   color: #7a3a00;
-  font-weight: bold;
-  font-size: 1rem;
+  font-weight: var(--fw-bold);
+  font-size: var(--fs-md);
   margin: 0;
 }
 
 .fake-account-arrow {
   color: #e07000;
-  font-size: 1.8rem;
-  font-weight: bold;
+  font-size: var(--fs-2xl);
+  font-weight: var(--fw-bold);
   padding: 15px 18px;
   transition: transform 0.3s ease;
 }
@@ -1023,7 +1055,7 @@ header {
   .fake-account-icon {
     width: 100%;
     padding: 12px;
-    font-size: 1.4rem;
+    font-size: var(--fs-xl);
   }
   .fake-account-text {
     width: 100%;
@@ -1040,12 +1072,12 @@ header {
   max-width: 680px;
   margin: 0 auto;
   color: #333;
-  line-height: 1.8;
+  line-height: var(--lh-loose);
 }
 
 .fake-modal-title {
-  font-size: 1.3rem;
-  font-weight: bold;
+  font-size: var(--fs-xl);
+  font-weight: var(--fw-bold);
   color: #7a3a00 !important;
   border-bottom: 3px solid #e07000;
   padding-bottom: 12px;
@@ -1053,13 +1085,13 @@ header {
 }
 
 .fake-modal-lead {
-  font-size: 0.95rem;
+  font-size: var(--fs-md);
   margin-bottom: 16px;
   color: #555;
 }
 
 .fake-modal-text {
-  font-size: 0.92rem;
+  font-size: var(--fs-md);
   margin-bottom: 16px;
   color: #444;
 }
@@ -1070,9 +1102,9 @@ header {
   border-radius: 6px;
   padding: 16px 20px;
   margin: 16px 0 20px;
-  font-size: 0.92rem;
+  font-size: var(--fs-md);
   color: #5a2d00;
-  line-height: 1.8;
+  line-height: var(--lh-loose);
 }
 
 .fake-modal-contact {
@@ -1080,7 +1112,7 @@ header {
   border-radius: 8px;
   padding: 16px 20px;
   margin-top: 20px;
-  font-size: 0.9rem;
+  font-size: var(--fs-md);
   color: #444;
 }
 
@@ -1092,7 +1124,7 @@ header {
 
 @media all and (max-width: 600px) {
   .fake-modal-body { padding: 20px 16px; }
-  .fake-modal-title { font-size: 1.1rem; }
+  .fake-modal-title { font-size: var(--fs-lg); }
 }
 
 
@@ -1115,8 +1147,8 @@ header {
 
 .video-btn-label {
   display: block;
-  font-size: 11px;
-  font-weight: 700;
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-bold);
   color: var(--accent-pink);
   background: rgba(255, 255, 255, 0.9);
   border-radius: 999px;
@@ -1124,7 +1156,7 @@ header {
   margin-bottom: 4px;
   white-space: nowrap;
   box-shadow: 0 2px 6px rgba(255, 82, 136, 0.2);
-  letter-spacing: 0.05em;
+  letter-spacing: var(--ls-normal);
 }
 
 .floating-video-btn:hover { transform: scale(1.1); }
@@ -1142,13 +1174,13 @@ header {
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
   border: 3px solid #fff;
   text-align: center;
-  font-size: 12px;
-  font-weight: bold;
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-bold);
   animation: bounceBtn 2s infinite;
 }
 
 .video-btn-inner .play-icon {
-  font-size: 24px;
+  font-size: var(--fs-xl);
   margin-top: 5px;
 }
 
@@ -1196,8 +1228,8 @@ header {
   background: var(--accent-pink);
   color: #fff;
   padding: 15px 20px;
-  font-size: 1rem;
-  font-weight: bold;
+  font-size: var(--fs-md);
+  font-weight: var(--fw-bold);
   white-space: nowrap;
   display: flex;
   align-items: center;
@@ -1207,17 +1239,17 @@ header {
   flex-grow: 1;
   background: #fff;
   color: var(--text-dark-brown);
-  font-weight: bold;
-  font-size: 1.1rem;
+  font-weight: var(--fw-bold);
+  font-size: var(--fs-lg);
   margin: 0;
   padding: 15px 20px;
 }
 
 .recruit-btn-text {
   color: var(--accent-pink);
-  font-weight: bold;
+  font-weight: var(--fw-bold);
   white-space: nowrap;
-  font-size: 1rem;
+  font-size: var(--fs-md);
   padding: 15px 20px;
   transition: transform 0.3s ease;
 }
@@ -1246,7 +1278,7 @@ header {
   }
 
   .recruit-text {
-    font-size: 1rem;
+    font-size: var(--fs-md);
     border-top: 1px solid var(--pale-pink);
     border-bottom: 1px solid var(--pale-pink);
   }
@@ -1259,8 +1291,8 @@ header {
 
 .news_heading {
   font-family: var(--font-heading);
-  font-size: 2rem;
-  font-weight: bold;
+  font-size: var(--fs-2xl);
+  font-weight: var(--fw-bold);
   color: var(--text-dark-brown) !important;
   text-align: center;
   margin: 60px 0 40px;
@@ -1293,7 +1325,7 @@ header {
 .news-list .date {
   padding: 0 0 10px 0;
   color: var(--accent-orange);
-  font-weight: bold;
+  font-weight: var(--fw-bold);
 }
 
 .news_title a {
@@ -1309,9 +1341,9 @@ header {
   display: block;
   margin: 20px auto 40px;
   padding: 12px 36px;
-  font-size: 14px;
-  font-weight: 500;
-  letter-spacing: 0.08em;
+  font-size: var(--fs-md);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--ls-wide);
   color: #333;
   background: rgba(255, 255, 255, 0.7);
   border: 1px solid rgba(0, 0, 0, 0.08);
@@ -1424,17 +1456,17 @@ header {
 
 .philosophy_text p {
   font-family: var(--font-body);
-  font-size: clamp(15px, 1.5vw, 17px);
-  line-height: 2.1;
+  font-size: var(--fs-lg);
+  line-height: var(--lh-loose);
   color: var(--color-text-dark);
-  letter-spacing: 0.04em;
+  letter-spacing: var(--ls-normal);
   margin-top: 0;
 }
 
 .philosophy_heading {
   font-family: var(--font-heading);
-  font-size: clamp(1.4rem, 2.2vw, 1.9rem);
-  font-weight: 800;
+  font-size: var(--fs-xl);
+  font-weight: var(--fw-extrabold);
   color: var(--color-ink);
   margin-bottom: 20px;
   position: relative;
@@ -1477,10 +1509,10 @@ header {
 .merchandise_heading {
   font-family: var(--font-body);
   text-align: center;
-  font-size: 24px;
+  font-size: var(--fs-xl);
   margin-top: 60px;
   margin-bottom: 20px;
-  font-weight: bold;
+  font-weight: var(--fw-bold);
 }
 
 .merchandise_container {
@@ -1536,17 +1568,17 @@ header {
 
 .company_text p {
   font-family: var(--font-body);
-  font-size: clamp(15px, 1.5vw, 17px);
-  line-height: 2.1;
+  font-size: var(--fs-lg);
+  line-height: var(--lh-loose);
   color: var(--color-text-dark);
-  letter-spacing: 0.04em;
+  letter-spacing: var(--ls-normal);
   margin-top: 0;
 }
 
 .company_heading {
   font-family: var(--font-heading);
-  font-size: clamp(1.4rem, 2.2vw, 1.9rem);
-  font-weight: 800;
+  font-size: var(--fs-xl);
+  font-weight: var(--fw-extrabold);
   color: var(--color-ink) !important;
   margin-bottom: 20px;
   text-align: left;
@@ -1622,8 +1654,8 @@ header {
 .sns_title_l {
   text-align: center;
   color: #ee8236;
-  font-size: 18px;
-  font-weight: bold;
+  font-size: var(--fs-lg);
+  font-weight: var(--fw-bold);
   width: 50%;
   margin-bottom: 15px;
 }
@@ -1631,8 +1663,8 @@ header {
 .sns_title_p {
   text-align: center;
   color: #ff8dea;
-  font-size: 18px;
-  font-weight: bold;
+  font-size: var(--fs-lg);
+  font-weight: var(--fw-bold);
   width: 50%;
   margin-bottom: 15px;
 }
@@ -1696,7 +1728,7 @@ footer {
 }
 
 footer small {
-  font-size: 12px;
+  font-size: var(--fs-xs);
   color: #fff;
   text-align: center;
   width: 100%;
